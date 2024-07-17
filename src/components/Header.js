@@ -65,7 +65,7 @@ const MenuItem = styled.li`
   line-height: 2rem;
 `;
 
-const GlobalHeader = () => {
+const Header = () => {
   return (
     <div>
       <Wrapper>
@@ -87,4 +87,4 @@ const GlobalHeader = () => {
   );
 };
 
-export default GlobalHeader;
+export default Header;

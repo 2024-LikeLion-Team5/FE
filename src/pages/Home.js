@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import GlobalHeader from "../components/GlobalHeader";
+import Header from "../components/Header";
 import Banner from "../components/Banner";
 import bannerImg from "../assets/main_img.png";
 
 const Home = () => {
   return (
     <div>
-      <GlobalHeader />
+      <Header />
     </div>
   );
 };

@@ -1,10 +1,13 @@
+import styled from "styled-components";
 import "./App.css";
+import { GlobalContain } from "./components/GlobalContain";
 import Home from "./pages/Home";
 import HospitalReview from "./pages/HospitalReview";
 
 function App() {
   return (
-    <div className="App">
+    <div>
+      <GlobalContain />
       <HospitalReview />
     </div>
   );

@@ -13,8 +13,12 @@ const Image = styled.img`
 `;
 
 const Container = styled.div`
-  width: 80rem;
+  width: 70rem;
   margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  justify-content: center;
 `;
 
 const DetailWrapper = styled.div`

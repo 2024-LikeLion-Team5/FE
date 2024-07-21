@@ -2,22 +2,16 @@ import React from "react";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  gap: 2rem;
-  margin: 0 auto;
-  border: 1px solid #d3ebff;
+  border: 1px solid ${({ theme }) => theme.colors.b4};
   border-radius: 0.5rem;
-  color: #002357;
   font-size: 0.875rem;
   font-weight: bold;
-  align-items: center;
   margin-top: 1.5rem;
 `;
 
 const Title = styled.span`
   grid-column: 1 / span 1;
-  background-color: #d3ebff;
+  background-color: ${({ theme }) => theme.colors.b4};
   height: 2rem;
   width: 5rem;
   display: flex;
@@ -38,8 +32,10 @@ const Notice = () => {
   return (
     <div>
       <Wrapper>
-        <Title>전체 공지</Title>
-        <Detail>[필독] 게시글 작성 및 커뮤니티 이용 관련 공지입니다.</Detail>
+        <div className="container">
+          <Title>전체 공지</Title>
+          <Detail>[필독] 게시글 작성 및 커뮤니티 이용 관련 공지입니다.</Detail>
+        </div>
       </Wrapper>
     </div>
   );

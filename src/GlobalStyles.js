@@ -1,12 +1,13 @@
 import { createGlobalStyle } from "styled-components";
 
-export const GlobalContain = createGlobalStyle`
+export const GlobalStyles = createGlobalStyle`
   .container {
     display: grid;
+    width: 1120px;
     grid-template-columns: repeat(8, 1fr);
-    gap: 32px;
-    padding: 0 16px;
-    max-width: 1280px;
+    gap: 2rem;
     margin: 0 auto;
+    align-items: center;
   }
+  color: #002357;
 `;

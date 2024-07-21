@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
 import searchBtn from "../assets/search_btn_nobackground.png";
 
@@ -30,7 +30,7 @@ const SearchInput = styled.input`
   padding: 0;
   margin-left: 0.5rem;
   &::placeholder {
-    color: #002357;
+    color: ${({ theme }) => theme.colors.nv};
     font-weight: bold;
     font-size: 0.875rem;
     height: 100%;
@@ -50,19 +50,31 @@ const SearchButton = styled.button`
   cursor: pointer;
 `;
 
-const SearchImg = styled.img``;
-
 const Menu = styled.ul`
   list-style: none;
   display: flex;
+  gap: 6rem;
+  margin-right: 2rem;
 `;
 
 const MenuItem = styled.li`
   font-size: 0.9375rem;
   font-weight: bold;
-  width: 11rem;
-  height: 2rem;
   line-height: 2rem;
+`;
+
+const StyledLink = styled(NavLink)`
+  text-decoration: none;
+  color: ${({ theme }) => theme.colors.nv};
+  background-color: white;
+  padding: 0.4375rem 2.125rem;
+  border-radius: 2.5rem;
+  &.active {
+    color: white;
+    background-color: ${({ theme }) => theme.colors.b1};
+    padding: 0.4375rem 2.125rem;
+    border-radius: 2.5rem;
+  }
 `;
 
 const Header = () => {
@@ -73,12 +85,14 @@ const Header = () => {
         <SearchForm>
           <SearchInput type="text" placeholder="통합 검색" />
           <SearchButton type="submit">
-            <SearchImg src={searchBtn} alt="검색 버튼" />
+            <img src={searchBtn} alt="검색 버튼" />
           </SearchButton>
         </SearchForm>
         <Menu>
           <MenuItem>커뮤니티</MenuItem>
-          <MenuItem>병원후기</MenuItem>
+          <MenuItem>
+            <StyledLink to="/hospital-review">병원후기</StyledLink>
+          </MenuItem>
           <MenuItem>전문의 상담</MenuItem>
           <MenuItem>자료실</MenuItem>
         </Menu>

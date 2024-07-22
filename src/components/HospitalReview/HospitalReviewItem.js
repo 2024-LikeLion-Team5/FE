@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import theme from "../Theme";
 
 const Wrapper = styled.div`
   width: 26.125rem;

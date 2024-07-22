@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import searchBtn from "../assets/search_btn_nobackground.png";
+import searchBtn from "../../assets/search_img.png";
 
 const Wrapper = styled.div.attrs((props) => ({
   searching: props.searching.toString(),

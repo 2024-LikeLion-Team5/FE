@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import GlobalHeader from "../components/Header";
-import Banner from "../components/Banner";
-import bannerImg from "../assets/review_img.png";
-import Notice from "../components/Notice";
-import SearchHospital from "../components/SearchHospital";
-import HospitalReviewList from "../components/HospitalReviewList";
-import ReviewSearchResult from "../components/ReviewSearchResult";
+import GlobalHeader from "../../components/Header";
+import Banner from "../../components/Banner";
+import bannerImg from "../../assets/review_img.png";
+import Notice from "../../components/Notice";
+import SearchHospital from "./SearchHospital";
+import HospitalReviewList from "./HospitalReviewList";
+import ReviewSearchResult from "../../components/HospitalReview/ReviewSearchResult";
 
 const Container = styled.div`
   width: 100%;

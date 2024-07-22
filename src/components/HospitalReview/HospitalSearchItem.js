@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import hospitalImg from "../assets/hospital_review_img.png";
+import hospitalImg from "../../assets/hospital_review_img.png";
 
 const Wrapper = styled.div`
   border-top: 1px solid ${({ theme }) => theme.colors.g2};

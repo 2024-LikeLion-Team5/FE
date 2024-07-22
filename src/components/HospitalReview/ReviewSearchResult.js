@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import HospitalSearchItem from "./HospitalSearchItem";
 import DoctorSeachItem from "./DoctorSearchItem";
-import seeMore from "../assets/see_more.png";
+import seeMore from "../../assets/see_more.png";
 
 const KeyWord = styled.div`
   font-size: 2.5rem;

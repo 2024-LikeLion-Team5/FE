@@ -4,7 +4,7 @@ import styled, { ThemeProvider } from "styled-components";
 import "./App.css";
 import { GlobalStyles } from "./GlobalStyles";
 import Home from "./pages/Home";
-import HospitalReview from "./pages/HospitalReview";
+import HospitalReview from "./pages/HospitalReview/HospitalReview";
 import theme from "./Theme";
 import Footer from "./components/Footer";
 

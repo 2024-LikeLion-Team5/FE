@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import DoctorReviewItem from "./DoctorReviewItem";
-import HospitalReviewItem from "./HospitalReviewItem";
+import DoctorReviewItem from "../../components/HospitalReview/DoctorReviewItem";
+import HospitalReviewItem from "../../components/HospitalReview/HospitalReviewItem";
 
 const Wrapper = styled.div`
   width: calc(100% - (100% - 1120px) / 2);

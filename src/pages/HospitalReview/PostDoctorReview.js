@@ -72,6 +72,11 @@ const Input = styled.input`
   }
 `;
 
+const AgeOption = styled.div`
+  display: flex;
+  gap: 0.5rem;
+`;
+
 const Button = styled.button`
   font-size: 0.875rem;
   font-weight: 600;
@@ -138,8 +143,23 @@ const UploadPic = styled.button`
   border-radius: 0.5rem;
 `;
 
-const PostHospitalReview = () => {
+const PostDoctorReview = () => {
+  const [selectedAge, setSelectedAge] = useState(null);
   const [isCounsel, setIsCounsel] = useState(false);
+
+  const ageOption = ["30대 이하", "40대", "50대", "60대", "70대", "80대 이상"];
+
+  const optionData = [
+    { key: 1, value: "Option 1" },
+    { key: 2, value: "Option 2" },
+    { key: 3, value: "Option 3" },
+    { key: 4, value: "Option 4" },
+  ];
+
+  const handleAgeClick = (e, age) => {
+    e.preventDefault();
+    setSelectedAge(age);
+  };
 
   const handleCounselingClick = (e) => {
     e.preventDefault();
@@ -154,8 +174,16 @@ const PostHospitalReview = () => {
       </TitleWrapper>
       <InputForm>
         <InputWrapper>
-          <Label>진료명</Label>
-          <Input type="text" placeholder="진료 받은 의사 이름을 적어주세요." />
+          <Label>병원명</Label>
+          <Input type="text" placeholder="방문한 병원 이름을 적어주세요." />
+        </InputWrapper>
+        <InputWrapper>
+          <Label>질환/고민</Label>
+          <CustomSelect optionData={optionData} />
+        </InputWrapper>
+        <InputWrapper>
+          <Label>받은 진료</Label>
+          <Input type="text" placeholder="진료명을 적어주세요." />
           <Button
             className={isCounsel === true ? "active" : ""}
             onClick={handleCounselingClick}
@@ -164,19 +192,25 @@ const PostHospitalReview = () => {
           </Button>
         </InputWrapper>
         <InputWrapper>
-          <Label>병원명</Label>
-          <Input type="text" placeholder="방문한 병원 이름을 적어주세요." />
+          <Label>연령대</Label>
+          <AgeOption>
+            {ageOption.map((age) => (
+              <Button
+                key={age}
+                className={selectedAge === age ? "active" : ""}
+                onClick={(e) => handleAgeClick(e, age)}
+              >
+                {age}
+              </Button>
+            ))}
+          </AgeOption>
         </InputWrapper>
         <InputWrapper>
-          <Label>시설</Label>
-          <div>별 들어갈 자리</div>
+          <Label>의사</Label>
+          <Input type="text" placeholder="진료 받은 의사 이름을 적어주세요." />
         </InputWrapper>
         <InputWrapper>
-          <Label>분위기</Label>
-          <div>별 들어갈 자리</div>
-        </InputWrapper>
-        <InputWrapper>
-          <Label>직원</Label>
+          <Label>평가</Label>
           <div>별 들어갈 자리</div>
         </InputWrapper>
         <InputWrapper>
@@ -196,4 +230,4 @@ const PostHospitalReview = () => {
     </Wrapper>
   );
 };
-export default PostHospitalReview;
+export default PostDoctorReview;

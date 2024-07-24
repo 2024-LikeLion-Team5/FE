@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import searchBtn from "../../assets/search_img.png";
+import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div.attrs((props) => ({
   searching: props.searching.toString(),
@@ -62,10 +63,11 @@ const SearchBtn = styled.button`
 
 const SearchHospital = ({ searching, setSearching }) => {
   const [input, setInput] = useState("");
+  const usenavigate = useNavigate();
 
   const onSubmit = (e) => {
     e.preventDefault();
-    setSearching(true);
+    usenavigate("/hospital-review/search");
   };
 
   return (

@@ -9,6 +9,15 @@ const theme = {
     b3: "#56B3FF",
     b4: "#D3EBFF",
   },
+
+  fonts: {
+    pageTitle: "Pretendard bold 2.5rem",
+    button: "Pretendard bold 0.9375rem",
+    largeText: "Pretendard bold 1rem",
+    body: "Pretendard medium 0.875rem",
+    postTitle: "Pretendard semibold 0.875rem",
+    smallText: "Pretendard semibold 0.8125rem",
+  }
 };
 
 export default theme;

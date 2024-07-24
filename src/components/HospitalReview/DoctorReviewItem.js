@@ -13,6 +13,7 @@ const Wrapper = styled.div`
   background-color: white;
   border-radius: 0.5rem;
   border: 1px solid ${({ theme }) => theme.colors.b4};
+  cursor: pointer;
 `;
 
 const Info = styled.div`
@@ -59,7 +60,7 @@ const Post = styled.div`
 `;
 
 const Title = styled.span`
-  font-size: 0%.875rem;
+  font-size: 0.875rem;
   font-weight: 700;
 `;
 
@@ -68,9 +69,9 @@ const Body = styled.span`
   font-weight: 500;
 `;
 
-const DoctorReviewItem = () => {
+const DoctorReviewItem = ({ onSelect, reviewId }) => {
   return (
-    <Wrapper>
+    <Wrapper onClick={() => onSelect(reviewId)}>
       <Info>
         <div>
           <Doctor>이신정 의사 | </Doctor>

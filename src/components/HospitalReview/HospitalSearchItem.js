@@ -54,9 +54,9 @@ const Option = styled.div`
   padding: 0.25rem 1rem;
 `;
 
-const HospitalSearchItem = () => {
+const HospitalSearchItem = ({ onSelect, reviewId }) => {
   return (
-    <Wrapper>
+    <Wrapper onClick={() => onSelect(reviewId)}>
       <Info>
         <Name>멘텀비뇨기과</Name>
         <Address>대전광역시 유성구 대학로 99</Address>

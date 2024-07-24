@@ -57,9 +57,9 @@ const Body = styled.span`
   font-weight: 500;
 `;
 
-const HospitalReviewItem = () => {
+const HospitalReviewItem = ({ onSelect, reviewId }) => {
   return (
-    <Wrapper>
+    <Wrapper onClick={() => onSelect(reviewId)}>
       <Info>
         <Hospital>멘텀 비뇨기과</Hospital>
         <OptionItem>시설 : 4</OptionItem>

@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Banner from "../Banner";
 import Notice from "../Notice";
-// import Postlist from "../PostList";
+import PostList from "../PostList";
+import PostActions from "../PostActions";
 import bannerImg from "../../assets/surgery_img.png";
 
 const Container = styled.div`
@@ -30,7 +31,78 @@ const SurgeryMainPage = () => {
       likes: 12,
       views: 5231
     },
-    // Add more posts as needed
+    {
+      id: 3,
+      type: '',
+      title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+      date: '2024.07.06',
+      likes: 12,
+      views: 5231
+    },
+    {
+      id: 4,
+      type: '',
+      title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+      date: '2024.07.06',
+      likes: 12,
+      views: 5231
+    },
+    {
+      id: 5,
+      type: '',
+      title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+      date: '2024.07.06',
+      likes: 12,
+      views: 5231
+    },
+    {
+      id: 6,
+      type: '',
+      title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+      date: '2024.07.06',
+      likes: 12,
+      views: 5231
+    },
+    {
+      id: 7,
+      type: '',
+      title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+      date: '2024.07.06',
+      likes: 12,
+      views: 5231
+    },
+    {
+      id: 8,
+      type: '',
+      title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+      date: '2024.07.06',
+      likes: 12,
+      views: 5231
+    },
+    {
+      id: 9,
+      type: '',
+      title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+      date: '2024.07.06',
+      likes: 12,
+      views: 5231
+    },
+    {
+      id: 10,
+      type: '',
+      title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+      date: '2024.07.06',
+      likes: 12,
+      views: 5231
+    },
+    {
+      id: 11,
+      type: '',
+      title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+      date: '2024.07.06',
+      likes: 12,
+      views: 5231
+    },
   ]);
 
   return (
@@ -38,11 +110,11 @@ const SurgeryMainPage = () => {
       <Banner image={bannerImg} menuName="수술 후기" color="#002357" />
       <Container>
         <Notice />
-        {/* <Postlist posts={posts} /> */}
+        <PostActions writePath="/surgery/write" showSelect={true} />
+        <PostList posts={posts} />
       </Container>
     </div>
   );
 };
 
 export default SurgeryMainPage;
-

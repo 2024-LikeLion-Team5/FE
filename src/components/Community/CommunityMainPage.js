@@ -1,11 +1,11 @@
-import React from 'react';
-import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom'; // react-router-dom에서 useNavigate 가져오기
-import Header from '../Header';
-import Banner from '../Banner';
-import Notice from '../Notice';
+import React from "react";
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom"; // react-router-dom에서 useNavigate 가져오기
+import Header from "../Header";
+import Banner from "../Banner";
+import Notice from "../Notice";
 import bannerImg from "../../assets/community_img.png";
-import SelectCategory from '../SelectCategory';
+import SelectCategory from "../SelectCategory";
 
 const Container = styled.div`
   width: 100%;
@@ -75,16 +75,24 @@ const ListItem = styled.div`
   }
 
   &.daily span:first-child {
-    color: ${({ theme }) => theme.colors.nv}; /* 일상 게시글의 텍스트는 nv 색상 */
+    color: ${({ theme }) =>
+      theme.colors.nv}; /* 일상 게시글의 텍스트는 nv 색상 */
   }
 `;
 
 const DiseaseSection = () => {
   const navigate = useNavigate(); // useNavigate 훅 사용
-  const diseaseList = ["발기부전", "발기부전", "전립선 비대증", "전립선 비대증", "요로결석", "방광염"];
+  const diseaseList = [
+    "발기부전",
+    "발기부전",
+    "전립선 비대증",
+    "전립선 비대증",
+    "요로결석",
+    "방광염",
+  ];
 
   const goToDiseaseMain = () => {
-    navigate('/disease'); // 질환 고민 main 페이지로 이동
+    navigate("/disease"); // 질환 고민 main 페이지로 이동
   };
 
   return (
@@ -92,7 +100,9 @@ const DiseaseSection = () => {
       <SectionTitle>질환 고민</SectionTitle>
       <ListWrapper>
         <MoreButtonWrapper>
-          <MoreButton onClick={goToDiseaseMain}>질환 고민 더 보기 &gt;</MoreButton>
+          <MoreButton onClick={goToDiseaseMain}>
+            질환 고민 더 보기 &gt;
+          </MoreButton>
         </MoreButtonWrapper>
         {diseaseList.map((item, index) => (
           <ListItem key={index}>
@@ -107,10 +117,17 @@ const DiseaseSection = () => {
 
 const DailySection = () => {
   const navigate = useNavigate(); // useNavigate 훅 사용
-  const dailyList = ["아이아이아이", "아이아이아이", "아이아이아이", "아이아이아이", "아이아이아이", "아이아이아이"];
+  const dailyList = [
+    "아이아이아이",
+    "아이아이아이",
+    "아이아이아이",
+    "아이아이아이",
+    "아이아이아이",
+    "아이아이아이",
+  ];
 
   const goToDailyMain = () => {
-    navigate('/daily'); // 일상 main 페이지로 이동
+    navigate("/daily"); // 일상 main 페이지로 이동
   };
 
   return (
@@ -165,8 +182,8 @@ const SurgeryListItem = styled.div`
   border-radius: 8px;
   padding: 1rem;
   background-color: ${({ theme }) => theme.colors.g3};
-  height: 120px; 
-  box-shadow: none; 
+  height: 120px;
+  box-shadow: none;
 
   span {
     display: block;
@@ -183,9 +200,18 @@ const SurgeryListItem = styled.div`
 
 const SurgerySectionComponent = () => {
   const surgeryList = [
-    "수술 후기 내용", "수술 후기 내용", "수술 후기 내용", "수술 후기 내용", 
-    "수술 후기 내용", "수술 후기 내용", "수술 후기 내용", "수술 후기 내용", 
-    "수술 후기 내용", "수술 후기 내용", "수술 후기 내용", "수술 후기 내용"
+    "수술 후기 내용",
+    "수술 후기 내용",
+    "수술 후기 내용",
+    "수술 후기 내용",
+    "수술 후기 내용",
+    "수술 후기 내용",
+    "수술 후기 내용",
+    "수술 후기 내용",
+    "수술 후기 내용",
+    "수술 후기 내용",
+    "수술 후기 내용",
+    "수술 후기 내용",
   ];
 
   return (
@@ -199,7 +225,10 @@ const SurgerySectionComponent = () => {
           <SurgeryListItem key={index}>
             <span>정관수술</span>
             <span>{item}</span>
-            <span>수술 받기로 결정하고 모멘텀에서 병원 후기 좋은 곳 찾아 갔다왔습니다. 덕분에 좋은 곳에서 잘 받고 왔어요.</span>
+            <span>
+              수술 받기로 결정하고 모멘텀에서 병원 후기 좋은 곳 찾아
+              갔다왔습니다. 덕분에 좋은 곳에서 잘 받고 왔어요.
+            </span>
           </SurgeryListItem>
         ))}
       </SurgeryListWrapper>
@@ -210,12 +239,7 @@ const SurgerySectionComponent = () => {
 const CommunityMainPage = () => {
   return (
     <div>
-      <Header />
-      <Banner
-        image={bannerImg}
-        menuName="커뮤니티"
-        color="#002357"
-      />
+      <Banner image={bannerImg} menuName="커뮤니티" color="#002357" />
       <Container>
         <Notice />
         <CategoryListWrapper>

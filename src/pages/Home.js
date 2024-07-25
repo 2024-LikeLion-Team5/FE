@@ -5,11 +5,7 @@ import Banner from "../components/Banner";
 import bannerImg from "../assets/main_img.png";
 
 const Home = () => {
-  return (
-    <div>
-      <Header />
-    </div>
-  );
+  return <div></div>;
 };
 
 export default Home;

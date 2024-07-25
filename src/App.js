@@ -25,6 +25,7 @@ import SurgeryDetail from "./pages/Surgery/SurgeryDetail";
 import DailyMain from "./pages/Daily/DailyMain";
 import DailyWrite from "./pages/Daily/DailyWrite";
 import DailyDetail from "./pages/Daily/DailyDetail";
+import Header from "./components/Header";
 
 const PageWrapper = styled.div`
   display: flex;
@@ -42,6 +43,7 @@ function App() {
       <GlobalStyles />
       <Router>
         <PageWrapper>
+          <Header />
           <ContentWrapper>
             <Routes>
               <Route path="/" element={<Home />} />

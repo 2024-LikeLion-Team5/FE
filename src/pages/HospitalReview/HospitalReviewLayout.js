@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Outlet, useLocation } from "react-router-dom";
-import GlobalHeader from "../../components/Header";
+import Header from "../../components/Header";
 import Banner from "../../components/Banner";
 import bannerImg from "../../assets/review_img.png";
 import Notice from "../../components/Notice";
@@ -33,7 +33,6 @@ const HospitalReview = () => {
 
   return (
     <div>
-      <GlobalHeader />
       {!isPostPage && (
         <div>
           <Banner

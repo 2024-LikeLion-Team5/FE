@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import Header from '../Header';
-import Banner from '../Banner';
-import Notice from '../Notice';
-import Footer from '../Footer';
-import Postlist from '../PostList';
+import React, { useState } from "react";
+import styled from "styled-components";
+import Header from "../Header";
+import Banner from "../Banner";
+import Notice from "../Notice";
+import Footer from "../Footer";
+import Postlist from "../PostList";
 import bannerImg from "../../assets/surgery_img.png";
 
 const Container = styled.div`
@@ -34,12 +34,7 @@ const SurgeryMainPage = () => {
 
   return (
     <div>
-      <Header />
-      <Banner
-        image={bannerImg}
-        menuName="수술 후기"
-        color="#002357"
-      />
+      <Banner image={bannerImg} menuName="수술 후기" color="#002357" />
       <Container>
         <Notice />
         <Postlist posts={posts} />

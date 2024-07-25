@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Header from '../Header';
 import Banner from '../Banner';
 import Notice from '../Notice';
-import Footer from '../Footer';
 import PostList from '../PostList';
 import bannerImg from "../../assets/daily_img.png";
 
@@ -49,7 +48,6 @@ const DailyMainPage = () => {
           <PageNumber>3</PageNumber>
         </Pagination>
       </Container>
-      <Footer />
     </div>
   );
 };

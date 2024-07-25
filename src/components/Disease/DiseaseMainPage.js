@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Header from "../Header";
 import Banner from "../Banner";
 import Notice from "../Notice";
-import Footer from "../Footer";
-import Postlist from "../PostList";
+// import Postlist from "../PostList";
 import bannerImg from "../../assets/concern_img.png";
 
 const Container = styled.div`
@@ -33,7 +31,7 @@ const DiseaseMainPage = () => {
       <Banner image={bannerImg} menuName="질환 고민" color="#002357" />
       <Container>
         <Notice />
-        <PostList posts={posts} />
+        {/* <Postlist posts={posts} /> */}
       </Container>
     </div>
   );

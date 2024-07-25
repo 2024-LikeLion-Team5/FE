@@ -70,15 +70,24 @@ function App() {
               </Route>
               {/* 다른 경로들을 여기에 추가할 수 있습니다. */}
               <Route path="/community" element={<CommunityMain />} />
-              <Route path="/disease" element={<DiseaseMain />} />
-              <Route path="/disease/write" element={<DiseaseWrite />} />
-              <Route path="/disease/detail/:id" element={<DiseaseDetail />} />
-              <Route path="/surgery" element={<SurgeryMain />} />
-              <Route path="/surgery/write" element={<SurgeryWrite />} />
-              <Route path="/surgery/detail/:id" element={<SurgeryDetail />} />
-              <Route path="/daily" element={<DailyMain />} />
-              <Route path="/daily/write" element={<DailyWrite />} />
-              <Route path="/daily/detail/:id" element={<DailyDetail />} />
+
+              <Route path="/disease" element={<DiseaseMain />}>
+                <Route index element={<DiseaseMain />} />
+                <Route path="write" element={<DiseaseWrite />} />
+                <Route path="detail/:id" element={<DiseaseDetail />} />
+              </Route>
+
+              <Route path="/surgery" element={<SurgeryMain />}>
+                <Route index element={<SurgeryMain />} />
+                <Route path="write" element={<SurgeryWrite />} />
+                <Route path="detail/:id" element={<SurgeryDetail />} />
+              </Route>
+
+              <Route path="/daily" element={<DailyMain />}>
+                <Route index element={<DailyMain />} />
+                <Route path="write" element={<DailyWrite />} />
+                <Route path="detail/:id" element={<DailyDetail />} />
+              </Route>
             </Routes>
           </ContentWrapper>
           <Footer />

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Header from "../Header";
 import Banner from "../Banner";
 import Notice from "../Notice";
 import PostList from "../PostList";
@@ -39,9 +38,9 @@ const DailyMainPage = () => {
       <Banner image={bannerImg} menuName="일상" color="#002357" />
       <Container>
         <Notice />
-        <PostList posts={posts} />
+        {/* <PostList posts={posts} /> */}
       </Container>
-      <Footer />
+
     </div>
   );
 };

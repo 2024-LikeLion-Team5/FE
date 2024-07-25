@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 const Wrapper = styled.div.attrs((props) => ({
   searching: props.searching.toString(),
 }))`
+  width: 70rem;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;

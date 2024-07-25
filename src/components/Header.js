@@ -155,10 +155,10 @@ const Header = () => {
             <StyledLink to="/hospital-review">병원후기</StyledLink>
           </MenuItem>
           <MenuItem>
-            <StyledLink to="/">전문의 상담</StyledLink>
+            <StyledLink to="/counsel">전문의 상담</StyledLink>
           </MenuItem>
           <MenuItem>
-            <StyledLink to="/">자료실</StyledLink>
+            <StyledLink to="/library">자료실</StyledLink>
           </MenuItem>
         </Menu>
       </Wrapper>

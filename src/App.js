@@ -26,6 +26,9 @@ import DailyMain from "./pages/Daily/DailyMain";
 import DailyWrite from "./pages/Daily/DailyWrite";
 import DailyDetail from "./pages/Daily/DailyDetail";
 import Header from "./components/Header";
+import CounselMain from "./pages/Counsel/CounselMain";
+import Library from "./pages/Library";
+import PostCounsel from "./pages/Counsel/PostCounsel";
 
 const PageWrapper = styled.div`
   display: flex;
@@ -68,7 +71,6 @@ function App() {
                   element={<DetailHospitalReview />}
                 />
               </Route>
-              {/* 다른 경로들을 여기에 추가할 수 있습니다. */}
               <Route path="/community" element={<CommunityMain />} />
 
               <Route path="/disease" element={<DiseaseMain />}>
@@ -88,6 +90,11 @@ function App() {
                 <Route path="write" element={<DailyWrite />} />
                 <Route path="detail/:id" element={<DailyDetail />} />
               </Route>
+
+              <Route path="/counsel" element={<CounselMain />} />
+              <Route path="/counsel/write-counsel" element={<PostCounsel />} />
+
+              <Route path="/library" element={<Library />} />
             </Routes>
           </ContentWrapper>
           <Footer />

@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
+  width: 70rem;
+  margin: 0 auto;
   border: 1px solid ${({ theme }) => theme.colors.b4};
   border-radius: 0.5rem;
   font-size: 0.875rem;

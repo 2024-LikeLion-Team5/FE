@@ -8,13 +8,6 @@ import Notice from "../../components/Notice";
 import SearchHospital from "../../components/HospitalReview/SearchHospital";
 import Advertisement from "../../components/Advertisement";
 
-const Container = styled.div`
-  width: 100%;
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 0 1rem;
-`;
-
 const HospitalReview = () => {
   const [searching, setSearching] = useState(false);
   const location = useLocation();
@@ -40,15 +33,10 @@ const HospitalReview = () => {
             menuName="병원 후기"
             detail="의사별, 병원별로 다양하고 자세한 후기를 만나 보세요."
           />
-          <Container>
-            <Notice />
-            {!isDetailPage && (
-              <SearchHospital
-                searching={searching}
-                setSearching={setSearching}
-              />
-            )}
-          </Container>
+          <Notice />
+          {!isDetailPage && (
+            <SearchHospital searching={searching} setSearching={setSearching} />
+          )}
         </div>
       )}
       {isPostPage && <Advertisement />}

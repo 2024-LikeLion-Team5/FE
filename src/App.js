@@ -14,6 +14,17 @@ import PostDoctorReview from "./pages/HospitalReview/PostDoctorReview";
 import PostHospitalReview from "./pages/HospitalReview/PostHospitalReview";
 import DetailDoctorReview from "./pages/HospitalReview/DetailDoctorReview";
 import DetailHospitalReview from "./pages/HospitalReview/DetailHospitalReview";
+//규리가 추가
+import CommunityMain from "./pages/CommunityMain";
+import DiseaseMain from "./pages/Disease/DiseaseMain";
+import DiseaseWrite from "./pages/Disease/DiseaseWrite";
+import DiseaseDetail from "./pages/Disease/DiseaseDetail";
+import SurgeryMain from "./pages/Surgery/SurgeryMain";
+import SurgeryWrite from "./pages/Surgery/SurgeryWrite";
+import SurgeryDetail from "./pages/Surgery/SurgeryDetail";
+import DailyMain from "./pages/Daily/DailyMain";
+import DailyWrite from "./pages/Daily/DailyWrite";
+import DailyDetail from "./pages/Daily/DailyDetail";
 
 const PageWrapper = styled.div`
   display: flex;
@@ -56,6 +67,16 @@ function App() {
                 />
               </Route>
               {/* 다른 경로들을 여기에 추가할 수 있습니다. */}
+              <Route path="/community" element={<CommunityMain />} />
+              <Route path="/disease" element={<DiseaseMain />} />
+              <Route path="/disease/write" element={<DiseaseWrite />} />
+              <Route path="/disease/detail/:id" element={<DiseaseDetail />} />
+              <Route path="/surgery" element={<SurgeryMain />} />
+              <Route path="/surgery/write" element={<SurgeryWrite />} />
+              <Route path="/surgery/detail/:id" element={<SurgeryDetail />} />
+              <Route path="/daily" element={<DailyMain />} />
+              <Route path="/daily/write" element={<DailyWrite />} />
+              <Route path="/daily/detail/:id" element={<DailyDetail />} />
             </Routes>
           </ContentWrapper>
           <Footer />

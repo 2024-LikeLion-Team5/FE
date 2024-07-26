@@ -111,7 +111,8 @@ const DailyMainPage = () => {
       <Container>
         <Notice />
         <PostActions writePath="/daily/write" showSelect={false} />
-        <PostList posts={posts} />
+        {/* <PostList posts={posts} /> */}
+        <PostList posts={posts} category="disease" />
       </Container>
     </div>
   );

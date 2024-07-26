@@ -111,7 +111,8 @@ const SurgeryMainPage = () => {
       <Container>
         <Notice />
         <PostActions writePath="/surgery/write" showSelect={true} />
-        <PostList posts={posts} />
+        {/* <PostList posts={posts} /> */}
+        <PostList posts={posts} category="disease" />
       </Container>
     </div>
   );

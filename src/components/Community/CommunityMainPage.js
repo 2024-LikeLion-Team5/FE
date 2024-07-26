@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom"; // react-router-dom에서 useNavigate 가져오기
-import Header from "../Header";
 import Banner from "../Banner";
 import Notice from "../Notice";
 import bannerImg from "../../assets/community_img.png";
@@ -65,10 +64,13 @@ const ListItem = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 0.5rem 0;
-  border: 1px solid ${({ theme }) => theme.colors.g2};
-  border-top: none; /* 상단 경계선 제거 */
-  border-left: none; /* 좌측 경계선 제거 */
-  border-right: none; /* 우측 경계선 제거 */
+  border-top: 1px solid ${({ theme }) => theme.colors.g2};
+
+  &:last-child {
+    border-bottom: 1px solid ${({ theme }) => theme.colors.g2};
+  }
+
+  
 
   span:first-child {
     color: ${({ theme }) => theme.colors.b1}; /* 질환 명칭은 b1 색상 */

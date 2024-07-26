@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import seletArrow from "../../assets/select_arrow.png";
-import CustomSelect from "../../components/CustomSelect";
 import Caution from "../../components/Caution";
+import StarRating from "../../components/StarRating";
 
 const Wrapper = styled.div`
   width: 52rem;
@@ -13,6 +12,7 @@ const Wrapper = styled.div`
 `;
 
 const TitleWrapper = styled.div`
+  width: 100%;
   margin: 0 auto;
   margin-top: 3rem;
   text-align: center;
@@ -140,24 +140,41 @@ const UploadPic = styled.button`
 
 const PostHospitalReview = () => {
   const [isCounsel, setIsCounsel] = useState(false);
+  const [facilityRating, setFacilityRating] = useState(0);
+  const [atmosphereRating, setAtmosphereRating] = useState(0);
+  const [staffRating, setStaffRating] = useState(0);
 
   const handleCounselingClick = (e) => {
     e.preventDefault();
     setIsCounsel(true);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // API로 보낼 데이터
+    const reviewData = {
+      facilityRating,
+      atmosphereRating,
+      staffRating,
+      // ... 추가적인 데이터
+    };
+
+    // API 요청을 보내는 로직을 여기에 추가
+    console.log("Sending review data:", reviewData);
+  };
+
   return (
     <Wrapper>
       <TitleWrapper>
         <SmallTitle>당신의 이야기를 들려주세요.</SmallTitle>
-        <LargeTitle>의사 상담 후기</LargeTitle>
+        <LargeTitle>병원별 후기</LargeTitle>
       </TitleWrapper>
-      <InputForm>
+      <InputForm onSubmit={handleSubmit}>
         <InputWrapper>
           <Label>진료명</Label>
-          <Input type="text" placeholder="진료 받은 의사 이름을 적어주세요." />
+          <Input type="text" placeholder="진료명을 적어주세요." />
           <Button
-            className={isCounsel === true ? "active" : ""}
+            className={isCounsel ? "active" : ""}
             onClick={handleCounselingClick}
           >
             단순 상담
@@ -169,15 +186,18 @@ const PostHospitalReview = () => {
         </InputWrapper>
         <InputWrapper>
           <Label>시설</Label>
-          <div>별 들어갈 자리</div>
+          <StarRating rating={facilityRating} setRating={setFacilityRating} />
         </InputWrapper>
         <InputWrapper>
           <Label>분위기</Label>
-          <div>별 들어갈 자리</div>
+          <StarRating
+            rating={atmosphereRating}
+            setRating={setAtmosphereRating}
+          />
         </InputWrapper>
         <InputWrapper>
           <Label>직원</Label>
-          <div>별 들어갈 자리</div>
+          <StarRating rating={staffRating} setRating={setStaffRating} />
         </InputWrapper>
         <InputWrapper>
           <Label>제목</Label>
@@ -188,12 +208,13 @@ const PostHospitalReview = () => {
           <Label>내용</Label>
           <BodyInput type="text" placeholder="후기를 적어주세요." />
         </InputWrapper>
+        <Caution />
+        <BtnWrapper>
+          <PostButton type="submit">게시글 작성</PostButton>
+        </BtnWrapper>
       </InputForm>
-      <Caution />
-      <BtnWrapper>
-        <PostButton>게시글 작성</PostButton>
-      </BtnWrapper>
     </Wrapper>
   );
 };
+
 export default PostHospitalReview;

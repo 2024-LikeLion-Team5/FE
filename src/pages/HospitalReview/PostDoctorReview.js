@@ -3,6 +3,7 @@ import styled from "styled-components";
 import seletArrow from "../../assets/select_arrow.png";
 import CustomSelect from "../../components/CustomSelect";
 import Caution from "../../components/Caution";
+import StarRating from "../../components/StarRating";
 
 const Wrapper = styled.div`
   width: 52rem;
@@ -146,6 +147,7 @@ const UploadPic = styled.button`
 const PostDoctorReview = () => {
   const [selectedAge, setSelectedAge] = useState(null);
   const [isCounsel, setIsCounsel] = useState(false);
+  const [rating, setRating] = useState(0);
 
   const ageOption = ["30대 이하", "40대", "50대", "60대", "70대", "80대 이상"];
 
@@ -211,7 +213,9 @@ const PostDoctorReview = () => {
         </InputWrapper>
         <InputWrapper>
           <Label>평가</Label>
-          <div>별 들어갈 자리</div>
+          <div>
+            <StarRating rating={rating} setRating={setRating} />
+          </div>
         </InputWrapper>
         <InputWrapper>
           <Label>제목</Label>

@@ -4,6 +4,7 @@ import styled from "styled-components";
 import detailImg from "../../assets/hospital_detail_img.png";
 import DoctorReviewComment from "../../components/HospitalReview/DoctorReviewComment";
 import HospitalReviewComment from "../../components/HospitalReview/HospitalReviewComment";
+import star from "../../assets/full_star.png";
 
 const Container = styled.div`
   width: 100%;
@@ -35,6 +36,7 @@ const Img = styled.img`
 `;
 
 const Details = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 1.75rem;
@@ -43,7 +45,7 @@ const Details = styled.div`
 
 const InfoWrapper = styled.div`
   display: flex;
-  gap: 4rem;
+  gap: 5rem;
 `;
 
 const Name = styled.span`
@@ -97,9 +99,29 @@ const Evaluation = styled.div`
 const RatingSection = styled.div`
   font-size: 0.875rem;
   font-weight: 600;
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
 `;
 
-const Stars = styled.div``;
+const Section = styled.div`
+  width: 4rem;
+`;
+
+const Stars = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 0.5rem;
+  img {
+    width: 1.75rem;
+  }
+  span {
+    font-size: 1rem;
+    font-weight: bold;
+    color: ${({ theme }) => theme.colors.b1};
+  }
+`;
 
 const Options = styled.div`
   margin-top: 4.25rem;
@@ -171,14 +193,25 @@ const HospitalReviewDetail = () => {
               </About>
               <Evaluation>
                 <RatingSection>
-                  시설 평점
-                  <Stars></Stars>
+                  <Section>시설 평점</Section>
+                  <Stars>
+                    <img src={star} alt="별" />
+                    <span>4</span>
+                  </Stars>
                 </RatingSection>
                 <RatingSection>
-                  분위기 평점<Stars></Stars>
+                  <Section>분위기 평점</Section>
+                  <Stars>
+                    <img src={star} alt="별" />
+                    <span>4</span>
+                  </Stars>
                 </RatingSection>
                 <RatingSection>
-                  직원 평점<Stars></Stars>
+                  <Section>직원 평점</Section>
+                  <Stars>
+                    <img src={star} alt="별" />
+                    <span>4</span>
+                  </Stars>
                 </RatingSection>
               </Evaluation>
             </InfoWrapper>

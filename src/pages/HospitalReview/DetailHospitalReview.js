@@ -1,5 +1,6 @@
 import React from "react";
 import PostLayout from "../../components/PostLayout";
+import StarRatingDisplay from "../../components/StarRatingDisplay";
 
 const DetailHospitalReview = () => {
   const metaInfo = [
@@ -11,11 +12,11 @@ const DetailHospitalReview = () => {
 
   const detailItems = [
     { label: "진료명", value: "발기부전 검사" },
-    { label: "시설", value: "★ ★ ★ ★ ☆ 4" },
+    { label: "시설", value: <StarRatingDisplay rating={4} /> },
     { label: "병원명", value: "멘텀 비뇨기과" },
-    { label: "분위기", value: "★ ★ ★ ★ ☆ 4" },
+    { label: "분위기", value: <StarRatingDisplay rating={4} /> },
     { label: "", value: "" },
-    { label: "직원", value: "★ ★ ★ ★ ☆ 4" },
+    { label: "직원", value: <StarRatingDisplay rating={4} /> },
   ];
 
   return (

@@ -1,5 +1,6 @@
 import React from "react";
 import PostLayout from "../../components/PostLayout";
+import StarRatingDisplay from "../../components/StarRatingDisplay";
 
 const DetailDoctorReview = () => {
   const metaInfo = [
@@ -13,7 +14,7 @@ const DetailDoctorReview = () => {
     { label: "질환/고민", value: "발기부전" },
     { label: "받은 진료", value: "단순 상담" },
     { label: "연령대", value: "50대" },
-    { label: "평가", value: "★ ★ ★ ★ ☆ 4" },
+    { label: "평가", value: <StarRatingDisplay rating={4} /> },
     { label: "의사", value: "이신정" },
   ];
 

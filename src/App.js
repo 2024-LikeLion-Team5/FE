@@ -18,15 +18,12 @@ import DetailHospitalReview from "./pages/HospitalReview/DetailHospitalReview";
 import CommunityMain from "./pages/CommunityMain";
 import DiseaseMain from "./pages/Disease/DiseaseMain";
 import DiseaseWrite from "./pages/Disease/DiseaseWrite";
-// import DiseaseDetail from "./pages/Disease/DiseaseDetail";
 import DetailDiseasePost from "./pages/Disease/DetailDiseasePost";
 import SurgeryMain from "./pages/Surgery/SurgeryMain";
 import SurgeryWrite from "./pages/Surgery/SurgeryWrite";
-// import SurgeryDetail from "./pages/Surgery/SurgeryDetail";
 import DetailSurgeryPost from "./pages/Surgery/DetailSurgeryPost";
 import DailyMain from "./pages/Daily/DailyMain";
 import DailyWrite from "./pages/Daily/DailyWrite";
-// import DailyDetail from "./pages/Daily/DailyDetail";
 import DetailDailyPost from "./pages/Daily/DetailDailyPost";
 import Header from "./components/Header";
 import CounselMain from "./pages/Counsel/CounselMain";
@@ -74,6 +71,7 @@ function App() {
                   element={<DetailHospitalReview />}
                 />
               </Route>
+              <Route path="/" element={<Home />} />
               <Route path="/community" element={<CommunityMain />} />
               <Route path="/disease" element={<DiseaseMain />} />
               <Route path="/disease/write" element={<DiseaseWrite />} />

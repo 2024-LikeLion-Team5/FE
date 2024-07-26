@@ -1,5 +1,5 @@
 // import React from "react";
-// import { NavLink, useLocation } from "react-router-dom";
+// import { NavLink, useLocation, Link } from "react-router-dom"; // Link 추가
 // import styled from "styled-components";
 // import searchBtn from "../assets/search_btn_nobackground.png";
 
@@ -11,9 +11,11 @@
 //   margin: 0 1rem;
 // `;
 
-// const Logo = styled.p`
+// const Logo = styled(Link)` // 수정: p -> Link
 //   font-size: 1.25rem;
 //   font-weight: bold;
+//   text-decoration: none; // 추가: 링크의 기본 스타일 제거
+//   color: ${({ theme }) => theme.colors.nv}; // 추가: 텍스트 색상 지정
 // `;
 
 // const SearchForm = styled.form`
@@ -129,7 +131,7 @@
 //   return (
 //     <div>
 //       <Wrapper>
-//         <Logo>MOMENTUM</Logo>
+//         <Logo to="/">MOMENTUM</Logo> {/* 수정: p 태그를 Link 컴포넌트로 변경하고 to="/" 추가 */}
 //         <SearchForm>
 //           <SearchInput type="text" placeholder="통합 검색" />
 //           <SearchButton type="submit">
@@ -169,7 +171,7 @@
 // export default Header;
 
 import React from "react";
-import { NavLink, useLocation, Link } from "react-router-dom"; // Link 추가
+import { NavLink, useLocation, Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import searchBtn from "../assets/search_btn_nobackground.png";
 
@@ -181,11 +183,11 @@ const Wrapper = styled.div`
   margin: 0 1rem;
 `;
 
-const Logo = styled(Link)` // 수정: p -> Link
+const Logo = styled(Link)`
   font-size: 1.25rem;
   font-weight: bold;
-  text-decoration: none; // 추가: 링크의 기본 스타일 제거
-  color: ${({ theme }) => theme.colors.nv}; // 추가: 텍스트 색상 지정
+  text-decoration: none;
+  color: ${({ theme }) => theme.colors.nv};
 `;
 
 const SearchForm = styled.form`
@@ -297,14 +299,20 @@ const SubMenuItem = styled.li`
 const Header = () => {
   const location = useLocation();
   const currentPath = location.pathname;
+  const navigate = useNavigate();
+
+  const handleSearchClick = (e) => {
+    e.preventDefault();
+    navigate("/search-results");
+  };
 
   return (
     <div>
       <Wrapper>
-        <Logo to="/">MOMENTUM</Logo> {/* 수정: p 태그를 Link 컴포넌트로 변경하고 to="/" 추가 */}
+        <Logo to="/">MOMENTUM</Logo>
         <SearchForm>
           <SearchInput type="text" placeholder="통합 검색" />
-          <SearchButton type="submit">
+          <SearchButton onClick={handleSearchClick}>
             <img src={searchBtn} alt="검색 버튼" />
           </SearchButton>
         </SearchForm>

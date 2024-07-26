@@ -29,6 +29,7 @@ import Header from "./components/Header";
 import CounselMain from "./pages/Counsel/CounselMain";
 import Library from "./pages/Library";
 import PostCounsel from "./pages/Counsel/PostCounsel";
+import SearchResultsPage from "./pages/SearchResultsPage"; 
 
 const PageWrapper = styled.div`
   display: flex;
@@ -85,6 +86,7 @@ function App() {
               <Route path="/counsel" element={<CounselMain />} />
               <Route path="/counsel/write-counsel" element={<PostCounsel />} />
               <Route path="/library" element={<Library />} />
+              <Route path="/search-results" element={<SearchResultsPage />} />
             </Routes>
           </ContentWrapper>
           <Footer />

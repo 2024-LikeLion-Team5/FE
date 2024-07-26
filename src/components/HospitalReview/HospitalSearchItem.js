@@ -3,8 +3,8 @@ import styled from "styled-components";
 import hospitalImg from "../../assets/hospital_review_img.png";
 
 const Wrapper = styled.div`
-  border-top: 1px solid ${({ theme }) => theme.colors.g2};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.g2};
+  // border-top: 1px solid ${({ theme }) => theme.colors.g2};
+  // border-bottom: 1px solid ${({ theme }) => theme.colors.g2};
   padding: 1.625rem 0;
 `;
 

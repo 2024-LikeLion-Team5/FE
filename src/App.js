@@ -18,13 +18,16 @@ import DetailHospitalReview from "./pages/HospitalReview/DetailHospitalReview";
 import CommunityMain from "./pages/CommunityMain";
 import DiseaseMain from "./pages/Disease/DiseaseMain";
 import DiseaseWrite from "./pages/Disease/DiseaseWrite";
-import DiseaseDetail from "./pages/Disease/DiseaseDetail";
+// import DiseaseDetail from "./pages/Disease/DiseaseDetail";
+import DetailDiseasePost from "./pages/Disease/DetailDiseasePost";
 import SurgeryMain from "./pages/Surgery/SurgeryMain";
 import SurgeryWrite from "./pages/Surgery/SurgeryWrite";
-import SurgeryDetail from "./pages/Surgery/SurgeryDetail";
+// import SurgeryDetail from "./pages/Surgery/SurgeryDetail";
+import DetailSurgeryPost from "./pages/Surgery/DetailSurgeryPost";
 import DailyMain from "./pages/Daily/DailyMain";
 import DailyWrite from "./pages/Daily/DailyWrite";
-import DailyDetail from "./pages/Daily/DailyDetail";
+// import DailyDetail from "./pages/Daily/DailyDetail";
+import DetailDailyPost from "./pages/Daily/DetailDailyPost";
 import Header from "./components/Header";
 import CounselMain from "./pages/Counsel/CounselMain";
 import Library from "./pages/Library";
@@ -72,34 +75,17 @@ function App() {
                 />
               </Route>
               <Route path="/community" element={<CommunityMain />} />
-
-              <Route path="/disease" element={<DiseaseMain />}>
-                <Route index element={<DiseaseMain />} />
-                {/* <Route path="write" element={<DiseaseWrite />} /> */}
-                <Route path="detail/:id" element={<DiseaseDetail />} />
-              </Route>
-              
+              <Route path="/disease" element={<DiseaseMain />} />
               <Route path="/disease/write" element={<DiseaseWrite />} />
-
-              <Route path="/surgery" element={<SurgeryMain />}>
-                <Route index element={<SurgeryMain />} />
-                {/* <Route path="write" element={<SurgeryWrite />} /> */}
-                <Route path="detail/:id" element={<SurgeryDetail />} />
-              </Route>
-              {/* Route 재설정 */}
+              <Route path="/disease/detail/:id" element={<DetailDiseasePost />} />
+              <Route path="/surgery" element={<SurgeryMain />} />
               <Route path="/surgery/write" element={<SurgeryWrite />} />
-
-              <Route path="/daily" element={<DailyMain />}>
-                <Route index element={<DailyMain />} />
-                {/* <Route path="write" element={<DailyWrite />} /> */}
-                <Route path="detail/:id" element={<DailyDetail />} />
-              </Route>
-              {/* Route 재설정 */}
+              <Route path="/surgery/detail/:id" element={<DetailSurgeryPost />} />
+              <Route path="/daily" element={<DailyMain />} />
               <Route path="/daily/write" element={<DailyWrite />} />
-
+              <Route path="/daily/detail/:id" element={<DetailDailyPost />} />
               <Route path="/counsel" element={<CounselMain />} />
               <Route path="/counsel/write-counsel" element={<PostCounsel />} />
-
               <Route path="/library" element={<Library />} />
             </Routes>
           </ContentWrapper>

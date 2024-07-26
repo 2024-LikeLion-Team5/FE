@@ -25,7 +25,7 @@ const DropdownButton = styled.button`
 
 const ArrowIcon = styled.img`
   width: 1rem;
-  height: 1rem;
+  height: 0.7rem;
 `;
 
 const DropdownList = styled.ul`

@@ -75,21 +75,27 @@ function App() {
 
               <Route path="/disease" element={<DiseaseMain />}>
                 <Route index element={<DiseaseMain />} />
-                <Route path="write" element={<DiseaseWrite />} />
+                {/* <Route path="write" element={<DiseaseWrite />} /> */}
                 <Route path="detail/:id" element={<DiseaseDetail />} />
               </Route>
+              
+              <Route path="/disease/write" element={<DiseaseWrite />} />
 
               <Route path="/surgery" element={<SurgeryMain />}>
                 <Route index element={<SurgeryMain />} />
-                <Route path="write" element={<SurgeryWrite />} />
+                {/* <Route path="write" element={<SurgeryWrite />} /> */}
                 <Route path="detail/:id" element={<SurgeryDetail />} />
               </Route>
+              {/* Route 재설정 */}
+              <Route path="/surgery/write" element={<SurgeryWrite />} />
 
               <Route path="/daily" element={<DailyMain />}>
                 <Route index element={<DailyMain />} />
-                <Route path="write" element={<DailyWrite />} />
+                {/* <Route path="write" element={<DailyWrite />} /> */}
                 <Route path="detail/:id" element={<DailyDetail />} />
               </Route>
+              {/* Route 재설정 */}
+              <Route path="/daily/write" element={<DailyWrite />} />
 
               <Route path="/counsel" element={<CounselMain />} />
               <Route path="/counsel/write-counsel" element={<PostCounsel />} />

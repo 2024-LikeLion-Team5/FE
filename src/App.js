@@ -14,7 +14,6 @@ import PostDoctorReview from "./pages/HospitalReview/PostDoctorReview";
 import PostHospitalReview from "./pages/HospitalReview/PostHospitalReview";
 import DetailDoctorReview from "./pages/HospitalReview/DetailDoctorReview";
 import DetailHospitalReview from "./pages/HospitalReview/DetailHospitalReview";
-//규리가 추가
 import CommunityMain from "./pages/CommunityMain";
 import DiseaseMain from "./pages/Disease/DiseaseMain";
 import DiseaseWrite from "./pages/Disease/DiseaseWrite";
@@ -29,9 +28,10 @@ import Header from "./components/Header";
 import CounselMain from "./pages/Counsel/CounselMain";
 import Library from "./pages/Library";
 import PostCounsel from "./pages/Counsel/PostCounsel";
-import SearchResultsPage from "./pages/UnifiedSearch/SearchResultsPage"; 
+import SearchResultsPage from "./pages/UnifiedSearch/SearchResultsPage";
 import CommunitySearchResultsPage from "./pages/UnifiedSearch/CommunitySearchResultsPage";
-
+import DoctorSearchResultsPage from './pages/UnifiedSearch/DoctorSearchResultsPage';
+import HospitalSearchResultsPage from './pages/UnifiedSearch/HospitalSearchResultsPage';
 
 const PageWrapper = styled.div`
   display: flex;
@@ -90,6 +90,8 @@ function App() {
               <Route path="/library" element={<Library />} />
               <Route path="/search-results" element={<SearchResultsPage />} />
               <Route path="/community/search-results" element={<CommunitySearchResultsPage />} />
+              <Route path="/doctor-search-results" element={<DoctorSearchResultsPage />} />
+              <Route path="/hospital-search-results" element={<HospitalSearchResultsPage />} />
             </Routes>
           </ContentWrapper>
           <Footer />

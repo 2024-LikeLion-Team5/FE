@@ -124,6 +124,15 @@
 //     navigate(`/hospital-review/${id}?tab=doctor`);
 //   };
 
+//   const handleCommunityMore = () => {
+//     navigate("/community/search-results");
+//   }
+  
+//   const handleHospitalMore = () => {
+//     navigate("/doctor-search-results");
+//   };
+
+
 //   const communityPosts = [
 //     { id: 1, category: '질환 고민', title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit' },
 //     { id: 2, category: '일상', title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit' },
@@ -135,13 +144,13 @@
 
 //   return (
 //     <Container>
-//       <KeyWord>검색 : 멘텀비뇨기과</KeyWord>
+//       <KeyWord>통합 검색 : 멘텀비뇨기과</KeyWord>
 
 //       <CommunityResult>
 //         <CommunitySummary>
 //           <ResultTitle>커뮤니티 검색 결과 (9)</ResultTitle>
 //           <br/>
-//           <div style={{ display: 'flex', alignItems: 'center' }}>
+//           <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} onClick={handleCommunityMore}>
 //             <Text>더보기</Text>
 //             <Btn src={seeMore} alt="더보기" />
 //           </div>
@@ -159,7 +168,7 @@
 //       <SectionWrapper>
 //         <Result>
 //           <ResultTitle>병원 검색 결과 (3)</ResultTitle>
-//           <div style={{ display: 'flex', alignItems: 'center' }}>
+//           <div style={{ display: 'flex', alignItems: 'center' , cursor: 'pointer' }} onClick={handleHospitalMore}>
 //             <Text>더보기</Text>
 //             <Btn src={seeMore} alt="더보기" />
 //           </div>
@@ -180,7 +189,7 @@
 //       <SectionWrapper>
 //         <Result>
 //           <ResultTitle>의사 상담 후기 검색 결과 (3)</ResultTitle>
-//           <div style={{ display: 'flex', alignItems: 'center' }}>
+//           <div style={{ display: 'flex', alignItems: 'center' , cursor: 'pointer' }}>
 //             <Text>더보기</Text>
 //             <Btn src={seeMore} alt="더보기" />
 //           </div>
@@ -196,7 +205,6 @@
 // };
 
 // export default SearchResultsPage;
-
 
 import React from 'react';
 import styled from 'styled-components';
@@ -327,6 +335,14 @@ const SearchResultsPage = () => {
   const handleCommunityMore = () => {
     navigate("/community/search-results");
   };
+  
+  const handleHospitalMore = () => {
+    navigate("/hospital-search-results");
+  };
+
+  const handleDoctorMore = () => {
+    navigate("/doctor-search-results");
+  };
 
   const communityPosts = [
     { id: 1, category: '질환 고민', title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit' },
@@ -363,7 +379,7 @@ const SearchResultsPage = () => {
       <SectionWrapper>
         <Result>
           <ResultTitle>병원 검색 결과 (3)</ResultTitle>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} onClick={handleHospitalMore}>
             <Text>더보기</Text>
             <Btn src={seeMore} alt="더보기" />
           </div>
@@ -384,7 +400,7 @@ const SearchResultsPage = () => {
       <SectionWrapper>
         <Result>
           <ResultTitle>의사 상담 후기 검색 결과 (3)</ResultTitle>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} onClick={handleDoctorMore}>
             <Text>더보기</Text>
             <Btn src={seeMore} alt="더보기" />
           </div>

@@ -152,11 +152,14 @@ const PostDoctorReview = () => {
   const ageOption = ["30대 이하", "40대", "50대", "60대", "70대", "80대 이상"];
 
   const optionData = [
-    { key: 1, value: "Option 1" },
-    { key: 2, value: "Option 2" },
-    { key: 3, value: "Option 3" },
-    { key: 4, value: "Option 4" },
-  ];
+    { key: 1, value: "발기부전" },
+    { key: 2, value: "음경확대" },
+    { key: 3, value: "정관수술" },
+    { key: 4, value: "요로결석" },
+    { key: 5, value: "조루/지루" },
+    { key: 6, value: "전립선염" },
+    { key: 7, value: "기타" },
+  ]; // CustomSelect 옵션 데이터 추가
 
   const handleAgeClick = (e, age) => {
     e.preventDefault();

@@ -42,7 +42,7 @@ const SelectOptions = styled.ul`
   border-radius: 0.5rem;
   background-color: white;
   overflow: hidden;
-  max-height: ${(props) => (props.show ? "200px" : "0")};
+  max-height: ${(props) => (props.show ? "500px" : "0")};
   border: ${(props) =>
     props.show ? `1px solid ${props.theme.colors.b4}` : "none"};
   transition: max-height 0.3s ease, border 0.3s ease;

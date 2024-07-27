@@ -42,6 +42,9 @@ const InputWrapper = styled.div`
   display: flex;
   gap: 2rem;
   align-items: center;
+  &.title {
+    align-items: flex-start;
+  }
 `;
 
 const Label = styled.label`
@@ -49,11 +52,17 @@ const Label = styled.label`
   text-align: center;
   font-size: 0.9375rem;
   font-weight: bold;
+  &.title {
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 const Input = styled.input`
   width: 27rem;
-  height: 2.25rem;
+  height: 2.5rem;
   box-sizing: border-box;
   padding: 9px 1.5rem;
   border-radius: 0.5rem;
@@ -128,7 +137,12 @@ const PostButton = styled.button`
   border-radius: 0.5rem;
 `;
 
-const UploadPic = styled.button`
+const Upload = styled.div`
+  display: flex;
+  gap: 1rem;
+`;
+
+const UploadRec = styled.button`
   border: none;
   background-color: ${({ theme }) => theme.colors.b1};
   font-size: 0.875rem;
@@ -138,11 +152,36 @@ const UploadPic = styled.button`
   border-radius: 0.5rem;
 `;
 
+const UploadPic = styled.button`
+  border: none;
+  background-color: ${({ theme }) => theme.colors.g1};
+  font-size: 0.875rem;
+  font-weight: bold;
+  color: white;
+  padding: 0.625rem;
+  border-radius: 0.5rem;
+`;
+
+const RecCaution = styled.span`
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.b1};
+  padding-left: 1rem;
+`;
+
+const RecWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.8rem;
+`;
+
 const PostHospitalReview = () => {
   const [isCounsel, setIsCounsel] = useState(false);
   const [facilityRating, setFacilityRating] = useState(0);
   const [atmosphereRating, setAtmosphereRating] = useState(0);
   const [staffRating, setStaffRating] = useState(0);
+  const [isAttach, setIsAttach] = useState(false);
 
   const handleCounselingClick = (e) => {
     e.preventDefault();
@@ -161,6 +200,11 @@ const PostHospitalReview = () => {
 
     // API 요청을 보내는 로직을 여기에 추가
     console.log("Sending review data:", reviewData);
+  };
+
+  const handleAttachRecipt = (e) => {
+    e.preventDefault();
+    setIsAttach(true);
   };
 
   return (
@@ -199,10 +243,16 @@ const PostHospitalReview = () => {
           <Label>직원</Label>
           <StarRating rating={staffRating} setRating={setStaffRating} />
         </InputWrapper>
-        <InputWrapper>
-          <Label>제목</Label>
-          <Input type="text" placeholder="제목을 입력해주세요." />
-          <UploadPic>사진 업로드</UploadPic>
+        <InputWrapper className="title">
+          <Label className="title">제목</Label>
+          <RecWrapper>
+            <Input type="text" placeholder="제목을 입력해주세요." />
+            <RecCaution>영수증을 첨부해야 후기를 등록할 수 있어요.</RecCaution>
+          </RecWrapper>
+          <Upload>
+            <UploadRec>영수증 첨부</UploadRec>
+            <UploadPic>사진 업로드</UploadPic>
+          </Upload>
         </InputWrapper>
         <InputWrapper>
           <Label>내용</Label>

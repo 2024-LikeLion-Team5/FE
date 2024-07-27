@@ -14,6 +14,7 @@ const Wrapper = styled.div`
 `;
 
 const TitleWrapper = styled.div`
+  width: 100%;
   margin: 0 auto;
   margin-top: 3rem;
   text-align: center;
@@ -43,6 +44,9 @@ const InputWrapper = styled.div`
   display: flex;
   gap: 2rem;
   align-items: center;
+  &.title {
+    align-items: flex-start;
+  }
 `;
 
 const Label = styled.label`
@@ -50,11 +54,17 @@ const Label = styled.label`
   text-align: center;
   font-size: 0.9375rem;
   font-weight: bold;
+  &.title {
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 const Input = styled.input`
   width: 27rem;
-  height: 2.25rem;
+  height: 2.5rem;
   box-sizing: border-box;
   padding: 9px 1.5rem;
   border-radius: 0.5rem;
@@ -134,7 +144,12 @@ const PostButton = styled.button`
   border-radius: 0.5rem;
 `;
 
-const UploadPic = styled.button`
+const Upload = styled.div`
+  display: flex;
+  gap: 1rem;
+`;
+
+const UploadRec = styled.button`
   border: none;
   background-color: ${({ theme }) => theme.colors.b1};
   font-size: 0.875rem;
@@ -142,6 +157,30 @@ const UploadPic = styled.button`
   color: white;
   padding: 0.625rem;
   border-radius: 0.5rem;
+`;
+
+const UploadPic = styled.button`
+  border: none;
+  background-color: ${({ theme }) => theme.colors.g1};
+  font-size: 0.875rem;
+  font-weight: bold;
+  color: white;
+  padding: 0.625rem;
+  border-radius: 0.5rem;
+`;
+
+const RecCaution = styled.span`
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.b1};
+  padding-left: 1rem;
+`;
+
+const RecWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.8rem;
 `;
 
 const PostDoctorReview = () => {
@@ -220,10 +259,16 @@ const PostDoctorReview = () => {
             <StarRating rating={rating} setRating={setRating} />
           </div>
         </InputWrapper>
-        <InputWrapper>
-          <Label>제목</Label>
-          <Input type="text" placeholder="제목을 입력해주세요." />
-          <UploadPic>사진 업로드</UploadPic>
+        <InputWrapper className="title">
+          <Label className="title">제목</Label>
+          <RecWrapper>
+            <Input type="text" placeholder="제목을 입력해주세요." />
+            <RecCaution>영수증을 첨부해야 후기를 등록할 수 있어요.</RecCaution>
+          </RecWrapper>
+          <Upload>
+            <UploadRec>영수증 첨부</UploadRec>
+            <UploadPic>사진 업로드</UploadPic>
+          </Upload>
         </InputWrapper>
         <InputWrapper>
           <Label>내용</Label>

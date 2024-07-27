@@ -53,6 +53,20 @@ const Name = styled.span`
   font-weight: bold;
 `;
 
+const CounselBtn = styled.button`
+  background-color: ${({ theme }) => theme.colors.g1};
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  width: 8.75rem;
+  height: 2.25rem;
+  box-sizing: border-box;
+  padding: 0.5rem 1rem;
+  font-size: 0.9375rem;
+  font-weight: bold;
+  font-family: "Pretendard";
+`;
+
 const About = styled.div`
   display: flex;
   flex-direction: column;
@@ -123,12 +137,17 @@ const Stars = styled.div`
   }
 `;
 
-const Options = styled.div`
+const Buttons = styled.div`
+  display: flex;
+  justify-content: space-between;
   margin-top: 4.25rem;
+  align-items: center;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.g2};
+`;
+
+const Options = styled.div`
   display: flex;
   gap: 0.5rem;
-  width: 100%;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.g2};
   padding-bottom: 1rem;
 `;
 
@@ -217,21 +236,23 @@ const HospitalReviewDetail = () => {
             </InfoWrapper>
           </Details>
         </Info>
-
-        <Options>
-          <Option
-            className={activeButton === "doctor" ? "active" : ""}
-            onClick={() => handleButtonClick("doctor")}
-          >
-            의사 상담 후기
-          </Option>
-          <Option
-            className={activeButton === "hospital" ? "active" : ""}
-            onClick={() => handleButtonClick("hospital")}
-          >
-            병원별 후기
-          </Option>
-        </Options>
+        <Buttons>
+          <Options>
+            <Option
+              className={activeButton === "doctor" ? "active" : ""}
+              onClick={() => handleButtonClick("doctor")}
+            >
+              의사 상담 후기
+            </Option>
+            <Option
+              className={activeButton === "hospital" ? "active" : ""}
+              onClick={() => handleButtonClick("hospital")}
+            >
+              병원별 후기
+            </Option>
+          </Options>
+          <CounselBtn>전문의와 상담하기</CounselBtn>
+        </Buttons>
 
         <CommentWrapper>
           {activeButton === "doctor" && <DoctorReviewComment />}

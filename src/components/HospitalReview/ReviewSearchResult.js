@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import HospitalSearchItem from "./HospitalSearchItem";
-import DoctorSeachItem from "./DoctorSearchItem";
+import DoctorSearchItem from "./DoctorSearchItem";
 import seeMore from "../../assets/see_more.png";
 import DoctorReviewItem from "./DoctorReviewItem";
 import { useNavigate } from "react-router-dom";
@@ -34,14 +34,16 @@ const Result = styled.div`
   align-items: center;
   margin-bottom: 1.5rem;
 `;
+
 const ResultTitle = styled.div`
-  font-size: lrem;
+  font-size: 1rem;
   font-weight: bold;
 `;
 
 const Text = styled.span`
   font-size: 0.9375rem;
   font-weight: bold;
+  margin-right: 0.5rem; /* 간격 추가 */
 `;
 
 const Btn = styled.img`
@@ -53,9 +55,24 @@ const DoctorResult = styled.div`
 `;
 
 const Reviews = styled.div`
+  display: flex;
+  gap: 1rem;
   border-top: 1px solid ${({ theme }) => theme.colors.g2};
   border-bottom: 1px solid ${({ theme }) => theme.colors.g2};
   padding: 1.625rem 0;
+`;
+
+const HospitalReviews = styled.div`
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid ${({ theme }) => theme.colors.g2};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.g2};
+  padding: 1.625rem 0;
+`;
+
+const HospitalSearchItemWrapper = styled.div`
+  flex: 1;
+  border: none; /* 감싸는 div의 border 제거 */
 `;
 
 const ReviewSearchResult = () => {
@@ -75,19 +92,24 @@ const ReviewSearchResult = () => {
       <HospitalResult>
         <Result>
           <ResultTitle>병원 검색 결과 (1)</ResultTitle>
-          <Text>더보기</Text>
-          <Btn src={seeMore} alt="더보기" />
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <Text>더보기</Text>
+            <Btn src={seeMore} alt="더보기" />
+          </div>
         </Result>
-        <HospitalSearchItem
-          onSelect={handleSelectHospitalReview}
-          reviewId={1}
-        />
+        <HospitalReviews>
+          <HospitalSearchItemWrapper>
+            <HospitalSearchItem onSelect={handleSelectHospitalReview} reviewId={1} />
+          </HospitalSearchItemWrapper>
+        </HospitalReviews>
       </HospitalResult>
       <DoctorResult>
         <Result>
           <ResultTitle>의사 상담 후기 검색 결과 (1)</ResultTitle>
-          <Text>더보기</Text>
-          <Btn src={seeMore} alt="더보기" />
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <Text>더보기</Text>
+            <Btn src={seeMore} alt="더보기" />
+          </div>
         </Result>
         <Reviews>
           <DoctorReviewItem onSelect={handleSelectDoctorReview} reviewId={1} />

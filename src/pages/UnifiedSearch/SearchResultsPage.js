@@ -1,9 +1,9 @@
 // import React from 'react';
 // import styled from 'styled-components';
 // import { useNavigate } from 'react-router-dom';
-// import seeMore from '../assets/see_more.png';
-// import HospitalSearchItem from '../components/HospitalReview/HospitalSearchItem';
-// import DoctorReviewItem from '../components/HospitalReview/DoctorReviewItem';
+// import seeMore from '../../assets/see_more.png';
+// import HospitalSearchItem from '../../components/HospitalReview/HospitalSearchItem';
+// import DoctorReviewItem from '../../components/HospitalReview/DoctorReviewItem';
 
 // const Container = styled.div`
 //   width: 100%;
@@ -60,6 +60,11 @@
 // const HospitalReviews = styled(Reviews)`
 //   display: flex;
 //   justify-content: space-between; /* 항목 간 간격 추가 */
+// `;
+
+// const HospitalSearchItemWrapper = styled.div`
+//   flex: 1;
+//   border: none; /* 감싸는 div의 border 제거 */
 // `;
 
 // const CommunityResult = styled.div`
@@ -119,6 +124,15 @@
 //     navigate(`/hospital-review/${id}?tab=doctor`);
 //   };
 
+//   const handleCommunityMore = () => {
+//     navigate("/community/search-results");
+//   }
+  
+//   const handleHospitalMore = () => {
+//     navigate("/doctor-search-results");
+//   };
+
+
 //   const communityPosts = [
 //     { id: 1, category: '질환 고민', title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit' },
 //     { id: 2, category: '일상', title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit' },
@@ -130,13 +144,13 @@
 
 //   return (
 //     <Container>
-//       <KeyWord>검색 : 멘텀비뇨기과</KeyWord>
+//       <KeyWord>통합 검색 : 멘텀비뇨기과</KeyWord>
 
 //       <CommunityResult>
 //         <CommunitySummary>
 //           <ResultTitle>커뮤니티 검색 결과 (9)</ResultTitle>
 //           <br/>
-//           <div style={{ display: 'flex', alignItems: 'center' }}>
+//           <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} onClick={handleCommunityMore}>
 //             <Text>더보기</Text>
 //             <Btn src={seeMore} alt="더보기" />
 //           </div>
@@ -154,22 +168,28 @@
 //       <SectionWrapper>
 //         <Result>
 //           <ResultTitle>병원 검색 결과 (3)</ResultTitle>
-//           <div style={{ display: 'flex', alignItems: 'center' }}>
+//           <div style={{ display: 'flex', alignItems: 'center' , cursor: 'pointer' }} onClick={handleHospitalMore}>
 //             <Text>더보기</Text>
 //             <Btn src={seeMore} alt="더보기" />
 //           </div>
 //         </Result>
 //         <HospitalReviews>
-//           <HospitalSearchItem onSelect={handleSelectHospitalReview} reviewId={1} />
-//           <HospitalSearchItem onSelect={handleSelectHospitalReview} reviewId={2} />
-//           <HospitalSearchItem onSelect={handleSelectHospitalReview} reviewId={3} />
+//           <HospitalSearchItemWrapper>
+//             <HospitalSearchItem onSelect={handleSelectHospitalReview} reviewId={1} />
+//           </HospitalSearchItemWrapper>
+//           <HospitalSearchItemWrapper>
+//             <HospitalSearchItem onSelect={handleSelectHospitalReview} reviewId={2} />
+//           </HospitalSearchItemWrapper>
+//           <HospitalSearchItemWrapper>
+//             <HospitalSearchItem onSelect={handleSelectHospitalReview} reviewId={3} />
+//           </HospitalSearchItemWrapper>
 //         </HospitalReviews>
 //       </SectionWrapper>
 
 //       <SectionWrapper>
 //         <Result>
 //           <ResultTitle>의사 상담 후기 검색 결과 (3)</ResultTitle>
-//           <div style={{ display: 'flex', alignItems: 'center' }}>
+//           <div style={{ display: 'flex', alignItems: 'center' , cursor: 'pointer' }}>
 //             <Text>더보기</Text>
 //             <Btn src={seeMore} alt="더보기" />
 //           </div>
@@ -189,9 +209,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import seeMore from '../assets/see_more.png';
-import HospitalSearchItem from '../components/HospitalReview/HospitalSearchItem';
-import DoctorReviewItem from '../components/HospitalReview/DoctorReviewItem';
+import seeMore from '../../assets/see_more.png';
+import HospitalSearchItem from '../../components/HospitalReview/HospitalSearchItem';
+import DoctorReviewItem from '../../components/HospitalReview/DoctorReviewItem';
 
 const Container = styled.div`
   width: 100%;
@@ -312,6 +332,18 @@ const SearchResultsPage = () => {
     navigate(`/hospital-review/${id}?tab=doctor`);
   };
 
+  const handleCommunityMore = () => {
+    navigate("/community/search-results");
+  };
+  
+  const handleHospitalMore = () => {
+    navigate("/hospital-search-results");
+  };
+
+  const handleDoctorMore = () => {
+    navigate("/doctor-search-results");
+  };
+
   const communityPosts = [
     { id: 1, category: '질환 고민', title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit' },
     { id: 2, category: '일상', title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit' },
@@ -323,13 +355,13 @@ const SearchResultsPage = () => {
 
   return (
     <Container>
-      <KeyWord>검색 : 멘텀비뇨기과</KeyWord>
+      <KeyWord>통합 검색 : 멘텀비뇨기과</KeyWord>
 
       <CommunityResult>
         <CommunitySummary>
           <ResultTitle>커뮤니티 검색 결과 (9)</ResultTitle>
           <br/>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} onClick={handleCommunityMore}>
             <Text>더보기</Text>
             <Btn src={seeMore} alt="더보기" />
           </div>
@@ -347,7 +379,7 @@ const SearchResultsPage = () => {
       <SectionWrapper>
         <Result>
           <ResultTitle>병원 검색 결과 (3)</ResultTitle>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} onClick={handleHospitalMore}>
             <Text>더보기</Text>
             <Btn src={seeMore} alt="더보기" />
           </div>
@@ -368,7 +400,7 @@ const SearchResultsPage = () => {
       <SectionWrapper>
         <Result>
           <ResultTitle>의사 상담 후기 검색 결과 (3)</ResultTitle>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} onClick={handleDoctorMore}>
             <Text>더보기</Text>
             <Btn src={seeMore} alt="더보기" />
           </div>
@@ -384,4 +416,3 @@ const SearchResultsPage = () => {
 };
 
 export default SearchResultsPage;
-

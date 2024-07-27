@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom"; // useNavigate 훅을 가져옵니다.
 import Banner from "../Banner";
 import Notice from "../Notice";
 import PostList from "../PostList";
@@ -14,6 +15,8 @@ const Container = styled.div`
 `;
 
 const DailyMainPage = () => {
+  const navigate = useNavigate(); // useNavigate 훅을 사용합니다.
+  
   const [posts, setPosts] = useState([
     {
       id: 1,
@@ -105,14 +108,17 @@ const DailyMainPage = () => {
     },
   ]);
 
+  const handleWriteClick = () => {
+    navigate("/daily/write");
+  };
+
   return (
     <div>
       <Banner image={bannerImg} menuName="일상" color="#002357" />
       <Container>
         <Notice />
         <PostActions writePath="/daily/write" showSelect={false} />
-        {/* <PostList posts={posts} /> */}
-        <PostList posts={posts} category="disease" />
+        <PostList posts={posts} category="daily" />
       </Container>
     </div>
   );

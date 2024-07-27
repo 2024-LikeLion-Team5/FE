@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom"; // useNavigate 훅을 가져옵니다.
+
 import Banner from "../Banner";
 import Notice from "../Notice";
 import PostList from "../PostList";
@@ -14,6 +16,9 @@ const Container = styled.div`
 `;
 
 const SurgeryMainPage = () => {
+
+  const navigate = useNavigate(); // useNavigate 훅을 사용합니다.
+  
   const [posts, setPosts] = useState([
     {
       id: 1,
@@ -105,6 +110,10 @@ const SurgeryMainPage = () => {
     },
   ]);
 
+  const handleWriteClick = () => {
+    navigate("/surgery/write");
+  };
+
   return (
     <div>
       <Banner image={bannerImg} menuName="수술 후기" color="#002357" />
@@ -112,7 +121,7 @@ const SurgeryMainPage = () => {
         <Notice />
         <PostActions writePath="/surgery/write" showSelect={true} />
         {/* <PostList posts={posts} /> */}
-        <PostList posts={posts} category="disease" />
+        <PostList posts={posts} category="surgery" />
       </Container>
     </div>
   );

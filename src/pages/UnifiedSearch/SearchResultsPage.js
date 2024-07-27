@@ -317,7 +317,7 @@ const ListItem = styled.div`
   }
 
   &.daily span:first-child {
-    color: ${({ theme }) => theme.colors.nv};
+    color: ${({ theme }) => theme.colors.b1};
   }
 `;
 

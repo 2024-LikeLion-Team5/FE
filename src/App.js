@@ -29,7 +29,9 @@ import Header from "./components/Header";
 import CounselMain from "./pages/Counsel/CounselMain";
 import Library from "./pages/Library";
 import PostCounsel from "./pages/Counsel/PostCounsel";
-import SearchResultsPage from "./pages/SearchResultsPage"; 
+import SearchResultsPage from "./pages/UnifiedSearch/SearchResultsPage"; 
+import CommunitySearchResultsPage from "./pages/UnifiedSearch/CommunitySearchResultsPage";
+
 
 const PageWrapper = styled.div`
   display: flex;
@@ -87,6 +89,7 @@ function App() {
               <Route path="/counsel/write-counsel" element={<PostCounsel />} />
               <Route path="/library" element={<Library />} />
               <Route path="/search-results" element={<SearchResultsPage />} />
+              <Route path="/community/search-results" element={<CommunitySearchResultsPage />} />
             </Routes>
           </ContentWrapper>
           <Footer />

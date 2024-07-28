@@ -93,7 +93,7 @@ const Body = styled.div`
   font-weight: 500;
 `;
 
-const HospitalReviewComment = () => {
+const HospitalReviewComment = ({ hospitalId }) => {
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
 

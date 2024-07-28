@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import HospitalSearchItem from "./HospitalSearchItem";
 import DoctorSearchItem from "./DoctorSearchItem";
@@ -72,11 +72,28 @@ const HospitalReviews = styled.div`
 
 const HospitalSearchItemWrapper = styled.div`
   flex: 1;
-  border: none; /* 감싸는 div의 border 제거 */
+  border: none;
 `;
 
 const ReviewSearchResult = () => {
   const navigate = useNavigate();
+  const [hospitalReviews, setHospitalReviews] = useState([]);
+  const [doctorReviews, setDoctorReviews] = useState([]);
+
+  //여기 검색 api 연동
+  // useEffect(() => {
+  //   const fetchSearchResults = async () => {
+  //     try {
+  //       const data = await searchReviews(keyword);
+  //       setHospitalReviews(data.hospitalReviews);
+  //       setDoctorReviews(data.doctorReviews);
+  //     } catch (error) {
+  //       console.error("검색 결과 로드 실패:", error);
+  //     }
+  //   };
+
+  //   fetchSearchResults();
+  // }, [keyword]);
 
   const handleSelectHospitalReview = (id) => {
     navigate(`/hospital-review/${id}?tab=hospital`);
@@ -92,27 +109,33 @@ const ReviewSearchResult = () => {
       <HospitalResult>
         <Result>
           <ResultTitle>병원 검색 결과 (1)</ResultTitle>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <Text>더보기</Text>
-            <Btn src={seeMore} alt="더보기" />
-          </div>
-        </Result>
-        <HospitalReviews>
-          <HospitalSearchItemWrapper>
-            <HospitalSearchItem onSelect={handleSelectHospitalReview} reviewId={1} />
-          </HospitalSearchItemWrapper>
-        </HospitalReviews>
-      </HospitalResult>
-      <DoctorResult>
-        <Result>
-          <ResultTitle>의사 상담 후기 검색 결과 (1)</ResultTitle>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div style={{ display: "flex", alignItems: "center" }}>
             <Text>더보기</Text>
             <Btn src={seeMore} alt="더보기" />
           </div>
         </Result>
         <Reviews>
-          <DoctorReviewItem onSelect={handleSelectDoctorReview} reviewId={1} />
+          <HospitalSearchItemWrapper>
+            <HospitalSearchItem
+              onSelect={handleSelectHospitalReview}
+              review={1} //안에 내용 수정하기
+            />
+          </HospitalSearchItemWrapper>
+        </Reviews>
+      </HospitalResult>
+      <DoctorResult>
+        <Result>
+          <ResultTitle>의사 상담 후기 검색 결과 (1)</ResultTitle>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <Text>더보기</Text>
+            <Btn src={seeMore} alt="더보기" />
+          </div>
+        </Result>
+        <Reviews>
+          <DoctorReviewItem
+            onSelect={handleSelectDoctorReview}
+            review={1} //안에 내용 수정하기
+          />
         </Reviews>
       </DoctorResult>
     </Container>

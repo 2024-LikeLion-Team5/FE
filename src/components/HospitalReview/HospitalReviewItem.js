@@ -57,21 +57,30 @@ const Body = styled.span`
   font-weight: 500;
 `;
 
-const HospitalReviewItem = ({ onSelect, reviewId }) => {
+const HospitalReviewItem = ({ onSelect, review }) => {
+  const {
+    postId,
+    hospital,
+    facilityRating,
+    atmosphereRating,
+    employeeRating,
+    treatment,
+    title,
+    content,
+  } = review;
   return (
-    <Wrapper onClick={() => onSelect(reviewId)}>
+    <Wrapper onClick={() => onSelect(postId)}>
+      {/*여기도 hispitalId로 바꿔줘야 함*/}
       <Info>
-        <Hospital>멘텀 비뇨기과</Hospital>
-        <OptionItem>시설 : 4</OptionItem>
+        <Hospital>{hospital}</Hospital>
+        <OptionItem>시설 : {facilityRating}</OptionItem>
+        <OptionItem>분위기 : {atmosphereRating}</OptionItem>
+        <OptionItem>직원 : {employeeRating}</OptionItem>
+        <OptionItem>{treatment}</OptionItem>
       </Info>
       <Post>
-        <Title>의사선생님이 자세히 알려주십니다.</Title>
-        <Body>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum
-          dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua.
-        </Body>
+        <Title>{title}</Title>
+        <Body>{content}</Body>
       </Post>
     </Wrapper>
   );

@@ -65,11 +65,15 @@ const SearchBtn = styled.button`
 
 const SearchHospital = ({ searching, setSearching }) => {
   const [input, setInput] = useState("");
-  const usenavigate = useNavigate();
+  const navigate = useNavigate();
 
   const onSubmit = (e) => {
     e.preventDefault();
-    usenavigate("/hospital-review/search");
+    if (input.trim()) {
+      navigate(
+        `/hospital-review/search-results?keyword=${encodeURIComponent(input)}`
+      );
+    }
   };
 
   return (

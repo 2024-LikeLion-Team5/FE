@@ -30,8 +30,8 @@ import Library from "./pages/Library";
 import PostCounsel from "./pages/Counsel/PostCounsel";
 import SearchResultsPage from "./pages/UnifiedSearch/SearchResultsPage";
 import CommunitySearchResultsPage from "./pages/UnifiedSearch/CommunitySearchResultsPage";
-import DoctorSearchResultsPage from './pages/UnifiedSearch/DoctorSearchResultsPage';
-import HospitalSearchResultsPage from './pages/UnifiedSearch/HospitalSearchResultsPage';
+import DoctorSearchResultsPage from "./pages/UnifiedSearch/DoctorSearchResultsPage";
+import HospitalSearchResultsPage from "./pages/UnifiedSearch/HospitalSearchResultsPage";
 
 const PageWrapper = styled.div`
   display: flex;
@@ -55,7 +55,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/hospital-review" element={<HospitalReview />}>
                 <Route index element={<HospitalReviewList />} />
-                <Route path="search" element={<ReviewSearchResult />} />
+                <Route path="search-results" element={<ReviewSearchResult />} />
                 <Route path=":id" element={<HospitalReviewDetail />} />
                 <Route
                   path="post-doctor-review"
@@ -78,10 +78,16 @@ function App() {
               <Route path="/community" element={<CommunityMain />} />
               <Route path="/disease" element={<DiseaseMain />} />
               <Route path="/disease/write" element={<DiseaseWrite />} />
-              <Route path="/disease/detail/:id" element={<DetailDiseasePost />} />
+              <Route
+                path="/disease/detail/:id"
+                element={<DetailDiseasePost />}
+              />
               <Route path="/surgery" element={<SurgeryMain />} />
               <Route path="/surgery/write" element={<SurgeryWrite />} />
-              <Route path="/surgery/detail/:id" element={<DetailSurgeryPost />} />
+              <Route
+                path="/surgery/detail/:id"
+                element={<DetailSurgeryPost />}
+              />
               <Route path="/daily" element={<DailyMain />} />
               <Route path="/daily/write" element={<DailyWrite />} />
               <Route path="/daily/detail/:id" element={<DetailDailyPost />} />
@@ -89,9 +95,18 @@ function App() {
               <Route path="/counsel/write-counsel" element={<PostCounsel />} />
               <Route path="/library" element={<Library />} />
               <Route path="/search-results" element={<SearchResultsPage />} />
-              <Route path="/community/search-results" element={<CommunitySearchResultsPage />} />
-              <Route path="/doctor-search-results" element={<DoctorSearchResultsPage />} />
-              <Route path="/hospital-search-results" element={<HospitalSearchResultsPage />} />
+              <Route
+                path="/community/search-results"
+                element={<CommunitySearchResultsPage />}
+              />
+              <Route
+                path="/doctor-search-results"
+                element={<DoctorSearchResultsPage />}
+              />
+              <Route
+                path="/hospital-search-results"
+                element={<HospitalSearchResultsPage />}
+              />
             </Routes>
           </ContentWrapper>
           <Footer />

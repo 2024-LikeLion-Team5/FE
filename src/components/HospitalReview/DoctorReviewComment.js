@@ -128,7 +128,7 @@ const Body = styled.div`
   font-weight: 500;
 `;
 
-const DoctorReviewComment = () => {
+const DoctorReviewComment = ({ hospitalId }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [activeDoctor, setActiveDoctor] = useState("이신정1");
   const navigate = useNavigate();

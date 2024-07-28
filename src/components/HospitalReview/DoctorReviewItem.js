@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import theme from "../../Theme";
+import StarRatingDisplay from "../StarRatingDisplay";
 
 const Wrapper = styled.div`
   width: 22rem;
@@ -69,27 +70,37 @@ const Body = styled.span`
   font-weight: 500;
 `;
 
-const DoctorReviewItem = ({ onSelect, reviewId }) => {
+const DoctorReviewItem = ({ onSelect, review }) => {
+  const {
+    postId,
+    doctor,
+    hospital,
+    rating,
+    disease,
+    treatment,
+    ageGroup,
+    title,
+    content,
+  } = review;
   return (
-    <Wrapper onClick={() => onSelect(reviewId)}>
+    <Wrapper onClick={() => onSelect(postId)}>
+      {" "}
+      {/*여기 postId hospitalId로 바꿔야 함*/}
       <Info>
         <div>
-          <Doctor>이신정 의사 | </Doctor>
-          <Hospital>멘텀 비뇨기과</Hospital>
+          <Doctor>{doctor} | </Doctor>
+          <Hospital>{hospital}</Hospital>
         </div>
-        <Stars></Stars>
+        <StarRatingDisplay rating={rating} />
         <Options>
-          <OptionItem>발기부전</OptionItem>
+          <OptionItem>{disease}</OptionItem>
+          <OptionItem>{treatment}</OptionItem>
+          <OptionItem>{ageGroup}</OptionItem>
         </Options>
       </Info>
       <Post>
-        <Title>의사선생님이 자세히 알려주십니다.</Title>
-        <Body>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum
-          dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua.
-        </Body>
+        <Title>{title}</Title>
+        <Body>{content}</Body>
       </Post>
     </Wrapper>
   );

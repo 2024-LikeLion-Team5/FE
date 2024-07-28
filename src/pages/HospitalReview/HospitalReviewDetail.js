@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import detailImg from "../../assets/hospital_detail_img.png";
 import DoctorReviewComment from "../../components/HospitalReview/DoctorReviewComment";
 import HospitalReviewComment from "../../components/HospitalReview/HospitalReviewComment";
 import star from "../../assets/full_star.png";
+import { getHospitalInfo } from "../../api/hospital";
 
 const Container = styled.div`
   width: 100%;
@@ -173,8 +174,10 @@ const CommentWrapper = styled.div`
 
 const HospitalReviewDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const location = useLocation();
   const [activeButton, setActiveButton] = useState("doctor");
+  const [hospitalInfo, setHospitalInfo] = useState(null);
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
@@ -186,27 +189,40 @@ const HospitalReviewDetail = () => {
     }
   }, [location.search]);
 
+  useEffect(() => {
+    const fetchHospitalInfo = async () => {
+      const data = await getHospitalInfo(id);
+      setHospitalInfo(data);
+    };
+
+    fetchHospitalInfo();
+  }, [id]);
+
   const handleButtonClick = (buttonType) => {
     setActiveButton(buttonType);
+  };
+
+  const handleCounselClick = (e) => {
+    e.preventDefault();
+    navigate("/counsel/write-counsel");
   };
 
   return (
     <Container>
       <Wrapper>
         <Info>
-          <Img src={detailImg} alt="병원 사진" />
+          <Img src={hospitalInfo.imageUrl} alt="병원 사진" />
           <Details>
-            <Name>멘텀비뇨기과</Name>
+            <Name>{hospitalInfo.hospital}</Name>
             <InfoWrapper>
               <About>
-                <Address>대전광역시 유성구 대학로 99 </Address>
+                <Address>{hospitalInfo.addres}</Address>
                 <ClinicTime>
                   <Title>진료시간</Title>
                   <Times>
-                    <Time>월~금 10:00~18:00</Time>
-                    <Time>토 12:00~19:00 (휴식 X)</Time>
-                    <Time>휴식 시간 12:30~13:30</Time>
-                    <Time>매주 일요일 휴진</Time>
+                    {hospitalInfo.operatingTime.map((time, index) => (
+                      <Time key={index}>{time}</Time>
+                    ))}
                   </Times>
                 </ClinicTime>
               </About>
@@ -215,21 +231,21 @@ const HospitalReviewDetail = () => {
                   <Section>시설 평점</Section>
                   <Stars>
                     <img src={star} alt="별" />
-                    <span>4</span>
+                    <span>{hospitalInfo.facilityRating}</span>
                   </Stars>
                 </RatingSection>
                 <RatingSection>
                   <Section>분위기 평점</Section>
                   <Stars>
                     <img src={star} alt="별" />
-                    <span>4</span>
+                    <span>{atmosphereRating}</span>
                   </Stars>
                 </RatingSection>
                 <RatingSection>
                   <Section>직원 평점</Section>
                   <Stars>
                     <img src={star} alt="별" />
-                    <span>4</span>
+                    <span>{employeeRating}</span>
                   </Stars>
                 </RatingSection>
               </Evaluation>
@@ -251,12 +267,16 @@ const HospitalReviewDetail = () => {
               병원별 후기
             </Option>
           </Options>
-          <CounselBtn>전문의와 상담하기</CounselBtn>
+          <CounselBtn onClick={handleCounselClick}>
+            전문의와 상담하기
+          </CounselBtn>
         </Buttons>
 
         <CommentWrapper>
-          {activeButton === "doctor" && <DoctorReviewComment />}
-          {activeButton === "hospital" && <HospitalReviewComment />}
+          {activeButton === "doctor" && <DoctorReviewComment hospitalId={id} />}
+          {activeButton === "hospital" && (
+            <HospitalReviewComment hospitalId={id} />
+          )}
         </CommentWrapper>
       </Wrapper>
     </Container>

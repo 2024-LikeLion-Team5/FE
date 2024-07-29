@@ -36,6 +36,8 @@ const Detail = styled.div`
 
 const Img = styled.img`
   height: 7.75rem;
+  width: 11.25;
+  border-radius: 0.5rem;
 `;
 
 const Evaluations = styled.div`
@@ -52,18 +54,27 @@ const Option = styled.div`
   padding: 0.25rem 1rem;
 `;
 
-const HospitalSearchItem = ({ onSelect, hospitalId }) => {
+const HospitalSearchItem = ({ onSelect, review }) => {
+  const {
+    hospitalId,
+    hospital,
+    address,
+    imageUrl,
+    facilityRating,
+    atmosphereRating,
+    employeeRating,
+  } = review;
   return (
     <Wrapper onClick={() => onSelect(hospitalId)}>
       <Info>
-        <Name>멘텀비뇨기과</Name>
-        <Address>대전광역시 유성구 대학로 99</Address>
+        <Name>{hospital}</Name>
+        <Address>{address}</Address>
         <Detail>
-          <Img src={hospitalImg} alt="병원 후기 사진" />
+          <Img src={imageUrl} alt="병원 후기 사진" />
           <Evaluations>
-            <Option>시설 평점 4.3</Option>
-            <Option>분위기 평점 4</Option>
-            <Option>직원 평점 4.2</Option>
+            <Option>시설 평점 {facilityRating}</Option>
+            <Option>분위기 평점 {atmosphereRating}</Option>
+            <Option>직원 평점 {employeeRating}</Option>
           </Evaluations>
         </Detail>
       </Info>

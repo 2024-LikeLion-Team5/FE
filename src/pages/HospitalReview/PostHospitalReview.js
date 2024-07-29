@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Caution from "../../components/Caution";
 import StarRating from "../../components/StarRating";
+import { postHospitalReview } from "../../api/hospital";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Wrapper = styled.div`
   width: 52rem;
@@ -177,34 +179,55 @@ const RecWrapper = styled.div`
 `;
 
 const PostHospitalReview = () => {
+  const navigate = useNavigate();
+  const { id } = useParams();
+
   const [isCounsel, setIsCounsel] = useState(false);
   const [facilityRating, setFacilityRating] = useState(0);
   const [atmosphereRating, setAtmosphereRating] = useState(0);
   const [staffRating, setStaffRating] = useState(0);
   const [isAttach, setIsAttach] = useState(false);
+  const [formData, setFormData] = useState({
+    treatment: "",
+    hospital: "",
+    title: "",
+    content: "",
+    imageUrl: "",
+  });
 
   const handleCounselingClick = (e) => {
     e.preventDefault();
     setIsCounsel(true);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // API로 보낼 데이터
-    const reviewData = {
-      facilityRating,
-      atmosphereRating,
-      staffRating,
-      // ... 추가적인 데이터
-    };
-
-    // API 요청을 보내는 로직을 여기에 추가
-    console.log("Sending review data:", reviewData);
+    setFormData({ ...formData, treatment: "just meeting" });
   };
 
   const handleAttachRecipt = (e) => {
     e.preventDefault();
     setIsAttach(true);
+  };
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const content = {
+      ...formData,
+      facilityRating,
+      atmosphereRating,
+      employeeRating: staffRating,
+    };
+    try {
+      const postId = await postHospitalReview(content);
+      alert("리뷰 작성이 완료되었습니다.");
+      navigate(`/hospital-review/hospital/${id}`);
+    } catch (error) {
+      console.error("병원 리뷰 작성 실패", error);
+    }
   };
 
   return (
@@ -216,7 +239,12 @@ const PostHospitalReview = () => {
       <InputForm onSubmit={handleSubmit}>
         <InputWrapper>
           <Label>진료명</Label>
-          <Input type="text" placeholder="진료명을 적어주세요." />
+          <Input
+            type="text"
+            name="treatment"
+            placeholder="진료명을 적어주세요."
+            onChange={handleChange}
+          />
           <Button
             className={isCounsel ? "active" : ""}
             onClick={handleCounselingClick}
@@ -226,7 +254,12 @@ const PostHospitalReview = () => {
         </InputWrapper>
         <InputWrapper>
           <Label>병원명</Label>
-          <Input type="text" placeholder="방문한 병원 이름을 적어주세요." />
+          <Input
+            type="text"
+            name="hospital"
+            placeholder="방문한 병원 이름을 적어주세요."
+            onChange={handleChange}
+          />
         </InputWrapper>
         <InputWrapper>
           <Label>시설</Label>
@@ -246,17 +279,27 @@ const PostHospitalReview = () => {
         <InputWrapper className="title">
           <Label className="title">제목</Label>
           <RecWrapper>
-            <Input type="text" placeholder="제목을 입력해주세요." />
+            <Input
+              type="text"
+              name="title"
+              placeholder="제목을 입력해주세요."
+              onChange={handleChange}
+            />
             <RecCaution>영수증을 첨부해야 후기를 등록할 수 있어요.</RecCaution>
           </RecWrapper>
           <Upload>
-            <UploadRec>영수증 첨부</UploadRec>
+            <UploadRec onClick={handleAttachRecipt}>영수증 첨부</UploadRec>
             <UploadPic>사진 업로드</UploadPic>
           </Upload>
         </InputWrapper>
         <InputWrapper>
           <Label>내용</Label>
-          <BodyInput type="text" placeholder="후기를 적어주세요." />
+          <BodyInput
+            type="text"
+            name="content"
+            placeholder="후기를 적어주세요."
+            onChange={handleChange}
+          />
         </InputWrapper>
         <Caution />
         <BtnWrapper>

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import seletArrow from "../../assets/select_arrow.png";
+import { useNavigate, useParams } from "react-router-dom";
 import CustomSelect from "../../components/CustomSelect";
 import Caution from "../../components/Caution";
 import StarRating from "../../components/StarRating";
+import { postDoctorReview } from "../../api/hospital";
 
 const Wrapper = styled.div`
   width: 52rem;
@@ -184,9 +185,22 @@ const RecWrapper = styled.div`
 `;
 
 const PostDoctorReview = () => {
+  const navigate = useNavigate();
+  const { id } = useParams();
+
   const [selectedAge, setSelectedAge] = useState(null);
   const [isCounsel, setIsCounsel] = useState(false);
   const [rating, setRating] = useState(0);
+  const [isAttach, setIsAttach] = useState(false);
+  const [formData, setFormData] = useState({
+    hospital: "",
+    disease: "",
+    treatment: "",
+    doctor: "",
+    title: "",
+    content: "",
+    imageUrl: "", // 기본값으로 빈 문자열 설정
+  });
 
   const ageOption = ["30대 이하", "40대", "50대", "60대", "70대", "80대 이상"];
 
@@ -198,7 +212,7 @@ const PostDoctorReview = () => {
     { key: 5, value: "조루/지루" },
     { key: 6, value: "전립선염" },
     { key: 7, value: "기타" },
-  ]; // CustomSelect 옵션 데이터 추가
+  ];
 
   const handleAgeClick = (e, age) => {
     e.preventDefault();
@@ -210,26 +224,72 @@ const PostDoctorReview = () => {
     setIsCounsel(true);
   };
 
+  const handleAttachRecipt = (e) => {
+    e.preventDefault();
+    setIsAttach(true);
+  };
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSelectChange = (selectedOption) => {
+    setFormData({
+      ...formData,
+      disease: selectedOption,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const content = {
+      ...formData,
+      ageGroup: selectedAge,
+      rating,
+      imageUrl: "", // 이미지 URL이 없다면 빈 문자열로 설정
+    };
+    try {
+      const postId = await postDoctorReview(content);
+      alert("리뷰 작성이 완료되었습니다.");
+      navigate(`/hospital-review/hospital/${id}`);
+    } catch (error) {
+      console.error("의사 상담 리뷰 작성 실패", error);
+    }
+  };
+
   return (
     <Wrapper>
       <TitleWrapper>
         <SmallTitle>당신의 이야기를 들려주세요.</SmallTitle>
         <LargeTitle>의사 상담 후기</LargeTitle>
       </TitleWrapper>
-      <InputForm>
+      <InputForm onSubmit={handleSubmit}>
         <InputWrapper>
           <Label>병원명</Label>
-          <Input type="text" placeholder="방문한 병원 이름을 적어주세요." />
+          <Input
+            type="text"
+            name="hospital"
+            placeholder="방문한 병원 이름을 적어주세요."
+            onChange={handleChange}
+          />
         </InputWrapper>
         <InputWrapper>
           <Label>질환/고민</Label>
-          <CustomSelect optionData={optionData} />
+          <CustomSelect optionData={optionData} onChange={handleSelectChange} />
         </InputWrapper>
         <InputWrapper>
           <Label>받은 진료</Label>
-          <Input type="text" placeholder="진료명을 적어주세요." />
+          <Input
+            type="text"
+            name="treatment"
+            placeholder="진료명을 적어주세요."
+            onChange={handleChange}
+          />
           <Button
-            className={isCounsel === true ? "active" : ""}
+            className={isCounsel ? "active" : ""}
             onClick={handleCounselingClick}
           >
             단순 상담
@@ -251,7 +311,12 @@ const PostDoctorReview = () => {
         </InputWrapper>
         <InputWrapper>
           <Label>의사</Label>
-          <Input type="text" placeholder="진료 받은 의사 이름을 적어주세요." />
+          <Input
+            type="text"
+            name="doctor"
+            placeholder="진료 받은 의사 이름을 적어주세요."
+            onChange={handleChange}
+          />
         </InputWrapper>
         <InputWrapper>
           <Label>평가</Label>
@@ -262,24 +327,35 @@ const PostDoctorReview = () => {
         <InputWrapper className="title">
           <Label className="title">제목</Label>
           <RecWrapper>
-            <Input type="text" placeholder="제목을 입력해주세요." />
+            <Input
+              type="text"
+              name="title"
+              placeholder="제목을 입력해주세요."
+              onChange={handleChange}
+            />
             <RecCaution>영수증을 첨부해야 후기를 등록할 수 있어요.</RecCaution>
           </RecWrapper>
           <Upload>
-            <UploadRec>영수증 첨부</UploadRec>
+            <UploadRec onClick={handleAttachRecipt}>영수증 첨부</UploadRec>
             <UploadPic>사진 업로드</UploadPic>
           </Upload>
         </InputWrapper>
         <InputWrapper>
           <Label>내용</Label>
-          <BodyInput type="text" placeholder="후기를 적어주세요." />
+          <BodyInput
+            type="text"
+            name="content"
+            placeholder="후기를 적어주세요."
+            onChange={handleChange}
+          />
         </InputWrapper>
+        <Caution />
+        <BtnWrapper>
+          <PostButton type="submit">게시글 작성</PostButton>
+        </BtnWrapper>
       </InputForm>
-      <Caution />
-      <BtnWrapper>
-        <PostButton>게시글 작성</PostButton>
-      </BtnWrapper>
     </Wrapper>
   );
 };
+
 export default PostDoctorReview;

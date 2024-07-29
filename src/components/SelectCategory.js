@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import selectArrow from '../assets/select_arrow.png'; // select_arrow 이미지 import
+import selectArrow from '../assets/select_arrow.png';
 
 const DropdownWrapper = styled.div`
   position: relative;
@@ -20,7 +20,7 @@ const DropdownButton = styled.button`
   align-items: center;
   cursor: pointer;
   color: ${({ theme }) => theme.colors.nv};
-  font-weight: normal; /* bold 제거 */
+  font-weight: normal;
 `;
 
 const ArrowIcon = styled.img`
@@ -47,23 +47,33 @@ const DropdownListItem = styled.li`
   font-size: 16px;
   color: ${({ theme }) => theme.colors.nv};
   cursor: pointer;
-  text-align: center; /* 중앙 정렬 추가 */
+  text-align: center;
   &:hover {
     background-color: ${({ theme }) => theme.colors.b4};
   }
 `;
 
-const SelectCategory = () => {
+const SelectCategory = ({ onSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState('질환/고민을 선택하세요');
 
   const toggleDropdown = () => setIsOpen(!isOpen);
+
   const handleOptionClick = (option) => {
-    setSelectedOption(option);
+    setSelectedOption(option.value);
     setIsOpen(false);
+    onSelect(option.key);  // 선택된 옵션의 키를 부모 컴포넌트로 전달
   };
 
-  const options = ['발기부전', '음경 확대', '정관수술', '요로결석', '조루/지루', '전립선염', '기타'];
+  const options = [
+    { key: "IMPOTENCE", value: "발기부전" },
+    { key: "PENIS_ENLARGEMENT", value: "음경확대" },
+    { key: "VASECTOMY", value: "정관수술" },
+    { key: "URINARY_STONE", value: "요로결석" },
+    { key: "PREMATURE_AND_DELAYED_EJACULATION", value: "조루/지루" },
+    { key: "PROSTATITIS", value: "전립선염" },
+    { key: "ETC", value: "기타" },
+  ];
 
   return (
     <DropdownWrapper>
@@ -73,9 +83,9 @@ const SelectCategory = () => {
       </DropdownButton>
       {isOpen && (
         <DropdownList>
-          {options.map((option, index) => (
-            <DropdownListItem key={index} onClick={() => handleOptionClick(option)}>
-              {option}
+          {options.map((option) => (
+            <DropdownListItem key={option.key} onClick={() => handleOptionClick(option)}>
+              {option.value}
             </DropdownListItem>
           ))}
         </DropdownList>
@@ -85,3 +95,4 @@ const SelectCategory = () => {
 };
 
 export default SelectCategory;
+

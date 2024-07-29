@@ -57,13 +57,16 @@ const Option = styled.li`
   }
 `;
 
-const CustomSelect = ({ optionData }) => {
-  const [currentValue, setCurrentValue] = useState("질환/고민을 선택해주세요.");
+const CustomSelect = ({ optionData, value, onChange }) => {
+  const [currentValue, setCurrentValue] = useState(optionData.find(option => option.key === value).value);
   const [showOptions, setShowOptions] = useState(false);
 
   const handleOnChangeSelectValue = (e) => {
-    setCurrentValue(e.target.getAttribute("value"));
+    const selectedValue = e.target.getAttribute("value");
+    setCurrentValue(selectedValue);
     setShowOptions(false);
+    const selectedOption = optionData.find(option => option.value === selectedValue);
+    onChange(selectedOption.key);
   };
 
   return (

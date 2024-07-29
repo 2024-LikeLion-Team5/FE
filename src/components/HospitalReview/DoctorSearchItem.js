@@ -8,10 +8,10 @@ const Wrapper = styled.div`
   padding: 1.625rem 0;
 `;
 
-const DoctorSeachItem = ({ onSelect, reviewId }) => {
+const DoctorSeachItem = ({ onSelect, review }) => {
   return (
     <Wrapper>
-      <DoctorReviewItem onSelect={onSelect} reviewId={reviewId} />
+      <DoctorReviewItem onSelect={onSelect} review={review} />
     </Wrapper>
   );
 };

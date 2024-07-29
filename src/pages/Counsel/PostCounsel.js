@@ -227,6 +227,9 @@ const Refer = styled.p`
 const BtnWrapper = styled.div`
   margin: 0 auto;
   margin-bottom: 24.75rem;
+  display: flex;
+  gap: 2.5rem;
+  justify-content: center;
 `;
 
 const PostButton = styled.button`
@@ -382,7 +385,8 @@ const PostCounsel = () => {
         </InputForm>
         <Caution />
         <BtnWrapper>
-          <PostButton>게시글 작성</PostButton>
+          <PostButton>전화 상담 예약하기</PostButton>
+          <PostButton>카톡 상담 예약하기</PostButton>
         </BtnWrapper>
       </ContentWrapper>
     </div>

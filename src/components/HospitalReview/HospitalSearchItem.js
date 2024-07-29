@@ -3,8 +3,6 @@ import styled from "styled-components";
 import hospitalImg from "../../assets/hospital_review_img.png";
 
 const Wrapper = styled.div`
-  // border-top: 1px solid ${({ theme }) => theme.colors.g2};
-  // border-bottom: 1px solid ${({ theme }) => theme.colors.g2};
   padding: 1.625rem 0;
 `;
 
@@ -54,9 +52,9 @@ const Option = styled.div`
   padding: 0.25rem 1rem;
 `;
 
-const HospitalSearchItem = ({ onSelect, reviewId }) => {
+const HospitalSearchItem = ({ onSelect, hospitalId }) => {
   return (
-    <Wrapper onClick={() => onSelect(reviewId)}>
+    <Wrapper onClick={() => onSelect(hospitalId)}>
       <Info>
         <Name>멘텀비뇨기과</Name>
         <Address>대전광역시 유성구 대학로 99</Address>

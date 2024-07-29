@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import DoctorReviewItem from "../../components/HospitalReview/DoctorReviewItem";
 import HospitalReviewItem from "../../components/HospitalReview/HospitalReviewItem";
+import { getDoctorReviewList, getHospitalReviewList } from "../../api/hospital";
 
 const Wrapper = styled.div`
   width: calc(100% - (100% - 1120px) / 2);
@@ -35,6 +36,23 @@ const Reviews = styled.div`
 
 const HospitalReviewList = () => {
   const navigate = useNavigate();
+  const [doctorReviews, setDoctorReviews] = useState([]);
+  const [hospitalReviews, setHospitalReviews] = useState([]);
+
+  useEffect(() => {
+    const fetchDoctorReviews = async () => {
+      const data = await getDoctorReviewList();
+      setDoctorReviews(data);
+    };
+
+    const fetchHospitalReviews = async () => {
+      const data = await getHospitalReviewList();
+      setHospitalReviews(data);
+    };
+
+    fetchDoctorReviews();
+    fetchHospitalReviews();
+  }, []);
 
   const handleSelectHospitalReview = (id) => {
     navigate(`/hospital-review/${id}?tab=hospital`);
@@ -47,18 +65,27 @@ const HospitalReviewList = () => {
   return (
     <Wrapper>
       <div>
-        <ReviewTitle>의사 상담 후기</ReviewTitle>
+        <ReviewTitle>병원별 후기</ReviewTitle>
         <Reviews>
-          <DoctorReviewItem onSelect={handleSelectDoctorReview} reviewId={1} />
+          {hospitalReviews.map((review) => (
+            <HospitalReviewItem
+              key={review.postId}
+              onSelect={handleSelectHospitalReview}
+              review={review}
+            />
+          ))}
         </Reviews>
       </div>
       <div>
-        <ReviewTitle>병원별 후기</ReviewTitle>
+        <ReviewTitle>의사 상담 후기</ReviewTitle>
         <Reviews>
-          <HospitalReviewItem
-            onSelect={handleSelectHospitalReview}
-            reviewId={1}
-          />
+          {doctorReviews.map((review) => {
+            <DoctorReviewItem
+              key={review.postId}
+              onSelect={handleSelectDoctorReview}
+              review={review}
+            />;
+          })}
         </Reviews>
       </div>
     </Wrapper>

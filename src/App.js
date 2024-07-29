@@ -92,7 +92,10 @@ function App() {
               <Route path="/daily/write" element={<DailyWrite />} />
               <Route path="/daily/detail/:id" element={<DetailDailyPost />} />
               <Route path="/counsel" element={<CounselMain />} />
-              <Route path="/counsel/write-counsel" element={<PostCounsel />} />
+              <Route
+                path="/counsel/:id/write-counsel"
+                element={<PostCounsel />}
+              />
               <Route path="/library" element={<Library />} />
               <Route path="/search-results" element={<SearchResultsPage />} />
               <Route

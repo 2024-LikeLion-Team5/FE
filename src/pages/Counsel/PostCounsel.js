@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useNavigate, useParams } from "react-router-dom";
 import Advertisement from "../../components/Advertisement";
 import CustomSelect from "../../components/CustomSelect";
 import Caution from "../../components/Caution";
+import { postCounsel } from "../../api/hospital";
 
 const ContentWrapper = styled.div`
   width: 52rem;
@@ -25,7 +27,7 @@ const Title = styled.p`
 `;
 
 const Body = styled.p`
-  font-size: 0.875;
+  font-size: 0.875rem;
   font-weight: 600;
   line-height: 2.5;
   &.first {
@@ -34,13 +36,11 @@ const Body = styled.p`
   &.second {
     margin-bottom: 10.875rem;
   }
-
   &.third {
     font-size: 1rem;
     font-weight: bold;
     margin-bottom: 3.75rem;
   }
-
   &.fourth {
     margin-bottom: 7.75rem;
   }
@@ -254,16 +254,28 @@ const UploadPic = styled.button`
 `;
 
 const PostCounsel = () => {
+  const navigate = useNavigate();
+  const { id } = useParams();
   const [selectedAge, setSelectedAge] = useState(null);
   const [painLevel, setPainLevel] = useState(0);
+  const [formData, setFormData] = useState({
+    disease: "",
+    period: "",
+    title: "",
+    content: "",
+    imageUrl: null,
+  });
 
   const ageOption = ["30대 이하", "40대", "50대", "60대", "70대", "80대 이상"];
 
-  const optionData = [
-    { key: 1, value: "Option 1" },
-    { key: 2, value: "Option 2" },
-    { key: 3, value: "Option 3" },
-    { key: 4, value: "Option 4" },
+  const options = [
+    { key: "IMPOTENCE", value: "발기부전" },
+    { key: "PENIS_ENLARGEMENT", value: "음경확대" },
+    { key: "VASECTOMY", value: "정관수술" },
+    { key: "URINARY_STONE", value: "요로결석" },
+    { key: "PREMATURE_AND_DELAYED_EJACULATION", value: "조루/지루" },
+    { key: "PROSTATITIS", value: "전립선염" },
+    { key: "ETC", value: "기타" },
   ];
 
   const handleAgeClick = (e, age) => {
@@ -273,6 +285,38 @@ const PostCounsel = () => {
 
   const handlePainLevelClick = (level) => {
     setPainLevel(level);
+  };
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSelectChange = (selectedOption) => {
+    setFormData({
+      ...formData,
+      disease: selectedOption.key,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const content = {
+      ...formData,
+      ageGroup: selectedAge,
+      pain: painLevel,
+    };
+    try {
+      const response = await postCounsel(content);
+      if (response && response.status === 201) {
+        alert("상담 요청이 완료되었습니다.");
+        navigate(`/hospital-review/hospital/${id}`);
+      }
+    } catch (error) {
+      console.error("상담 요청 실패", error);
+    }
   };
 
   return (
@@ -309,14 +353,19 @@ const PostCounsel = () => {
         <TitleWrapper>
           <LargeTitle>전문의에게 상담하기</LargeTitle>
         </TitleWrapper>
-        <InputForm>
+        <InputForm onSubmit={handleSubmit}>
           <InputWrapper>
             <Label>질환/고민</Label>
-            <CustomSelect optionData={optionData} />
+            <CustomSelect optionData={options} onChange={handleSelectChange} />
           </InputWrapper>
           <InputWrapper>
             <Label>기간</Label>
-            <Input type="text" placeholder="불편함을 느낀 지 얼마나 됐나요?" />
+            <Input
+              type="text"
+              name="period"
+              placeholder="불편함을 느낀 지 얼마나 됐나요?"
+              onChange={handleChange}
+            />
           </InputWrapper>
           <PainWrapper>
             <PainDescription>
@@ -343,7 +392,7 @@ const PostCounsel = () => {
                   <PainLevelButton
                     key={i}
                     selected={i === painLevel}
-                    onClick={() => setPainLevel(i)}
+                    onClick={() => handlePainLevelClick(i)}
                   >
                     {i}
                   </PainLevelButton>
@@ -369,13 +418,23 @@ const PostCounsel = () => {
 
           <InputWrapper>
             <Label>제목</Label>
-            <Input type="text" placeholder="제목을 입력해주세요." />
+            <Input
+              type="text"
+              name="title"
+              placeholder="제목을 입력해주세요."
+              onChange={handleChange}
+            />
             <UploadPic>사진 업로드</UploadPic>
           </InputWrapper>
           <InputWrapper>
             <Label>내용</Label>
             <BodyWrapper>
-              <BodyInput type="text" placeholder="상담내용을 적어주세요." />
+              <BodyInput
+                type="text"
+                name="content"
+                placeholder="상담내용을 적어주세요."
+                onChange={handleChange}
+              />
               <Refer>
                 증상이나 과거 관련 병력, 먹는 약 등에 대해 구체적으로 작성하면
                 보다 정확한 상담에 도움이 돼요.
@@ -385,8 +444,8 @@ const PostCounsel = () => {
         </InputForm>
         <Caution />
         <BtnWrapper>
-          <PostButton>전화 상담 예약하기</PostButton>
-          <PostButton>카톡 상담 예약하기</PostButton>
+          <PostButton type="submit">전화 상담 예약하기</PostButton>
+          <PostButton type="submit">카톡 상담 예약하기</PostButton>
         </BtnWrapper>
       </ContentWrapper>
     </div>

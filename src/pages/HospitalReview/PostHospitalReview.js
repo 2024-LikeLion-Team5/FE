@@ -192,7 +192,7 @@ const PostHospitalReview = () => {
     hospital: "",
     title: "",
     content: "",
-    imageUrl: "",
+    imageUrl: null,
   });
 
   const handleCounselingClick = (e) => {
@@ -214,6 +214,10 @@ const PostHospitalReview = () => {
   };
 
   const handleSubmit = async (e) => {
+    if (!isAttach) {
+      alert("영수증을 첨부해주세요.");
+      return;
+    }
     e.preventDefault();
     const content = {
       ...formData,
@@ -222,9 +226,11 @@ const PostHospitalReview = () => {
       employeeRating: staffRating,
     };
     try {
-      const postId = await postHospitalReview(content);
-      alert("리뷰 작성이 완료되었습니다.");
-      navigate(`/hospital-review/hospital/${id}`);
+      const response = await postHospitalReview(content);
+      if (response && response.status === 201) {
+        alert("리뷰 작성이 완료되었습니다.");
+        navigate(`/hospital-review/hospital/${id}`);
+      }
     } catch (error) {
       console.error("병원 리뷰 작성 실패", error);
     }

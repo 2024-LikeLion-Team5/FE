@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import writeBtn from "../../assets/write_btn.png";
 import writeBtnWhite from "../../assets/write_btn_white.png";
 import { useNavigate } from "react-router-dom";
+import { getHospitalReviewByHospital } from "../../api/hospital";
 
 const PostButton = styled.button`
   margin-left: auto;
@@ -95,14 +96,24 @@ const Body = styled.div`
 
 const HospitalReviewComment = ({ hospitalId }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [reviews, setReviews] = useState([]);
   const navigate = useNavigate();
 
-  const handlePostBtnClick = () => {
-    navigate("/hospital-review/post-hospital-review");
+  useEffect(() => {
+    const fetchReviews = async () => {
+      const data = await getHospitalReviewByHospital(hospitalId);
+      setReviews(data);
+    };
+
+    fetchReviews();
+  }, [hospitalId]);
+
+  const handlePostBtnClick = (id) => {
+    navigate(`/hospital-review/post/${id}/hospital-review`);
   };
 
-  const handleCommentClick = () => {
-    navigate("/hospital-review/hospital-review/id");
+  const handleCommentClick = (id) => {
+    navigate(`/hospital-review/hospital-review/${id}`);
   };
 
   return (
@@ -110,36 +121,36 @@ const HospitalReviewComment = ({ hospitalId }) => {
       <PostButton
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        onClick={handlePostBtnClick}
+        onClick={handlePostBtnClick(hospitalId)}
       >
         <img src={isHovered ? writeBtnWhite : writeBtn} alt="글쓰기 버튼" />
         병원 후기 쓰기
       </PostButton>
-      <CommentWrapper onClick={handleCommentClick}>
-        <TitleWapper>
-          <CommentTitle>멘텀 비뇨기과 추천합니다!!</CommentTitle>
-          <Date>2024. 07. 13</Date>
-        </TitleWapper>
-        <Detail>
-          <Info>
-            <div>
-              <InfoName>받은 진료</InfoName>
-              <InfoDetail>발기부전 검사</InfoDetail>
-            </div>
-          </Info>
-          <About>
-            <AboutDetail>시설 4점</AboutDetail>
-            <AboutDetail>분위기 4점</AboutDetail>
-            <AboutDetail>직원 4점</AboutDetail>
-          </About>
-        </Detail>
-        <Body>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum
-          dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua.
-        </Body>
-      </CommentWrapper>
+      {reviews.map((review) => (
+        <CommentWrapper
+          key={review.postId}
+          onClick={() => handleCommentClick(review.postId)}
+        >
+          <TitleWapper>
+            <CommentTitle>{review.title}</CommentTitle>
+            <Date>{review.createdAt}</Date>
+          </TitleWapper>
+          <Detail>
+            <Info>
+              <div>
+                <InfoName>받은 진료</InfoName>
+                <InfoDetail>{review.treatment}</InfoDetail>
+              </div>
+            </Info>
+            <About>
+              <AboutDetail>시설 {review.facilityScore}점</AboutDetail>
+              <AboutDetail>분위기 {review.atmosphereScore}점</AboutDetail>
+              <AboutDetail>직원 {review.employeeScore}점</AboutDetail>
+            </About>
+          </Detail>
+          <Body>{review.content}</Body>
+        </CommentWrapper>
+      ))}
     </div>
   );
 };

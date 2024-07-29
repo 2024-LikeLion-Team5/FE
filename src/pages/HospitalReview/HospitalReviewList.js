@@ -55,11 +55,11 @@ const HospitalReviewList = () => {
   }, []);
 
   const handleSelectHospitalReview = (id) => {
-    navigate(`/hospital-review/${id}?tab=hospital`);
+    navigate(`/hospital-review/hospital-review/${id}`);
   };
 
   const handleSelectDoctorReview = (id) => {
-    navigate(`/hospital-review/${id}?tab=doctor`);
+    navigate(`/hospital-review/doctor-review/${id}`);
   };
 
   return (

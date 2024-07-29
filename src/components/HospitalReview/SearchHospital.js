@@ -74,6 +74,7 @@ const SearchHospital = ({ searching, setSearching }) => {
         `/hospital-review/search-results?keyword=${encodeURIComponent(input)}`
       );
     }
+    setSearching(true);
   };
 
   return (

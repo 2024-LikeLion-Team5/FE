@@ -1,36 +1,52 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PostLayout from "../../components/PostLayout";
 import StarRatingDisplay from "../../components/StarRatingDisplay";
+import { useParams } from "react-router-dom";
+import { getDetailDoctorReview } from "../../api/hospital";
 
 const DetailDoctorReview = () => {
+  const { id } = useParams();
+  const [reviewData, setReviewData] = useState(null);
+
+  useEffect(() => {
+    const fetchReviewData = async () => {
+      try {
+        const data = await getDetailDoctorReview(id);
+        setReviewData(data);
+      } catch (error) {
+        console.error("Failed to fetch review data", error);
+      }
+    };
+
+    fetchReviewData();
+  }, [id]);
+
+  if (!reviewData) {
+    return <div>Loading...</div>;
+  }
+
   const metaInfo = [
-    "조회수 12345678",
-    "좋아요 12345678",
-    "싫어요 12345678",
-    "2024. 07. 06",
+    `조회수 ${reviewData.hits}`,
+    `좋아요 ${reviewData.likeCount}`,
+    `싫어요 ${reviewData.dislikeCount}`,
+    reviewData.createdAt,
   ];
 
   const detailItems = [
-    { label: "질환/고민", value: "발기부전" },
-    { label: "받은 진료", value: "단순 상담" },
-    { label: "연령대", value: "50대" },
-    { label: "평가", value: <StarRatingDisplay rating={4} /> },
-    { label: "의사", value: "이신정" },
+    { label: "질환/고민", value: reviewData.disease },
+    { label: "받은 진료", value: reviewData.treatment },
+    { label: "연령대", value: `${reviewData.ageGroup}대` },
+    { label: "평가", value: <StarRatingDisplay rating={reviewData.rating} /> },
+    { label: "의사", value: reviewData.doctorName },
   ];
 
   return (
     <PostLayout
-      title="의사선생님이 자세하게 알려주십니다."
+      title={reviewData.title}
       category="의사 상담 후기"
       metaInfo={metaInfo}
       detailItems={detailItems}
-      content={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-      occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-      mollit anim id est laborum.`}
+      content={reviewData.content}
     />
   );
 };

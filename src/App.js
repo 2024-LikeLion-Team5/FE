@@ -56,21 +56,21 @@ function App() {
               <Route path="/hospital-review" element={<HospitalReview />}>
                 <Route index element={<HospitalReviewList />} />
                 <Route path="search-results" element={<ReviewSearchResult />} />
-                <Route path=":id" element={<HospitalReviewDetail />} />
+                <Route path="hospital/:id" element={<HospitalReviewDetail />} />
                 <Route
-                  path="post-doctor-review"
+                  path="post/:id/doctor-review"
                   element={<PostDoctorReview />}
                 />
                 <Route
-                  path="post-hospital-review"
+                  path="post/:id/hospital-review"
                   element={<PostHospitalReview />}
                 />
                 <Route
-                  path="doctor-review/id"
+                  path="doctor-review/:id"
                   element={<DetailDoctorReview />}
                 />
                 <Route
-                  path="hospital-review/id"
+                  path="hospital-review/:id"
                   element={<DetailHospitalReview />}
                 />
               </Route>

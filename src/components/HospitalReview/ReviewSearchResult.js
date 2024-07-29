@@ -95,12 +95,12 @@ const ReviewSearchResult = () => {
   //   fetchSearchResults();
   // }, [keyword]);
 
-  const handleSelectHospitalReview = (id) => {
-    navigate(`/hospital-review/${id}?tab=hospital`);
+  const handleSelectHospitalReview = (hospitalId) => {
+    navigate(`/hospital-review/hospital/${hospitalId}`);
   };
 
-  const handleSelectDoctorReview = (id) => {
-    navigate(`/hospital-review/${id}?tab=doctor`);
+  const handleSelectDoctorReview = (postId) => {
+    navigate(`/hospital-review/doctor-review/${postId}`);
   };
 
   return (
@@ -116,10 +116,13 @@ const ReviewSearchResult = () => {
         </Result>
         <Reviews>
           <HospitalSearchItemWrapper>
-            <HospitalSearchItem
-              onSelect={handleSelectHospitalReview}
-              review={1} //안에 내용 수정하기
-            />
+            {hospitalReviews.slice(0, 3).map((review) => (
+              <HospitalSearchItem
+                key={review.hospitalId}
+                onSelect={handleSelectHospitalReview}
+                review={review}
+              />
+            ))}
           </HospitalSearchItemWrapper>
         </Reviews>
       </HospitalResult>
@@ -132,10 +135,13 @@ const ReviewSearchResult = () => {
           </div>
         </Result>
         <Reviews>
-          <DoctorReviewItem
-            onSelect={handleSelectDoctorReview}
-            review={1} //안에 내용 수정하기
-          />
+          {doctorReviews.slice(0, 3).map((review) => (
+            <DoctorReviewItem
+              key={review.postId}
+              onSelect={handleSelectDoctorReview}
+              review={review}
+            />
+          ))}
         </Reviews>
       </DoctorResult>
     </Container>

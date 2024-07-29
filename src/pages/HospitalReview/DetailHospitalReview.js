@@ -1,37 +1,62 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PostLayout from "../../components/PostLayout";
 import StarRatingDisplay from "../../components/StarRatingDisplay";
+import { useParams } from "react-router-dom";
+import { getDetailHospitalReview } from "../../api/hospital";
 
 const DetailHospitalReview = () => {
+  const { id } = useParams();
+  const [reviewData, setReviewData] = useState(null);
+
+  useEffect(() => {
+    const fetchReviewData = async () => {
+      try {
+        const data = await getDetailHospitalReview(id);
+        setReviewData(data);
+      } catch (error) {
+        console.error("Failed to fetch review data", error);
+      }
+    };
+
+    fetchReviewData();
+  }, [id]);
+
+  if (!reviewData) {
+    return <div>Loading...</div>;
+  }
+
   const metaInfo = [
-    "조회수 12345678",
-    "좋아요 12345678",
-    "싫어요 12345678",
-    "2024. 07. 06",
+    `조회수 ${reviewData.hits}`,
+    `좋아요 ${reviewData.likeCount}`,
+    `싫어요 ${reviewData.dislikeCount}`,
+    reviewData.createdAt,
   ];
 
   const detailItems = [
-    { label: "진료명", value: "발기부전 검사" },
-    { label: "시설", value: <StarRatingDisplay rating={4} /> },
-    { label: "병원명", value: "멘텀 비뇨기과" },
-    { label: "분위기", value: <StarRatingDisplay rating={4} /> },
+    { label: "진료명", value: reviewData.treatment },
+    {
+      label: "시설",
+      value: <StarRatingDisplay rating={reviewData.facilityRating} />,
+    },
+    { label: "병원명", value: reviewData.hospital },
+    {
+      label: "분위기",
+      value: <StarRatingDisplay rating={reviewData.atmosphereRating} />,
+    },
     { label: "", value: "" },
-    { label: "직원", value: <StarRatingDisplay rating={4} /> },
+    {
+      label: "직원",
+      value: <StarRatingDisplay rating={reviewData.employeeRating} />,
+    },
   ];
 
   return (
     <PostLayout
-      title="멘텀 비뇨기과 추천합니다!!"
+      title={reviewData.title}
       category="병원별 후기"
       metaInfo={metaInfo}
       detailItems={detailItems}
-      content={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-      occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-      mollit anim id est laborum.`}
+      content={reviewData.content}
     />
   );
 };

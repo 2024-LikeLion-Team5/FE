@@ -70,7 +70,6 @@ const HospitalReviewItem = ({ onSelect, review }) => {
   } = review;
   return (
     <Wrapper onClick={() => onSelect(postId)}>
-      {/*여기도 hispitalId로 바꿔줘야 함*/}
       <Info>
         <Hospital>{hospital}</Hospital>
         <OptionItem>시설 : {facilityRating}</OptionItem>

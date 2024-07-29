@@ -8,9 +8,13 @@ const instance = axios.create({
 });
 
 //메인 페이지 의사 상담 후기 목록
-export const getDoctorReviewList = async () => {
+export const getDoctorReviewList = async (keyword) => {
   try {
-    const response = await instance.get("/total-reviews/doctors");
+    const params = {};
+    if (keyword) {
+      params.keyword = keyword;
+    }
+    const response = await instance.get("/total-reviews/doctors", { params });
     return response.data;
   } catch (error) {
     console.log("의사 상담 후기 가져오기 실패", error);
@@ -29,7 +33,22 @@ export const getHospitalReviewList = async () => {
   }
 };
 
-//병원별 후기 검색
+//병원명 또는 지역 검색
+export const getSearchReviews = async (keyword) => {
+  try {
+    const params = {};
+    if (keyword) {
+      params.keyword = keyword;
+    }
+    const response = await instance.get("/hospital-search/hospitals", {
+      params,
+    });
+    return response.data;
+  } catch (error) {
+    console.log("병원 검색 결과 가져오기 실패", error);
+    throw error;
+  }
+};
 
 //의사 상담 후기 검색
 
@@ -71,15 +90,22 @@ export const getDetailDoctorReview = async (postId) => {
   }
 };
 
-//의사 상담 후기 글 목록 조회(메인 or 검색 페이지에서 누르고 들어갔을 때의 목록)
-export const getDoctorReviewByHospital = async (hospitalId, doctorId) => {
+//의사 상담 후기 글 목록 조회(병원 정보와 함께 떠 있는 목록)
+export const getDoctorReviewByHospital = async (
+  hospitalId,
+  doctorId,
+  page = 0
+) => {
   try {
     const response = await instance.get(
-      `/hospital-reviews/${hospitalId}/doctor-reviews/${doctorId}?page=0`
+      `/hospital-reviews/${hospitalId}/doctor-reviews/${doctorId}`,
+      {
+        params: { page },
+      }
     );
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.log("의사 리뷰 가져오기 실패", error);
     throw error;
   }
 };
@@ -111,15 +137,19 @@ export const getDetailHospitalReview = async (postId) => {
   }
 };
 
-//병원별 후기 글 목록 조회(메인 or 검색 페이지에서 누르고 들어갔을 때의 목록)
-export const getHospitalReviewByHospital = async (hospitalId) => {
+//병원별 후기 글 목록 조회(병원 정보와 함께 떠 있는 그 부분)
+export const getHospitalReviewByHospital = async (hospitalId, page = 0) => {
   try {
     const response = await instance.get(
-      `/hospital-reviews/${hospitalId}/by-hospital-reviews/?page=0`
+      `/hospital-reviews/${hospitalId}/by-hospital-reviews`,
+      {
+        params: { page },
+      }
     );
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.log("병원 리뷰 가져오기 실패", error);
+    throw error;
   }
 };
 

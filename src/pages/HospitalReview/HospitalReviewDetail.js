@@ -175,19 +175,8 @@ const CommentWrapper = styled.div`
 const HospitalReviewDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const location = useLocation();
   const [activeButton, setActiveButton] = useState("doctor");
   const [hospitalInfo, setHospitalInfo] = useState(null);
-
-  useEffect(() => {
-    const queryParams = new URLSearchParams(location.search);
-    const tab = queryParams.get("tab");
-    if (tab === "hospital") {
-      setActiveButton("hospital");
-    } else {
-      setActiveButton("doctor");
-    }
-  }, [location.search]);
 
   useEffect(() => {
     const fetchHospitalInfo = async () => {
@@ -238,14 +227,14 @@ const HospitalReviewDetail = () => {
                   <Section>분위기 평점</Section>
                   <Stars>
                     <img src={star} alt="별" />
-                    <span>{atmosphereRating}</span>
+                    <span>{hospitalInfo.atmosphereRating}</span>
                   </Stars>
                 </RatingSection>
                 <RatingSection>
                   <Section>직원 평점</Section>
                   <Stars>
                     <img src={star} alt="별" />
-                    <span>{employeeRating}</span>
+                    <span>{hospitalInfo.employeeRating}</span>
                   </Stars>
                 </RatingSection>
               </Evaluation>

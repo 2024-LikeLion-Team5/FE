@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import writeBtn from "../../assets/write_btn.png";
 import writeBtnWhite from "../../assets/write_btn_white.png";
 import { useNavigate } from "react-router-dom";
+import { getDoctorReviewByHospital } from "../../api/hospital";
 
 const BtnWrapper = styled.div`
   display: flex;
@@ -67,7 +68,7 @@ const CommentWrapper = styled.div`
   flex-direction: column;
 `;
 
-const TitleWapper = styled.div`
+const TitleWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: start;
@@ -130,19 +131,31 @@ const Body = styled.div`
 
 const DoctorReviewComment = ({ hospitalId }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [activeDoctor, setActiveDoctor] = useState("이신정1");
+  const [reviews, setReviews] = useState([]);
+  const [activeDoctor, setActiveDoctor] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      if (activeDoctor) {
+        const data = await getDoctorReviewByHospital(hospitalId, activeDoctor);
+        setReviews(data);
+      }
+    };
+
+    fetchReviews();
+  }, [hospitalId, activeDoctor]);
 
   const handleDoctorClick = (doctor) => {
     setActiveDoctor(doctor);
   };
 
-  const HandlePostBtnClick = () => {
-    navigate("/hospital-review/post-doctor-review");
+  const handlePostBtnClick = (id) => {
+    navigate(`/hospital-review/post/${id}/doctor-review`);
   };
 
-  const handleCommentClick = () => {
-    navigate("/hospital-review/doctor-review/id");
+  const handleCommentClick = (id) => {
+    navigate(`/hospital-review/doctor-review/${id}`);
   };
 
   return (
@@ -151,68 +164,59 @@ const DoctorReviewComment = ({ hospitalId }) => {
         <Option>
           <Title>의사</Title>
           <Doctors>
-            <Doctor
-              className={activeDoctor === "이신정1" ? "active" : ""}
-              onClick={() => handleDoctorClick("이신정1")}
-            >
-              이신정1
-            </Doctor>
-            <Doctor
-              className={activeDoctor === "이신정2" ? "active" : ""}
-              onClick={() => handleDoctorClick("이신정2")}
-            >
-              이신정2
-            </Doctor>
-            <Doctor
-              className={activeDoctor === "이신정3" ? "active" : ""}
-              onClick={() => handleDoctorClick("이신정3")}
-            >
-              이신정3
-            </Doctor>
+            {reviews.map((review) => (
+              <Doctor
+                key={review.doctor}
+                className={activeDoctor === review.doctor ? "active" : ""}
+                onClick={() => handleDoctorClick(review.doctor)}
+              >
+                {review.doctor}
+              </Doctor>
+            ))}
           </Doctors>
         </Option>
 
         <PostButton
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          onClick={HandlePostBtnClick}
+          onClick={handlePostBtnClick(hospitalId)}
         >
           <img src={isHovered ? writeBtnWhite : writeBtn} alt="글쓰기 버튼" />
           병원 후기 쓰기
         </PostButton>
       </BtnWrapper>
-      <CommentWrapper onClick={handleCommentClick}>
-        <TitleWapper>
-          <CommentTitle>의사선생님이 자세하게 알려주십니다.</CommentTitle>
-          <Date>2024. 07. 13</Date>
-        </TitleWapper>
-        <Detail>
-          <Info>
-            <div>
-              <InfoName>질환/고민</InfoName>
-              <InfoDetail>발기부전</InfoDetail>
-            </div>
-            <div>
-              <InfoName>받은 진료</InfoName>
-              <InfoDetail>단순 상담</InfoDetail>
-            </div>
-            <div>
-              <InfoName>의사</InfoName>
-              <InfoDetail>이신정</InfoDetail>
-            </div>
-          </Info>
-          <About>
-            <AboutDetail>50대</AboutDetail>
-            <AboutDetail>평점 4점</AboutDetail>
-          </About>
-        </Detail>
-        <Body>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum
-          dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua.
-        </Body>
-      </CommentWrapper>
+      {reviews.map((review) => (
+        <CommentWrapper
+          key={review.postId}
+          onClick={() => handleCommentClick(review.postId)}
+        >
+          <TitleWrapper>
+            <CommentTitle>{review.title}</CommentTitle>
+            <Date>{review.createdAt}</Date>
+          </TitleWrapper>
+          <Detail>
+            <Info>
+              <div>
+                <InfoName>질환/고민</InfoName>
+                <InfoDetail>{review.disease}</InfoDetail>
+              </div>
+              <div>
+                <InfoName>받은 진료</InfoName>
+                <InfoDetail>{review.treatment}</InfoDetail>
+              </div>
+              <div>
+                <InfoName>의사</InfoName>
+                <InfoDetail>{review.doctor}</InfoDetail>
+              </div>
+            </Info>
+            <About>
+              <AboutDetail>{review.ageGroup}대</AboutDetail>
+              <AboutDetail>평점 {review.rating}점</AboutDetail>
+            </About>
+          </Detail>
+          <Body>{review.content}</Body>
+        </CommentWrapper>
+      ))}
     </div>
   );
 };

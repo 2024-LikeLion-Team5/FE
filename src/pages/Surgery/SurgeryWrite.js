@@ -1,15 +1,9 @@
-// import React from 'react';
-// import SurgeryWritePage from '../../components/Surgery/SurgeryWritePage';
-
-// const SurgeryWrite = () => {
-//   return <SurgeryWritePage />;
-// };
-
-// export default SurgeryWrite;
-
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { postSurgery } from "../../api/community";
 import Caution from "../../components/Caution";
+import CustomSelect from "../../components/CustomSelect";
 
 const Wrapper = styled.div`
   width: 52rem;
@@ -71,8 +65,7 @@ const Input = styled.input`
     font-size: 0.875rem;
     font-weight: 600;
     color: ${({ theme }) => theme.colors.nv};
-    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI",
-      Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   }
   &:focus {
     outline: none;
@@ -87,8 +80,7 @@ const BodyInput = styled.textarea`
   border-radius: 0.5rem;
   resize: none;
   padding: 1.5rem;
-  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 0.875rem;
   font-weight: 500;
   color: ${({ theme }) => theme.colors.nv};
@@ -97,9 +89,6 @@ const BodyInput = styled.textarea`
     color: ${({ theme }) => theme.colors.nv};
     font-size: 0.875rem;
     font-weight: 500;
-  }
-  &:focus {
-    outline: none;
   }
 `;
 
@@ -130,36 +119,125 @@ const UploadPic = styled.button`
 `;
 
 const SurgeryWrite = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    communityType: "SURGERY_REVIEW",
+    disease: "IMPOTENCE",
+    surgery: "",
+    title: "",
+    content: "",
+    imageUrl: null,
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setFormData((prevData) => ({
+      ...prevData,
+      imageUrl: file,
+    }));
+  };
+
+  const handleSelectChange = (name, value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await postSurgery(formData);
+      console.log('Post Response:', response);
+      alert('게시글 작성이 완료되었습니다.');
+      navigate("/surgery");
+    } catch (error) {
+      console.error("Failed to post:", error);
+    }
+  };
+
+  const optionData = [
+    { key: "IMPOTENCE", value: "발기부전" },
+    { key: "PENIS_ENLARGEMENT", value: "음경확대" },
+    { key: "VASECTOMY", value: "정관수술" },
+    { key: "URINARY_STONE", value: "요로결석" },
+    { key: "PREMATURE_AND_DELAYED_EJACULATION", value: "조루/지루" },
+    { key: "PROSTATITIS", value: "전립선염" },
+    { key: "ETC", value: "기타" },
+  ];
+
   return (
     <Wrapper>
       <TitleWrapper>
         <SmallTitle>당신의 이야기를 들려주세요.</SmallTitle>
         <LargeTitle>수술 후기 글쓰기</LargeTitle>
       </TitleWrapper>
-      <InputForm>
+      <InputForm onSubmit={handleSubmit}>
         <InputWrapper>
           <Label>커뮤니티</Label>
           <Input type="text" value="수술 후기" readOnly />
         </InputWrapper>
         <InputWrapper>
+          <Label>질환/고민</Label>
+          <CustomSelect
+            optionData={optionData}
+            onChange={(value) => handleSelectChange('disease', value)}
+            value={formData.disease}
+          />
+        </InputWrapper>
+        <InputWrapper>
           <Label>수술명</Label>
-          <Input type="text" placeholder="받은 수술 이름을 입력해주세요." />
+          <Input
+            type="text"
+            name="surgery"
+            placeholder="받은 수술 이름을 입력해주세요."
+            value={formData.surgery}
+            onChange={handleChange}
+          />
         </InputWrapper>
         <InputWrapper>
           <Label>제목</Label>
-          <Input type="text" placeholder="제목을 입력해주세요." />
-          <UploadPic>사진 업로드</UploadPic>
+          <Input
+            type="text"
+            name="title"
+            placeholder="제목을 입력해주세요."
+            value={formData.title}
+            onChange={handleChange}
+          />
+          <UploadPic>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              style={{ display: "none" }}
+            />
+            사진 업로드
+          </UploadPic>
         </InputWrapper>
         <InputWrapper>
           <Label>내용</Label>
-          <BodyInput type="text" placeholder="내용을 입력해주세요." />
+          <BodyInput
+            name="content"
+            placeholder="내용을 입력해주세요."
+            value={formData.content}
+            onChange={handleChange}
+          />
         </InputWrapper>
+        <Caution />
+        <BtnWrapper>
+          <PostButton type="submit">게시글 작성</PostButton>
+        </BtnWrapper>
       </InputForm>
-      <Caution />
-      <BtnWrapper>
-        <PostButton>게시글 작성</PostButton>
-      </BtnWrapper>
     </Wrapper>
   );
 };
+
 export default SurgeryWrite;

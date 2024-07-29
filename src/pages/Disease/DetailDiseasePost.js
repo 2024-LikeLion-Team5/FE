@@ -21,7 +21,7 @@ const DetailDiseasePost = () => {
     };
 
     fetchPost();
-  }, [id]);
+  }, [id]); // id가 변경될 때마다 useEffect 실행
 
   if (!post) return <div>Loading...</div>;
 

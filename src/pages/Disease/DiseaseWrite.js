@@ -1,9 +1,9 @@
-
-
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { postDisease } from "../../api/community";
 import Caution from "../../components/Caution";
-import CustomSelect from "../../components/CustomSelect"; // CustomSelect 컴포넌트 임포트
+import CustomSelect from "../../components/CustomSelect";
 
 const Wrapper = styled.div`
   width: 52rem;
@@ -124,15 +124,54 @@ const UploadPic = styled.button`
 `;
 
 const DiseaseWrite = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    disease: "IMPOTENCE",
+    title: "",
+    content: "",
+    imageUrl: null,
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setFormData((prevData) => ({
+      ...prevData,
+      imageUrl: file,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await postDisease(formData);
+      console.log('Post Response:', response); // 응답 데이터 확인
+      if (response && response.postId) { // 응답 데이터에서 postId 추출
+        navigate(`/disease/detail/${response.postId}`);
+      } else {
+        console.error('Failed to get post ID from response');
+      }
+    } catch (error) {
+      console.error("Failed to post:", error);
+    }
+  };
+
   const optionData = [
-    { key: 1, value: "발기부전" },
-    { key: 2, value: "음경확대" },
-    { key: 3, value: "정관수술" },
-    { key: 4, value: "요로결석" },
-    { key: 5, value: "조루/지루" },
-    { key: 6, value: "전립선염" },
-    { key: 7, value: "기타" },
-  ]; // CustomSelect 옵션 데이터 추가
+    { key: "IMPOTENCE", value: "발기부전" },
+    { key: "PENIS_ENLARGEMENT", value: "음경확대" },
+    { key: "VASECTOMY", value: "정관수술" },
+    { key: "URINARY_STONE", value: "요로결석" },
+    { key: "PREMATURE_AND_DELAYED_EJACULATION", value: "조루/지루" },
+    { key: "PROSTATITIS", value: "전립선염" },
+    { key: "ETC", value: "기타" },
+  ];
 
   return (
     <Wrapper>
@@ -140,29 +179,56 @@ const DiseaseWrite = () => {
         <SmallTitle>당신의 이야기를 들려주세요.</SmallTitle>
         <LargeTitle>질환 고민 글쓰기</LargeTitle>
       </TitleWrapper>
-      <InputForm>
+      <InputForm onSubmit={handleSubmit}>
         <InputWrapper>
           <Label>커뮤니티</Label>
           <Input type="text" value="질환 고민" readOnly />
         </InputWrapper>
         <InputWrapper>
           <Label>질환/고민</Label>
-          <CustomSelect optionData={optionData} /> {/* CustomSelect 컴포넌트 사용 */}
+          <CustomSelect
+            optionData={optionData}
+            onChange={(e) =>
+              handleChange({
+                target: { name: "disease", value: e.target.value },
+              })
+            }
+            value={formData.disease}
+          />
         </InputWrapper>
         <InputWrapper>
           <Label>제목</Label>
-          <Input type="text" placeholder="제목을 입력해주세요." />
-          <UploadPic>사진 업로드</UploadPic>
+          <Input
+            type="text"
+            name="title"
+            placeholder="제목을 입력해주세요."
+            value={formData.title}
+            onChange={handleChange}
+          />
+          <UploadPic>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              style={{ display: "none" }}
+            />
+            사진 업로드
+          </UploadPic>
         </InputWrapper>
         <InputWrapper>
           <Label>내용</Label>
-          <BodyInput type="text" placeholder="내용을 입력해주세요." />
+          <BodyInput
+            name="content"
+            placeholder="내용을 입력해주세요."
+            value={formData.content}
+            onChange={handleChange}
+          />
         </InputWrapper>
+        <Caution />
+        <BtnWrapper>
+          <PostButton type="submit">게시글 작성</PostButton>
+        </BtnWrapper>
       </InputForm>
-      <Caution />
-      <BtnWrapper>
-        <PostButton>게시글 작성</PostButton>
-      </BtnWrapper>
     </Wrapper>
   );
 };

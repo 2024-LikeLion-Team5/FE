@@ -1,14 +1,7 @@
-// import React from 'react';
-// import DailyWritePage from '../../components/Daily/DailyWritePage';
-
-// const DailyWrite = () => {
-//   return <DailyWritePage />;
-// };
-
-// export default DailyWrite;
-
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { postDaily } from "../../api/community"; // API 함수 가져오기
 import Caution from "../../components/Caution";
 
 const Wrapper = styled.div`
@@ -130,32 +123,91 @@ const UploadPic = styled.button`
 `;
 
 const DailyWrite = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    title: "",
+    content: "",
+    imageUrl: null,
+  });
+
+  // 입력 필드 값 변경 핸들러
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  // 이미지 변경 핸들러
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setFormData((prevData) => ({
+      ...prevData,
+      imageUrl: file,
+    }));
+  };
+
+  // 폼 제출 핸들러
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // postDisease API 함수 호출
+      const response = await postDaily(formData);
+      console.log('Post Response:', response); // 응답 데이터 확인
+      alert('게시글 작성이 완료되었습니다.'); // 알림 메시지 추가
+      navigate("/daily"); // 목록 페이지로 이동
+    } catch (error) {
+      console.error("Failed to post:", error);
+    }
+  };
+
   return (
     <Wrapper>
       <TitleWrapper>
         <SmallTitle>당신의 이야기를 들려주세요.</SmallTitle>
         <LargeTitle>일상 글쓰기</LargeTitle>
       </TitleWrapper>
-      <InputForm>
+      <InputForm onSubmit={handleSubmit}>
         <InputWrapper>
           <Label>커뮤니티</Label>
           <Input type="text" value="일상" readOnly />
         </InputWrapper>
         <InputWrapper>
           <Label>제목</Label>
-          <Input type="text" placeholder="제목을 입력해주세요." />
-          <UploadPic>사진 업로드</UploadPic>
+          <Input
+            type="text"
+            name="title" // name 속성 추가
+            placeholder="제목을 입력해주세요."
+            value={formData.title}
+            onChange={handleChange}
+          />
+          <UploadPic>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              style={{ display: "none" }}
+            />
+            사진 업로드
+          </UploadPic>
         </InputWrapper>
         <InputWrapper>
           <Label>내용</Label>
-          <BodyInput type="text" placeholder="내용을 입력해주세요." />
+          <BodyInput
+            name="content" // name 속성 추가
+            placeholder="내용을 입력해주세요."
+            value={formData.content}
+            onChange={handleChange}
+          />
         </InputWrapper>
+        <Caution />
+        <BtnWrapper>
+          <PostButton type="submit">게시글 작성</PostButton>
+        </BtnWrapper>
       </InputForm>
-      <Caution />
-      <BtnWrapper>
-        <PostButton>게시글 작성</PostButton>
-      </BtnWrapper>
     </Wrapper>
   );
 };
+
 export default DailyWrite;

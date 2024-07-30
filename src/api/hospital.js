@@ -7,7 +7,7 @@ const instance = axios.create({
   },
 });
 
-//메인 페이지 의사 상담 후기 목록
+//메인 페이지 의사 상담 후기 목록 & 검색
 export const getDoctorReviewList = async (keyword) => {
   try {
     const params = {};
@@ -34,7 +34,7 @@ export const getHospitalReviewList = async () => {
 };
 
 //병원명 또는 지역 검색
-export const getSearchReviews = async (keyword) => {
+export const getSearchHospitalReviews = async (keyword) => {
   try {
     const params = {};
     if (keyword) {
@@ -49,8 +49,6 @@ export const getSearchReviews = async (keyword) => {
     throw error;
   }
 };
-
-//의사 상담 후기 검색
 
 //병원 정보 가져오기
 export const getHospitalInfo = async (hospitalId) => {
@@ -91,14 +89,10 @@ export const getDetailDoctorReview = async (postId) => {
 };
 
 //의사 상담 후기 글 목록 조회(병원 정보와 함께 떠 있는 목록)
-export const getDoctorReviewByHospital = async (
-  hospitalId,
-  doctorId,
-  page = 0
-) => {
+export const getDoctorReviewByHospital = async (hospitalId, page = 0) => {
   try {
     const response = await instance.get(
-      `/hospital-reviews/${hospitalId}/doctor-reviews/${doctorId}`,
+      `/hospital-reviews/${hospitalId}/doctor-reviews`,
       {
         params: { page },
       }

@@ -133,3 +133,37 @@ export const getDailyPosts = async (page = 0) => {
     throw error;
   }
 };
+
+// 커뮤니티 전체 조회(질환고민)
+export const getTotalDiseaseCommunities = async () => {
+  try {
+    const response = await instance.get("/total-communities/concerns");
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+// 커뮤니티 전체 조회(일상)
+export const getTotalDailyCommunities = async () => {
+  try {
+    const response = await instance.get("/total-communities/dailies");
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+
+// 커뮤니티 전체 조회(수술후기)
+export const getTotalSurgeryCommunities = async () => {
+  try {
+    const response = await instance.get("/total-communities/surgery-reviews");
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};

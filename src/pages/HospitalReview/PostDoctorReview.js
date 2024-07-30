@@ -199,19 +199,19 @@ const PostDoctorReview = () => {
     doctor: "",
     title: "",
     content: "",
-    imageUrl: "", // 기본값으로 빈 문자열 설정
+    imageUrl: null,
   });
 
   const ageOption = ["30대 이하", "40대", "50대", "60대", "70대", "80대 이상"];
 
-  const optionData = [
-    { key: 1, value: "발기부전" },
-    { key: 2, value: "음경확대" },
-    { key: 3, value: "정관수술" },
-    { key: 4, value: "요로결석" },
-    { key: 5, value: "조루/지루" },
-    { key: 6, value: "전립선염" },
-    { key: 7, value: "기타" },
+  const options = [
+    { key: "IMPOTENCE", value: "발기부전" },
+    { key: "PENIS_ENLARGEMENT", value: "음경확대" },
+    { key: "VASECTOMY", value: "정관수술" },
+    { key: "URINARY_STONE", value: "요로결석" },
+    { key: "PREMATURE_AND_DELAYED_EJACULATION", value: "조루/지루" },
+    { key: "PROSTATITIS", value: "전립선염" },
+    { key: "ETC", value: "기타" },
   ];
 
   const handleAgeClick = (e, age) => {
@@ -236,25 +236,30 @@ const PostDoctorReview = () => {
     });
   };
 
-  const handleSelectChange = (selectedOption) => {
-    setFormData({
-      ...formData,
-      disease: selectedOption,
-    });
+  const handleSelectChange = (name, value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value.key,
+    }));
   };
 
   const handleSubmit = async (e) => {
+    if (!isAttach) {
+      alert("영수증을 첨부해주세요.");
+      return;
+    }
     e.preventDefault();
     const content = {
       ...formData,
       ageGroup: selectedAge,
       rating,
-      imageUrl: "", // 이미지 URL이 없다면 빈 문자열로 설정
     };
     try {
-      const postId = await postDoctorReview(content);
-      alert("리뷰 작성이 완료되었습니다.");
-      navigate(`/hospital-review/hospital/${id}`);
+      const response = await postDoctorReview(content);
+      if (response && response.status === 201) {
+        alert("리뷰 작성이 완료되었습니다.");
+        navigate(`/hospital-review/hospital/${id}`);
+      }
     } catch (error) {
       console.error("의사 상담 리뷰 작성 실패", error);
     }
@@ -278,7 +283,11 @@ const PostDoctorReview = () => {
         </InputWrapper>
         <InputWrapper>
           <Label>질환/고민</Label>
-          <CustomSelect optionData={optionData} onChange={handleSelectChange} />
+          <CustomSelect
+            optionData={options}
+            onChange={(value) => handleSelectChange("disease", value)}
+            value={formData.disease}
+          />
         </InputWrapper>
         <InputWrapper>
           <Label>받은 진료</Label>
@@ -343,7 +352,6 @@ const PostDoctorReview = () => {
         <InputWrapper>
           <Label>내용</Label>
           <BodyInput
-            type="text"
             name="content"
             placeholder="후기를 적어주세요."
             onChange={handleChange}

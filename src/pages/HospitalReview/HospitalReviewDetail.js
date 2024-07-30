@@ -193,7 +193,7 @@ const HospitalReviewDetail = () => {
 
   const handleCounselClick = (e) => {
     e.preventDefault();
-    navigate("/counsel/write-counsel");
+    navigate(`/counsel/${id}/write-counsel`);
   };
 
   return (

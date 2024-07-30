@@ -70,7 +70,7 @@ export const postDoctorReview = async (content) => {
       "/hospital-reviews/doctor-reviews",
       content
     );
-    return response.data.postId;
+    return response;
   } catch (error) {
     console.log(error);
     throw error;
@@ -117,7 +117,7 @@ export const postHospitalReview = async (content) => {
       "/hospital-reviews/by-hospital-reviews",
       content
     );
-    return response.data.postId;
+    return response;
   } catch (error) {
     console.log(error);
     throw error;

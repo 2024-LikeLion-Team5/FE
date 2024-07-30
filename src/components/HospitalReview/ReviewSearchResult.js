@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import HospitalSearchItem from "./HospitalSearchItem";
 import DoctorSearchItem from "./DoctorSearchItem";
 import seeMore from "../../assets/see_more.png";
 import DoctorReviewItem from "./DoctorReviewItem";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import {
+  getDoctorReviewList,
+  getSearchHospitalReviews,
+} from "../../api/hospital";
 
 const Container = styled.div`
   width: 100%;
@@ -77,23 +81,31 @@ const HospitalSearchItemWrapper = styled.div`
 
 const ReviewSearchResult = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [hospitalReviews, setHospitalReviews] = useState([]);
   const [doctorReviews, setDoctorReviews] = useState([]);
 
-  //여기 검색 api 연동
-  // useEffect(() => {
-  //   const fetchSearchResults = async () => {
-  //     try {
-  //       const data = await searchReviews(keyword);
-  //       setHospitalReviews(data.hospitalReviews);
-  //       setDoctorReviews(data.doctorReviews);
-  //     } catch (error) {
-  //       console.error("검색 결과 로드 실패:", error);
-  //     }
-  //   };
+  const keyword = searchParams.get("keyword") || "";
 
-  //   fetchSearchResults();
-  // }, [keyword]);
+  //여기 검색 api 연동
+  useEffect(() => {
+    const fetchSearchDoctor = async () => {
+      try {
+        const data = await getDoctorReviewList(keyword);
+        setDoctorReviews(data);
+      } catch (error) {
+        console.error("검색 결과 로드 실패:", error);
+      }
+    };
+
+    const fetchSeatchHospital = async () => {
+      const data = await getSearchHospitalReviews(keyword);
+      setHospitalReviews(data);
+    };
+
+    fetchSearchDoctor();
+    fetchSeatchHospital();
+  }, [keyword]);
 
   const handleSelectHospitalReview = (hospitalId) => {
     navigate(`/hospital-review/hospital/${hospitalId}`);
@@ -108,7 +120,7 @@ const ReviewSearchResult = () => {
       <KeyWord>검색 : 멘텀비뇨기과</KeyWord>
       <HospitalResult>
         <Result>
-          <ResultTitle>병원 검색 결과 (1)</ResultTitle>
+          <ResultTitle>병원 검색 결과 ({hospitalReviews.length()})</ResultTitle>
           <div style={{ display: "flex", alignItems: "center" }}>
             <Text>더보기</Text>
             <Btn src={seeMore} alt="더보기" />
@@ -128,7 +140,9 @@ const ReviewSearchResult = () => {
       </HospitalResult>
       <DoctorResult>
         <Result>
-          <ResultTitle>의사 상담 후기 검색 결과 (1)</ResultTitle>
+          <ResultTitle>
+            의사 상담 후기 검색 결과 ({doctorReviews.length()})
+          </ResultTitle>
           <div style={{ display: "flex", alignItems: "center" }}>
             <Text>더보기</Text>
             <Btn src={seeMore} alt="더보기" />

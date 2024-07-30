@@ -137,10 +137,8 @@ const DoctorReviewComment = ({ hospitalId }) => {
 
   useEffect(() => {
     const fetchReviews = async () => {
-      if (activeDoctor) {
-        const data = await getDoctorReviewByHospital(hospitalId, activeDoctor);
-        setReviews(data);
-      }
+      const data = await getDoctorReviewByHospital(hospitalId);
+      setReviews(data);
     };
 
     fetchReviews();

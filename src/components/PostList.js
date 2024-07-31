@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import photoImg from '../assets/photo.png';
-import seeMoreImg from '../assets/see_more.png';
+import React, { useState } from "react";
+import styled from "styled-components";
+import photoImg from "../assets/photo.png";
+import seeMoreImg from "../assets/see_more.png";
 
 const List = styled.div`
   margin-top: 1rem;
@@ -20,8 +20,9 @@ const Post = styled.div`
 `;
 
 const PostType = styled.span`
-  font-weight: ${({ type }) => (type === '공지' ? 'bold' : 'normal')};
-  color: ${({ theme, type }) => (type === '수술명' ? theme.colors.b1 : theme.colors.nv)};
+  font-weight: ${({ type }) => (type === "공지" ? "bold" : "normal")};
+  color: ${({ theme, type }) =>
+    type === "수술명" ? theme.colors.b1 : theme.colors.nv};
 `;
 
 const PostImage = styled.img`
@@ -31,22 +32,26 @@ const PostImage = styled.img`
 `;
 
 const PostTitle = styled.div`
-  font-size: ${({ theme }) => theme.fonts.body.split(' ')[2]};
+  text-align: center;
+  font-size: ${({ theme }) => theme.fonts.body.split(" ")[2]};
   color: ${({ theme }) => theme.colors.nv};
 `;
 
 const PostDate = styled.div`
-  font-size: ${({ theme }) => theme.fonts.body.split(' ')[2]};
+  text-align: center;
+  font-size: ${({ theme }) => theme.fonts.body.split(" ")[2]};
   color: ${({ theme }) => theme.colors.nv};
 `;
 
 const PostLikes = styled.div`
-  font-size: ${({ theme }) => theme.fonts.body.split(' ')[2]};
+  text-align: center;
+  font-size: ${({ theme }) => theme.fonts.body.split(" ")[2]};
   color: ${({ theme }) => theme.colors.nv};
 `;
 
 const PostViews = styled.div`
-  font-size: ${({ theme }) => theme.fonts.body.split(' ')[2]};
+  text-align: center;
+  font-size: ${({ theme }) => theme.fonts.body.split(" ")[2]};
   color: ${({ theme }) => theme.colors.nv};
 `;
 
@@ -74,7 +79,8 @@ const PageNumber = styled.button`
   height: 40px;
   border: none;
   border-radius: 20px;
-  background-color: ${({ selected, theme }) => (selected ? theme.colors.b4 : 'transparent')};
+  background-color: ${({ selected, theme }) =>
+    selected ? theme.colors.b4 : "transparent"};
   color: ${({ theme }) => theme.colors.nv};
   cursor: pointer;
   font: ${({ theme }) => theme.fonts.button};
@@ -90,8 +96,8 @@ const PostList = ({ posts, category, onPostClick }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 10;
 
-  const noticePosts = posts.filter(post => post.isNotice);
-  const regularPosts = posts.filter(post => !post.isNotice);
+  const noticePosts = posts.filter((post) => post.isNotice);
+  const regularPosts = posts.filter((post) => !post.isNotice);
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -111,7 +117,11 @@ const PostList = ({ posts, category, onPostClick }) => {
       </Header>
       <List>
         {noticePosts.map((post) => (
-          <Post key={post.postId} type="공지" onClick={() => onPostClick(post.postId)}>
+          <Post
+            key={post.postId}
+            type="공지"
+            onClick={() => onPostClick(post.postId)}
+          >
             <PostType type="공지">공지</PostType>
             <PostImage src={photoImg} alt="post" />
             <PostTitle>{post.title}</PostTitle>
@@ -132,11 +142,17 @@ const PostList = ({ posts, category, onPostClick }) => {
         ))}
       </List>
       <PaginationWrapper>
-        {[...Array(Math.ceil(regularPosts.length / postsPerPage)).keys()].map(number => (
-          <PageNumber key={number + 1} selected={currentPage === number + 1} onClick={() => paginate(number + 1)}>
-            {number + 1}
-          </PageNumber>
-        ))}
+        {[...Array(Math.ceil(regularPosts.length / postsPerPage)).keys()].map(
+          (number) => (
+            <PageNumber
+              key={number + 1}
+              selected={currentPage === number + 1}
+              onClick={() => paginate(number + 1)}
+            >
+              {number + 1}
+            </PageNumber>
+          )
+        )}
         <SeeMoreButton src={seeMoreImg} alt="see more" />
       </PaginationWrapper>
     </>
@@ -144,8 +160,6 @@ const PostList = ({ posts, category, onPostClick }) => {
 };
 
 export default PostList;
-
-
 
 // import React, { useState } from 'react';
 // import styled from 'styled-components';

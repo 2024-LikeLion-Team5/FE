@@ -154,5 +154,14 @@ export const postCounsel = async (content) => {
     return response.data.postId;
   } catch (error) {
     console.log(error);
+    throw error;
+  }
+};
+
+export const patchLike = async () => {
+  try {
+  } catch (error) {
+    console.log(error);
+    throw error;
   }
 };

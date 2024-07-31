@@ -266,7 +266,14 @@ const PostCounsel = () => {
     imageUrl: null,
   });
 
-  const ageOption = ["30대 이하", "40대", "50대", "60대", "70대", "80대 이상"];
+  const ageOption = [
+    { key: "UNDER_TWENTY", value: "20대 이하" },
+    { key: "THIRTY", value: "30대" },
+    { key: "FORTY", value: "40대" },
+    { key: "FIFTY", value: "50대" },
+    { key: "SIXTY", value: "60대" },
+    { key: "OVER_SEVENTY", value: "70대 이상" },
+  ];
 
   const options = [
     { key: "IMPOTENCE", value: "발기부전" },
@@ -280,7 +287,7 @@ const PostCounsel = () => {
 
   const handleAgeClick = (e, age) => {
     e.preventDefault();
-    setSelectedAge(age);
+    setSelectedAge(age.key);
   };
 
   const handlePainLevelClick = (level) => {
@@ -406,11 +413,11 @@ const PostCounsel = () => {
             <AgeOption>
               {ageOption.map((age) => (
                 <Button
-                  key={age}
-                  className={selectedAge === age ? "active" : ""}
+                  key={age.key}
+                  className={selectedAge === age.key ? "active" : ""}
                   onClick={(e) => handleAgeClick(e, age)}
                 >
-                  {age}
+                  {age.value}
                 </Button>
               ))}
             </AgeOption>

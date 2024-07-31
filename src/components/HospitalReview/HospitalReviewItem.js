@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
+  flex: 0 0 auto;
   width: 26.125rem;
   height: 23.75rem;
   box-sizing: border-box;

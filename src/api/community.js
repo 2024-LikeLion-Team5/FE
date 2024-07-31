@@ -167,3 +167,94 @@ export const getTotalSurgeryCommunities = async () => {
     throw error;
   }
 };
+
+
+// 커뮤니티 통합검색 - 6개 넘겨주기
+export const getCommunityIntegration = async (keyword) => {
+  try {
+    const response = await instance.get(`/communities/integration?keyword=${keyword}`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+// 커뮤니티 통합검색 목록 조회
+export const getCommunityIntegrationList = async (keyword) => {
+  try {
+    const response = await instance.get(`/communities/integration?keyword=${keyword}`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+// 의사 후기 통합검색 - 3개 넘겨주기
+export const getDoctorReviewIntegration = async (keyword) => {
+  try {
+    const response = await instance.get(`/communities/integration?keyword=${keyword}`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+// 의사 후기 통합검색 목록 조회
+export const getDoctorReviewIntegrationList = async (keyword) => {
+  try {
+    const response = await instance.get(`/communities/integration?keyword=${keyword}`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+// 병원 통합검색 - 3개 넘겨주기
+export const getHospitalIntegration = async (keyword) => {
+  try {
+    const response = await instance.get(`/communities/integration?keyword=${keyword}`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+// 병원 통합검색 목록 조회
+export const getHospitalIntegrationList = async (keyword) => {
+  try {
+    const response = await instance.get(`/communities/integration?keyword=${keyword}`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+// 특정 게시글 댓글 목록 조회
+export const getComments = async (postId, communityType) => {
+  try {
+    const response = await instance.get(`/posts/${postId}/comments`, {
+      params: { communityType }
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+// 특정 게시글 댓글 작성
+export const postComment = async (postId, data) => {
+  try {
+    const response = await instance.post(`/posts/${postId}/comments`, data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};

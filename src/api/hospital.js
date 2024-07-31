@@ -158,10 +158,23 @@ export const postCounsel = async (content) => {
   }
 };
 
-export const patchLike = async () => {
+//좋아요 버튼
+export const patchLike = async (postId) => {
   try {
+    const response = await instance.patch(`/posts/${postId}/like`);
+    return response;
   } catch (error) {
-    console.log(error);
+    console.log("좋아요 버튼 에러", error);
     throw error;
+  }
+};
+
+//싫어요 버튼
+export const patchDisLike = async (postId) => {
+  try {
+    const response = await instance.patch(`/posts/${postId}/dislike`);
+    return response;
+  } catch (error) {
+    console.log("싫어요 버튼 에러", error);
   }
 };

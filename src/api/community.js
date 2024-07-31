@@ -196,7 +196,7 @@ export const getCommunityIntegration = async (keyword) => {
 // 커뮤니티 통합검색 목록 조회
 export const getCommunityIntegrationList = async (keyword) => {
   try {
-    const response = await instance.get(`/communities/integration?keyword=${keyword}`);
+    const response = await instance.get(`/communities?keyword=${keyword}&page=0`);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -218,7 +218,7 @@ export const getDoctorReviewIntegration = async (keyword) => {
 // 의사 후기 통합검색 목록 조회
 export const getDoctorReviewIntegrationList = async (keyword) => {
   try {
-    const response = await instance.get(`/communities/integration?keyword=${keyword}`);
+    const response = await instance.get(`/doctor-reviews?keyword=${keyword}&page=0`);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -240,7 +240,7 @@ export const getHospitalIntegration = async (keyword) => {
 // 병원 통합검색 목록 조회
 export const getHospitalIntegrationList = async (keyword) => {
   try {
-    const response = await instance.get(`/communities/integration?keyword=${keyword}`);
+    const response = await instance.get(`/hospitals?keyword=${keyword}&page=0`);
     return response.data;
   } catch (error) {
     console.log(error);

@@ -83,12 +83,25 @@ export const getSurgeryPostId = async (postId) => {
   }
 };
 
+// // 수술 후기 글 목록 조회
+// export const getSurgeryPosts = async (disease = "IMPOTENCE", page = 0) => {
+//   try {
+//     const response = await instance.get(`/communities/surgery-reviews`, {
+//       params: { disease, page } // disease와 page 파라미터를 포함하여 요청
+//     });
+//     return response.data;
+//   } catch (error) {
+//     console.log(error);
+//     throw error;
+//   }
+// };
+
 // 수술 후기 글 목록 조회
-export const getSurgeryPosts = async (disease = "IMPOTENCE", page = 0) => {
+export const getSurgeryPosts = async (disease, page) => {
   try {
-    const response = await instance.get(`/communities/surgery-reviews`, {
-      params: { disease, page } // disease와 page 파라미터를 포함하여 요청
-    });
+    const response = await instance.get(
+      `/communities/surgery-reviews?disease=${disease.toUpperCase()}&page=${page}`
+    );
     return response.data;
   } catch (error) {
     console.log(error);

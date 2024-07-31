@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink, useLocation, Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import searchBtn from "../assets/search_btn_nobackground.png";
@@ -135,14 +135,69 @@ const SubMenuItem = styled.li`
   `}
 `;
 
+// const Header = () => {
+//   const location = useLocation();
+//   const currentPath = location.pathname;
+//   const navigate = useNavigate();
+
+//   const handleSearchClick = (e) => {
+//     e.preventDefault();
+//     navigate("/search-results");
+//   };
+
+//   return (
+//     <div>
+//       <Wrapper>
+//         <Logo to="/">
+//           <LogoImage src={logo} alt="Logo" />
+//           <LogoText>MOMENTUM</LogoText>
+//         </Logo>
+//         <SearchForm>
+//           <SearchInput type="text" placeholder="통합 검색" />
+//           <SearchButton onClick={handleSearchClick}>
+//             <img src={searchBtn} alt="검색 버튼" />
+//           </SearchButton>
+//         </SearchForm>
+        // <Menu>
+        //   <MenuItem>
+        //     <StyledLink to="/community">커뮤니티</StyledLink>
+        //     <SubMenu>
+        //       <SubMenuItem active={currentPath.startsWith("/disease")}>
+        //         <StyledLink to="/disease">질환 고민</StyledLink>
+        //       </SubMenuItem>
+        //       <SubMenuItem active={currentPath.startsWith("/surgery")}>
+        //         <StyledLink to="/surgery">수술 후기</StyledLink>
+        //       </SubMenuItem>
+        //       <SubMenuItem active={currentPath.startsWith("/daily")}>
+        //         <StyledLink to="/daily">일상</StyledLink>
+        //       </SubMenuItem>
+        //     </SubMenu>
+        //   </MenuItem>
+        //   <MenuItem>
+        //     <StyledLink to="/hospital-review">병원후기</StyledLink>
+        //   </MenuItem>
+        //   <MenuItem>
+        //     <StyledLink to="/library">자료실</StyledLink>
+        //   </MenuItem>
+        // </Menu>
+//       </Wrapper>
+//     </div>
+//   );
+// };
+
+// export default Header;
+
+//통합검색 추가중
+
 const Header = () => {
   const location = useLocation();
   const currentPath = location.pathname;
   const navigate = useNavigate();
+  const [searchKeyword, setSearchKeyword] = useState("");
 
   const handleSearchClick = (e) => {
     e.preventDefault();
-    navigate("/search-results");
+    navigate(`/search-results?keyword=${searchKeyword}`);
   };
 
   return (
@@ -153,7 +208,12 @@ const Header = () => {
           <LogoText>MOMENTUM</LogoText>
         </Logo>
         <SearchForm>
-          <SearchInput type="text" placeholder="통합 검색" />
+          <SearchInput 
+            type="text" 
+            placeholder="통합 검색"
+            value={searchKeyword}
+            onChange={(e) => setSearchKeyword(e.target.value)} 
+          />
           <SearchButton onClick={handleSearchClick}>
             <img src={searchBtn} alt="검색 버튼" />
           </SearchButton>

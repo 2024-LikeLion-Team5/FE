@@ -55,6 +55,8 @@ const Option = styled.div`
 `;
 
 const HospitalSearchItem = ({ onSelect, review }) => {
+  if (!review) return null; //통합검색때문에 추가
+
   const {
     hospitalId,
     hospital,

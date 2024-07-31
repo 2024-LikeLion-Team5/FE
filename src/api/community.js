@@ -194,7 +194,7 @@ export const getCommunityIntegrationList = async (keyword) => {
 // 의사 후기 통합검색 - 3개 넘겨주기
 export const getDoctorReviewIntegration = async (keyword) => {
   try {
-    const response = await instance.get(`/communities/integration?keyword=${keyword}`);
+    const response = await instance.get(`/doctor-reviews/integration?keyword=${keyword}`); // URL 수정
     return response.data;
   } catch (error) {
     console.log(error);
@@ -216,7 +216,7 @@ export const getDoctorReviewIntegrationList = async (keyword) => {
 // 병원 통합검색 - 3개 넘겨주기
 export const getHospitalIntegration = async (keyword) => {
   try {
-    const response = await instance.get(`/communities/integration?keyword=${keyword}`);
+    const response = await instance.get(`/hospitals/integration?keyword=${keyword}`); // URL 수정
     return response.data;
   } catch (error) {
     console.log(error);

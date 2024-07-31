@@ -95,7 +95,7 @@ const ReportButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.b1};
+    background-color: ${({ theme }) => theme.colors.g1};
     color: ${({ theme }) => theme.colors.white};
   }
 `;
@@ -118,17 +118,10 @@ const Button = styled.button`
 
   &.hate {
     background-color: ${({ theme }) => theme.colors.g3};
-    &.active {
-      background-color: ${({ theme }) => theme.colors.r1};
-      color: white;
-    }
   }
   &.good {
     background-color: ${({ theme }) => theme.colors.b1};
     color: white;
-    &.active {
-      background-color: ${({ theme }) => theme.colors.b2};
-    }
   }
 `;
 
@@ -225,19 +218,13 @@ const PostLayout = ({
           <img src={reportBtn} alt="신고" />
         </ReportButton>
         <LikeDislikeButtons>
-          <Button
-            className={`good ${likeActive ? "active" : ""}`}
-            onClick={handleLikeClick}
-          >
-            <img src={goodBtn} alt="좋아요" />
-            좋아요
-          </Button>
-          <Button
-            className={`hate ${dislikeActive ? "active" : ""}`}
-            onClick={handleDislikeClick}
-          >
+          <Button className="hate" onClick={handleDislikeClick}>
             <img src={badBtn} alt="싫어요" />
             싫어요
+          </Button>
+          <Button className="good" onClick={handleLikeClick}>
+            <img src={goodBtn} alt="좋아요" />
+            좋아요
           </Button>
         </LikeDislikeButtons>
       </Buttons>

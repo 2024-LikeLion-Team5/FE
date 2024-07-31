@@ -200,7 +200,7 @@ const HospitalReviewDetail = () => {
     <Container>
       <Wrapper>
         <Info>
-          <Img src={hospitalInfo.imageUrl} alt="병원 사진" />
+          <Img src={detailImg} alt="병원 사진" />
           <Details>
             <Name>{hospitalInfo.hospital}</Name>
             <InfoWrapper>

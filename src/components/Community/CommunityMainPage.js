@@ -270,12 +270,15 @@
 
 // export default CommunityMainPage;
 
-
 //select 없앤거
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { getTotalDiseaseCommunities, getTotalDailyCommunities, getTotalSurgeryCommunities } from "../../api/community";
+import {
+  getTotalDiseaseCommunities,
+  getTotalDailyCommunities,
+  getTotalSurgeryCommunities,
+} from "../../api/community";
 import Banner from "../Banner";
 import Notice from "../Notice";
 import bannerImg from "../../assets/community_img.png";
@@ -285,6 +288,7 @@ const Container = styled.div`
   max-width: 1120px;
   margin: 0 auto;
   padding: 0 1rem;
+  margin-bottom: 7.25rem;
 `;
 
 const SectionTitle = styled.h2`
@@ -350,7 +354,8 @@ const ListItem = styled.div`
   }
 
   &.daily span:first-child {
-    color: ${({ theme }) => theme.colors.nv}; /* 일상 게시글의 텍스트는 nv 색상 */
+    color: ${({ theme }) =>
+      theme.colors.nv}; /* 일상 게시글의 텍스트는 nv 색상 */
   }
 `;
 
@@ -408,13 +413,13 @@ const CommunityMainPage = () => {
   const navigate = useNavigate();
 
   const diseaseMap = {
-    "IMPOTENCE": "발기부전",
-    "PENIS_ENLARGEMENT": "음경확대",
-    "VASECTOMY": "정관수술",
-    "URINARY_STONE": "요로결석",
-    "PREMATURE_AND_DELAYED_EJACULATION": "조루/지루",
-    "PROSTATITIS": "전립선염",
-    "ETC": "기타"
+    IMPOTENCE: "발기부전",
+    PENIS_ENLARGEMENT: "음경확대",
+    VASECTOMY: "정관수술",
+    URINARY_STONE: "요로결석",
+    PREMATURE_AND_DELAYED_EJACULATION: "조루/지루",
+    PROSTATITIS: "전립선염",
+    ETC: "기타",
   };
 
   useEffect(() => {
@@ -477,7 +482,10 @@ const CommunityMainPage = () => {
                 </MoreButton>
               </MoreButtonWrapper>
               {diseasePosts.map((item) => (
-                <ListItem key={item.postId} onClick={() => goToDiseaseDetail(item.postId)}>
+                <ListItem
+                  key={item.postId}
+                  onClick={() => goToDiseaseDetail(item.postId)}
+                >
                   <span>{diseaseMap[item.disease]}</span>
                   <span>{item.title}</span>
                 </ListItem>
@@ -493,7 +501,11 @@ const CommunityMainPage = () => {
                 </MoreButton>
               </MoreButtonWrapper>
               {dailyPosts.map((item) => (
-                <ListItem key={item.postId} className="daily" onClick={() => goToDailyDetail(item.postId)}>
+                <ListItem
+                  key={item.postId}
+                  className="daily"
+                  onClick={() => goToDailyDetail(item.postId)}
+                >
                   <span>{item.title}</span>
                 </ListItem>
               ))}
@@ -509,7 +521,10 @@ const CommunityMainPage = () => {
               </MoreButton>
             </MoreButtonWrapper>
             {surgeryPosts.map((item) => (
-              <SurgeryListItem key={item.postId} onClick={() => goToSurgeryDetail(item.postId)}>
+              <SurgeryListItem
+                key={item.postId}
+                onClick={() => goToSurgeryDetail(item.postId)}
+              >
                 <span>{diseaseMap[item.disease]}</span>
                 <span>{item.title}</span>
                 <span>{item.content}</span>

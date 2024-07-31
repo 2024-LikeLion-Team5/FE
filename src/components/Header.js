@@ -177,9 +177,6 @@ const Header = () => {
             <StyledLink to="/hospital-review">병원후기</StyledLink>
           </MenuItem>
           <MenuItem>
-            <StyledLink to="/counsel">전문의 상담</StyledLink>
-          </MenuItem>
-          <MenuItem>
             <StyledLink to="/library">자료실</StyledLink>
           </MenuItem>
         </Menu>

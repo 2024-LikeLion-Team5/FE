@@ -38,11 +38,13 @@ const CheckBox = styled.input`
 
 const Identify = styled.span``;
 
-const Caution = () => {
+const Caution = ({ onCheckChange }) => {
   const [isChecked, setIsChecked] = useState(false);
 
   const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
+    const newCheckedStatus = !isChecked;
+    setIsChecked(newCheckedStatus);
+    onCheckChange(newCheckedStatus);
   };
 
   return (

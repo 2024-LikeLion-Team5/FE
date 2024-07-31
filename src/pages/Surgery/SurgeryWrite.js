@@ -65,7 +65,8 @@ const Input = styled.input`
     font-size: 0.875rem;
     font-weight: 600;
     color: ${({ theme }) => theme.colors.nv};
-    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI",
+      Roboto, "Helvetica Neue", Arial, sans-serif;
   }
   &:focus {
     outline: none;
@@ -80,7 +81,8 @@ const BodyInput = styled.textarea`
   border-radius: 0.5rem;
   resize: none;
   padding: 1.5rem;
-  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 0.875rem;
   font-weight: 500;
   color: ${({ theme }) => theme.colors.nv};
@@ -120,6 +122,7 @@ const UploadPic = styled.button`
 
 const SurgeryWrite = () => {
   const navigate = useNavigate();
+  const [isCautionChecked, setIsCautionChecked] = useState(false);
   const [formData, setFormData] = useState({
     communityType: "SURGERY_REVIEW",
     disease: "IMPOTENCE",
@@ -152,12 +155,20 @@ const SurgeryWrite = () => {
     }));
   };
 
+  const handleCautionCheckChange = (isChecked) => {
+    setIsCautionChecked(isChecked);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!isCautionChecked) {
+      alert("주의사항을 확인해주세요.");
+      return;
+    }
     try {
       const response = await postSurgery(formData);
-      console.log('Post Response:', response);
-      alert('게시글 작성이 완료되었습니다.');
+      console.log("Post Response:", response);
+      alert("게시글 작성이 완료되었습니다.");
       navigate("/surgery");
     } catch (error) {
       console.error("Failed to post:", error);
@@ -189,7 +200,7 @@ const SurgeryWrite = () => {
           <Label>질환/고민</Label>
           <CustomSelect
             optionData={optionData}
-            onChange={(value) => handleSelectChange('disease', value)}
+            onChange={(value) => handleSelectChange("disease", value)}
             value={formData.disease}
           />
         </InputWrapper>
@@ -231,7 +242,7 @@ const SurgeryWrite = () => {
             onChange={handleChange}
           />
         </InputWrapper>
-        <Caution />
+        <Caution onCheckChange={handleCautionCheckChange} />
         <BtnWrapper>
           <PostButton type="submit">게시글 작성</PostButton>
         </BtnWrapper>

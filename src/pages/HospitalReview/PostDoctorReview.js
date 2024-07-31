@@ -192,6 +192,7 @@ const PostDoctorReview = () => {
   const [isCounsel, setIsCounsel] = useState(false);
   const [rating, setRating] = useState(0);
   const [isAttach, setIsAttach] = useState(false);
+  const [isCautionChecked, setIsCautionChecked] = useState(false);
   const [formData, setFormData] = useState({
     hospital: "",
     disease: "",
@@ -250,12 +251,20 @@ const PostDoctorReview = () => {
     }));
   };
 
+  const handleCautionCheckChange = (isChecked) => {
+    setIsCautionChecked(isChecked);
+  };
+
   const handleSubmit = async (e) => {
+    e.preventDefault();
     if (!isAttach) {
       alert("영수증을 첨부해주세요.");
       return;
     }
-    e.preventDefault();
+    if (!isCautionChecked) {
+      alert("주의사항을 확인해주세요.");
+      return;
+    }
     const content = {
       ...formData,
       ageGroup: selectedAge,
@@ -364,7 +373,7 @@ const PostDoctorReview = () => {
             onChange={handleChange}
           />
         </InputWrapper>
-        <Caution />
+        <Caution onCheckChange={handleCautionCheckChange} />
         <BtnWrapper>
           <PostButton type="submit">게시글 작성</PostButton>
         </BtnWrapper>

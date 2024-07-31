@@ -58,15 +58,16 @@ const Option = styled.li`
 `;
 
 const CustomSelect = ({ optionData, value, onChange }) => {
-  const [currentValue, setCurrentValue] = useState(optionData.find(option => option.key === value).value);
+  const [currentValue, setCurrentValue] = useState(
+    optionData.find((option) => option.key === value)?.value || "Select"
+  );
   const [showOptions, setShowOptions] = useState(false);
 
-  const handleOnChangeSelectValue = (e) => {
-    const selectedValue = e.target.getAttribute("value");
-    setCurrentValue(selectedValue);
+  const handleOnChangeSelectValue = (key, value) => {
+    setCurrentValue(value);
     setShowOptions(false);
-    const selectedOption = optionData.find(option => option.value === selectedValue);
-    onChange(selectedOption.key);
+    onChange(key);
+    setShowOptions(true);
   };
 
   return (
@@ -76,8 +77,7 @@ const CustomSelect = ({ optionData, value, onChange }) => {
         {optionData.map((data) => (
           <Option
             key={data.key}
-            value={data.value}
-            onClick={handleOnChangeSelectValue}
+            onClick={() => handleOnChangeSelectValue(data.key, data.value)}
           >
             {data.value}
           </Option>

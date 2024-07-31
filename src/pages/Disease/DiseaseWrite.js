@@ -125,6 +125,7 @@ const UploadPic = styled.button`
 
 const DiseaseWrite = () => {
   const navigate = useNavigate();
+  const [isCautionChecked, setIsCautionChecked] = useState(false);
   const [formData, setFormData] = useState({
     disease: "IMPOTENCE",
     title: "",
@@ -158,14 +159,22 @@ const DiseaseWrite = () => {
     }));
   };
 
+  const handleCautionCheckChange = (isChecked) => {
+    setIsCautionChecked(isChecked);
+  };
+
   // 폼 제출 핸들러
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!isCautionChecked) {
+      alert("주의사항을 확인해주세요.");
+      return;
+    }
     try {
       // postDisease API 함수 호출
       const response = await postDisease(formData);
-      console.log('Post Response:', response); // 응답 데이터 확인
-      alert('게시글 작성이 완료되었습니다.'); // 알림 메시지 추가
+      console.log("Post Response:", response); // 응답 데이터 확인
+      alert("게시글 작성이 완료되었습니다."); // 알림 메시지 추가
       navigate("/disease"); // 목록 페이지로 이동
     } catch (error) {
       console.error("Failed to post:", error);
@@ -229,7 +238,7 @@ const DiseaseWrite = () => {
             onChange={handleChange}
           />
         </InputWrapper>
-        <Caution />
+        <Caution onCheckChange={handleCautionCheckChange} />
         <BtnWrapper>
           <PostButton type="submit">게시글 작성</PostButton>
         </BtnWrapper>

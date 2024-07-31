@@ -66,33 +66,33 @@ const Reviews = styled.div`
   padding: 1.625rem 0;
 `;
 
-const HospitalReviews = styled.div`
-  display: flex;
-  flex-direction: column;
-  border-top: 1px solid ${({ theme }) => theme.colors.g2};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.g2};
-  padding: 1.625rem 0;
-`;
-
 const HospitalSearchItemWrapper = styled.div`
   flex: 1;
   border: none;
+`;
+
+const ResultZero = styled.div`
+  margin: 4rem auto;
+  font-size: 1rem;
+  font-weight: bold;
 `;
 
 const ReviewSearchResult = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [hospitalReviews, setHospitalReviews] = useState([]);
+  const [totalDoctor, setTotalDoctor] = useState(0);
   const [doctorReviews, setDoctorReviews] = useState([]);
+  const [totalHospital, setTotalHospital] = useState(0);
 
   const keyword = searchParams.get("keyword") || "";
 
-  //여기 검색 api 연동
   useEffect(() => {
     const fetchSearchDoctor = async () => {
       try {
         const data = await getDoctorReviewList(keyword);
-        setDoctorReviews(data);
+        setDoctorReviews(data.doctorTreatmentReviewPostsResponses);
+        setTotalDoctor(data.totalSearchedCount);
       } catch (error) {
         console.error("검색 결과 로드 실패:", error);
       }
@@ -100,7 +100,8 @@ const ReviewSearchResult = () => {
 
     const fetchSeatchHospital = async () => {
       const data = await getSearchHospitalReviews(keyword);
-      setHospitalReviews(data);
+      setHospitalReviews(data.getHospitalInfoResponses);
+      setTotalHospital(data.totalSearchedCount);
     };
 
     fetchSearchDoctor();
@@ -117,45 +118,53 @@ const ReviewSearchResult = () => {
 
   return (
     <Container>
-      <KeyWord>검색 : 멘텀비뇨기과</KeyWord>
+      <KeyWord>검색 : {keyword}</KeyWord>
       <HospitalResult>
         <Result>
-          <ResultTitle>병원 검색 결과 ({hospitalReviews.length()})</ResultTitle>
+          <ResultTitle>병원 검색 결과 ({totalHospital})</ResultTitle>
           <div style={{ display: "flex", alignItems: "center" }}>
             <Text>더보기</Text>
             <Btn src={seeMore} alt="더보기" />
           </div>
         </Result>
         <Reviews>
-          <HospitalSearchItemWrapper>
-            {hospitalReviews.slice(0, 3).map((review) => (
-              <HospitalSearchItem
-                key={review.hospitalId}
-                onSelect={handleSelectHospitalReview}
-                review={review}
-              />
-            ))}
-          </HospitalSearchItemWrapper>
+          {totalHospital === 0 ? (
+            <ResultZero>검색 결과가 없습니다</ResultZero>
+          ) : (
+            <HospitalSearchItemWrapper>
+              {hospitalReviews.slice(0, 3).map((review) => (
+                <HospitalSearchItem
+                  key={review.hospitalId}
+                  onSelect={handleSelectHospitalReview}
+                  review={review}
+                />
+              ))}
+            </HospitalSearchItemWrapper>
+          )}
         </Reviews>
       </HospitalResult>
       <DoctorResult>
         <Result>
-          <ResultTitle>
-            의사 상담 후기 검색 결과 ({doctorReviews.length()})
-          </ResultTitle>
+          <ResultTitle>의사 상담 후기 검색 결과 ({totalDoctor})</ResultTitle>
           <div style={{ display: "flex", alignItems: "center" }}>
             <Text>더보기</Text>
             <Btn src={seeMore} alt="더보기" />
           </div>
         </Result>
         <Reviews>
-          {doctorReviews.slice(0, 3).map((review) => (
-            <DoctorReviewItem
-              key={review.postId}
-              onSelect={handleSelectDoctorReview}
-              review={review}
-            />
-          ))}
+          {totalDoctor === 0 ? (
+            <ResultZero>검색 결과가 없습니다.</ResultZero>
+          ) : (
+            doctorReviews
+              .slice(0, 3)
+              .map((review) => (
+                <DoctorReviewItem
+                  key={review.postId}
+                  onSelect={handleSelectDoctorReview}
+                  review={review}
+                />
+              ))
+          )}
         </Reviews>
       </DoctorResult>
     </Container>

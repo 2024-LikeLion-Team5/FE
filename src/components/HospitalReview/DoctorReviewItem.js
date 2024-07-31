@@ -4,6 +4,7 @@ import theme from "../../Theme";
 import StarRatingDisplay from "../StarRatingDisplay";
 
 const Wrapper = styled.div`
+  flex: 0 0 auto;
   width: 22rem;
   height: 23.75rem;
   box-sizing: border-box;
@@ -82,10 +83,9 @@ const DoctorReviewItem = ({ onSelect, review }) => {
     title,
     content,
   } = review;
+
   return (
     <Wrapper onClick={() => onSelect(postId)}>
-      {" "}
-      {/*여기 postId hospitalId로 바꿔야 함*/}
       <Info>
         <div>
           <Doctor>{doctor} | </Doctor>

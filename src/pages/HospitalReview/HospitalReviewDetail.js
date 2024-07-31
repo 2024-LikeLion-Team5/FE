@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import detailImg from "../../assets/hospital_detail_img.png";
 import DoctorReviewComment from "../../components/HospitalReview/DoctorReviewComment";
@@ -199,48 +199,52 @@ const HospitalReviewDetail = () => {
   return (
     <Container>
       <Wrapper>
-        <Info>
-          <Img src={detailImg} alt="병원 사진" />
-          <Details>
-            <Name>{hospitalInfo.hospital}</Name>
-            <InfoWrapper>
-              <About>
-                <Address>{hospitalInfo.addres}</Address>
-                <ClinicTime>
-                  <Title>진료시간</Title>
-                  <Times>
-                    {hospitalInfo.operatingTime.map((time, index) => (
-                      <Time key={index}>{time}</Time>
-                    ))}
-                  </Times>
-                </ClinicTime>
-              </About>
-              <Evaluation>
-                <RatingSection>
-                  <Section>시설 평점</Section>
-                  <Stars>
-                    <img src={star} alt="별" />
-                    <span>{hospitalInfo.facilityRating}</span>
-                  </Stars>
-                </RatingSection>
-                <RatingSection>
-                  <Section>분위기 평점</Section>
-                  <Stars>
-                    <img src={star} alt="별" />
-                    <span>{hospitalInfo.atmosphereRating}</span>
-                  </Stars>
-                </RatingSection>
-                <RatingSection>
-                  <Section>직원 평점</Section>
-                  <Stars>
-                    <img src={star} alt="별" />
-                    <span>{hospitalInfo.employeeRating}</span>
-                  </Stars>
-                </RatingSection>
-              </Evaluation>
-            </InfoWrapper>
-          </Details>
-        </Info>
+        {hospitalInfo ? (
+          <Info>
+            <Img src={detailImg} alt="병원 사진" />
+            <Details>
+              <Name>{hospitalInfo.hospital}</Name>
+              <InfoWrapper>
+                <About>
+                  <Address>{hospitalInfo.address}</Address>
+                  <ClinicTime>
+                    <Title>진료시간</Title>
+                    <Times>
+                      {hospitalInfo.operatingTime?.map((time, index) => (
+                        <Time key={index}>{time}</Time>
+                      ))}
+                    </Times>
+                  </ClinicTime>
+                </About>
+                <Evaluation>
+                  <RatingSection>
+                    <Section>시설 평점</Section>
+                    <Stars>
+                      <img src={star} alt="별" />
+                      <span>{hospitalInfo.averageFacilityRating}</span>
+                    </Stars>
+                  </RatingSection>
+                  <RatingSection>
+                    <Section>분위기 평점</Section>
+                    <Stars>
+                      <img src={star} alt="별" />
+                      <span>{hospitalInfo.averageAtmosphereRating}</span>
+                    </Stars>
+                  </RatingSection>
+                  <RatingSection>
+                    <Section>직원 평점</Section>
+                    <Stars>
+                      <img src={star} alt="별" />
+                      <span>{hospitalInfo.averageEmployeeRating}</span>
+                    </Stars>
+                  </RatingSection>
+                </Evaluation>
+              </InfoWrapper>
+            </Details>
+          </Info>
+        ) : (
+          <div>Loading...</div>
+        )}
         <Buttons>
           <Options>
             <Option

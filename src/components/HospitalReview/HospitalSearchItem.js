@@ -36,7 +36,7 @@ const Detail = styled.div`
 
 const Img = styled.img`
   height: 7.75rem;
-  width: 11.25;
+  width: 11.25rem; /* width 값 수정 */
   border-radius: 0.5rem;
 `;
 
@@ -56,25 +56,25 @@ const Option = styled.div`
 
 const HospitalSearchItem = ({ onSelect, review }) => {
   const {
-    hospitalId,
+    id,
     hospital,
     address,
-    imageUrl,
-    facilityRating,
-    atmosphereRating,
-    employeeRating,
+    averageFacilityRating,
+    averageAtmosphereRating,
+    averageEmployeeRating,
   } = review;
+
   return (
-    <Wrapper onClick={() => onSelect(hospitalId)}>
+    <Wrapper onClick={() => onSelect(id)}>
       <Info>
         <Name>{hospital}</Name>
         <Address>{address}</Address>
         <Detail>
-          <Img src={imageUrl} alt="병원 후기 사진" />
+          <Img src={hospitalImg} alt="병원 후기 사진" />
           <Evaluations>
-            <Option>시설 평점 {facilityRating}</Option>
-            <Option>분위기 평점 {atmosphereRating}</Option>
-            <Option>직원 평점 {employeeRating}</Option>
+            <Option>시설 평점 {averageFacilityRating}</Option>
+            <Option>분위기 평점 {averageAtmosphereRating}</Option>
+            <Option>직원 평점 {averageEmployeeRating}</Option>
           </Evaluations>
         </Detail>
       </Info>

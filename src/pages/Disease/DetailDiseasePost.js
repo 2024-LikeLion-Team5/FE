@@ -61,6 +61,7 @@ const DetailDiseasePost = () => {
         metaInfo={metaInfo}
         detailItems={detailItems}
         content={post.content}
+        postType="CONCERN" // 좋실 추가
       />
       <CommentSection postId={id} communityType="CONCERN" />
     </>

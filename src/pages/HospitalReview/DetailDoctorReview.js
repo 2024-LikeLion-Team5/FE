@@ -48,6 +48,7 @@ const DetailDoctorReview = () => {
       metaInfo={metaInfo}
       detailItems={detailItems}
       content={reviewData.content}
+      postType="DOCTOR_REVIEW" //좋싫추가
     />
   );
 };

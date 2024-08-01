@@ -44,6 +44,7 @@ const DetailDailyPost = () => {
         metaInfo={metaInfo}
         detailItems={detailItems}
         content={post.content}
+        postType="DAILY" // 좋실 추가
       />
       <CommentSection postId={id} communityType="DAILY" />
     </>

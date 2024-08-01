@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import goodBtn from "../assets/good.png";
 import badBtn from "../assets/bad.png";
 import reportBtn from "../assets/report.png";
@@ -116,9 +116,26 @@ const Button = styled.button`
   padding: 0.5rem 2.5rem;
   cursor: pointer;
 
+  ${(props) =>
+    props.active &&
+    props.type === "like" &&
+    css`
+      background-color: ${props.theme.colors.b2}  !important;
+    `}
+
+  ${(props) =>
+    props.active &&
+    props.type === "dislike" &&
+    css`
+      background-color: ${props.theme.colors.g2};
+      box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.15); //figma 처럼 자연스러운 그림자를 넣기 위해 조금 조절함.
+    `}
+
   &.hate {
-    background-color: ${({ theme }) => theme.colors.g3};
+    background-color: ${({ theme }) => theme.colors.g3} !important;
+    color: ${({ theme }) => theme.colors.nv};
   }
+
   &.good {
     background-color: ${({ theme }) => theme.colors.b1};
     color: white;
@@ -162,18 +179,21 @@ const PostLayout = ({
   metaInfo,
   detailItems,
   content,
+  postType, // 여기서 postType을 props로 받아옵니다.
 }) => {
   const [likeActive, setLikeActive] = useState(false);
   const [dislikeActive, setDislikeActive] = useState(false);
 
   const handleLikeClick = async () => {
-    await patchLike(postId);
+    console.log("좋아요 클릭:", { postId, postType });
+    await patchLike(postId, postType);
     setLikeActive(true);
     setDislikeActive(false);
   };
 
   const handleDislikeClick = async () => {
-    await patchDisLike(postId);
+    console.log("싫어요 클릭:", { postId, postType });
+    await patchDisLike(postId, postType);
     setLikeActive(false);
     setDislikeActive(true);
   };
@@ -218,11 +238,22 @@ const PostLayout = ({
           <img src={reportBtn} alt="신고" />
         </ReportButton>
         <LikeDislikeButtons>
-          <Button className="hate" onClick={handleDislikeClick}>
+          <Button
+            className={`hate ${dislikeActive ? "active" : ""}`}
+            onClick={handleDislikeClick}
+            active={dislikeActive}
+            type="dislike"
+          >
             <img src={badBtn} alt="싫어요" />
             싫어요
           </Button>
-          <Button className="good" onClick={handleLikeClick}>
+
+          <Button
+            className={`good ${likeActive ? "active" : ""}`}
+            onClick={handleLikeClick}
+            active={likeActive}
+            type="like"
+          >
             <img src={goodBtn} alt="좋아요" />
             좋아요
           </Button>

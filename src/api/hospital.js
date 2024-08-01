@@ -160,10 +160,33 @@ export const postCounsel = async (content) => {
   }
 };
 
-//좋아요 버튼
-export const patchLike = async (postId) => {
+// //좋아요 버튼
+// export const patchLike = async (postId) => {
+//   try {
+//     const response = await instance.patch(`/posts/${postId}/like`);
+//     return response;
+//   } catch (error) {
+//     console.log("좋아요 버튼 에러", error);
+//     throw error;
+//   }
+// };
+
+// //싫어요 버튼
+// export const patchDisLike = async (postId) => {
+//   try {
+//     const response = await instance.patch(`/posts/${postId}/dislike`);
+//     return response;
+//   } catch (error) {
+//     console.log("싫어요 버튼 에러", error);
+//   }
+// };
+
+//좋실 수정
+// 좋아요 버튼
+export const patchLike = async (postId, postType) => {
   try {
-    const response = await instance.patch(`/posts/${postId}/like`);
+    console.log("좋아요 요청:", { postType });
+    const response = await instance.patch(`/posts/${postId}/like`, { postType });
     return response;
   } catch (error) {
     console.log("좋아요 버튼 에러", error);
@@ -171,12 +194,14 @@ export const patchLike = async (postId) => {
   }
 };
 
-//싫어요 버튼
-export const patchDisLike = async (postId) => {
+// 싫어요 버튼
+export const patchDisLike = async (postId, postType) => {
   try {
-    const response = await instance.patch(`/posts/${postId}/dislike`);
+    console.log("싫어요 요청:", { postType });
+    const response = await instance.patch(`/posts/${postId}/dislike`, { postType });
     return response;
   } catch (error) {
     console.log("싫어요 버튼 에러", error);
+    throw error;
   }
 };

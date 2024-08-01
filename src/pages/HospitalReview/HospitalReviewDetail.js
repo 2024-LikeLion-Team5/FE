@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import detailImg from "../../assets/hospital_detail_img.png";
 import DoctorReviewComment from "../../components/HospitalReview/DoctorReviewComment";
@@ -181,6 +181,7 @@ const HospitalReviewDetail = () => {
   useEffect(() => {
     const fetchHospitalInfo = async () => {
       const data = await getHospitalInfo(id);
+      console.log(data);
       setHospitalInfo(data);
     };
 
@@ -196,55 +197,60 @@ const HospitalReviewDetail = () => {
     navigate(`/counsel/${id}/write-counsel`);
   };
 
+  const moclHospitalInfo = {
+    hospital: "mentum",
+    address: "대전광역시 대학로 99",
+    operatingTime: "월-금 10:00 ~ 18:00",
+    facilityRating: 4.3,
+    atmosphereRating: 4.0,
+    employeeRating: 4.2,
+  };
   return (
     <Container>
       <Wrapper>
-        {hospitalInfo ? (
-          <Info>
-            <Img src={detailImg} alt="병원 사진" />
-            <Details>
-              <Name>{hospitalInfo.hospital}</Name>
-              <InfoWrapper>
-                <About>
-                  <Address>{hospitalInfo.address}</Address>
-                  <ClinicTime>
-                    <Title>진료시간</Title>
-                    <Times>
-                      {hospitalInfo.operatingTime?.map((time, index) => (
-                        <Time key={index}>{time}</Time>
-                      ))}
-                    </Times>
-                  </ClinicTime>
-                </About>
-                <Evaluation>
-                  <RatingSection>
-                    <Section>시설 평점</Section>
-                    <Stars>
-                      <img src={star} alt="별" />
-                      <span>{hospitalInfo.averageFacilityRating}</span>
-                    </Stars>
-                  </RatingSection>
-                  <RatingSection>
-                    <Section>분위기 평점</Section>
-                    <Stars>
-                      <img src={star} alt="별" />
-                      <span>{hospitalInfo.averageAtmosphereRating}</span>
-                    </Stars>
-                  </RatingSection>
-                  <RatingSection>
-                    <Section>직원 평점</Section>
-                    <Stars>
-                      <img src={star} alt="별" />
-                      <span>{hospitalInfo.averageEmployeeRating}</span>
-                    </Stars>
-                  </RatingSection>
-                </Evaluation>
-              </InfoWrapper>
-            </Details>
-          </Info>
-        ) : (
-          <div>Loading...</div>
-        )}
+        <Info>
+          <Img src={detailImg} alt="병원 사진" />
+          <Details>
+            <Name>{hospitalInfo?.hospital}</Name>
+            <InfoWrapper>
+              <About>
+                <Address>{hospitalInfo?.addres}</Address>
+                <ClinicTime>
+                  <Title>진료시간</Title>
+                  <Times>
+                    {/* {hospitalInfo.operatingTime.map((time, index) => (
+                      <Time key={index}>{time}</Time>
+                    ))} */}
+                    {hospitalInfo?.operatingTime}
+                  </Times>
+                </ClinicTime>
+              </About>
+              <Evaluation>
+                <RatingSection>
+                  <Section>시설 평점</Section>
+                  <Stars>
+                    <img src={star} alt="별" />
+                    <span>{hospitalInfo?.averageFacilityRating}</span>
+                  </Stars>
+                </RatingSection>
+                <RatingSection>
+                  <Section>분위기 평점</Section>
+                  <Stars>
+                    <img src={star} alt="별" />
+                    <span>{hospitalInfo?.averageAtmosphereRating}</span>
+                  </Stars>
+                </RatingSection>
+                <RatingSection>
+                  <Section>직원 평점</Section>
+                  <Stars>
+                    <img src={star} alt="별" />
+                    <span>{hospitalInfo?.averageEmployeeRating}</span>
+                  </Stars>
+                </RatingSection>
+              </Evaluation>
+            </InfoWrapper>
+          </Details>
+        </Info>
         <Buttons>
           <Options>
             <Option

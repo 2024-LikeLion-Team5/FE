@@ -70,10 +70,6 @@ const HospitalReviews = styled(Reviews)`
   gap: 1.5rem;
 `;
 
-const HospitalSearchItemWrapper = styled.div`
-  flex: 1;
-`;
-
 const CommunityResult = styled.div`
   border-top: 1px solid ${({ theme }) => theme.colors.g2};
   border-bottom: 1px solid ${({ theme }) => theme.colors.g2};

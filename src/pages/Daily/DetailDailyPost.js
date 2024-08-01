@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getDailyPostId } from "../../api/community"; // API 함수 가져오기
@@ -39,6 +38,7 @@ const DetailDailyPost = () => {
   return (
     <>
       <PostLayout
+        postId={id}
         title={post.title}
         category="일상"
         metaInfo={metaInfo}

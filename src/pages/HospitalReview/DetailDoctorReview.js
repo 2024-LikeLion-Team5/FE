@@ -42,6 +42,7 @@ const DetailDoctorReview = () => {
 
   return (
     <PostLayout
+      postId={id}
       title={reviewData.title}
       category="의사 상담 후기"
       metaInfo={metaInfo}

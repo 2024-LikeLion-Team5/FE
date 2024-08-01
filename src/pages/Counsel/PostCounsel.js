@@ -4,7 +4,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import Advertisement from "../../components/Advertisement";
 import CustomSelect from "../../components/CustomSelect";
 import Caution from "../../components/Caution";
-import { postCounsel } from "../../api/hospital";
 
 const ContentWrapper = styled.div`
   width: 52rem;
@@ -322,20 +321,6 @@ const PostCounsel = () => {
     }
     alert("상담 요청이 완료되었습니다.");
     navigate(`/hospital-review/hospital/${id}`);
-    // const content = {
-    //   ...formData,
-    //   ageGroup: selectedAge,
-    //   pain: painLevel,
-    // };
-    // try {
-    //   const response = await postCounsel(content);
-    //   if (response && response.status === 201) {
-    //     alert("상담 요청이 완료되었습니다.");
-    //     navigate(`/hospital-review/hospital/${id}`);
-    //   }
-    // } catch (error) {
-    //   console.error("상담 요청 실패", error);
-    // }
   };
 
   return (

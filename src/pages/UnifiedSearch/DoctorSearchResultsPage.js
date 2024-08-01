@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
 import DoctorReviewItem from "../../components/HospitalReview/DoctorReviewItem";
-import Advertisement from "../../components/Advertisement";
-import { getDoctorReviewIntegration } from "../../api/community"; // API 함수 import
+import { getDoctorReviewIntegration } from "../../api/community";
 import Banner from "../../components/Banner";
 import bannerImg from "../../assets/review_img.png";
 

@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import theme from "../../Theme";
 import StarRatingDisplay from "../StarRatingDisplay";
 
 const Wrapper = styled.div`
@@ -35,8 +34,6 @@ const Hospital = styled.span`
   font-size: 0.8125rem;
   font-weight: 700;
 `;
-
-const Stars = styled.div``;
 
 const Options = styled.div`
   display: flex;

@@ -1,7 +1,9 @@
 import axios from "axios";
 
+const url = process.env.REACT_APP_API_URL;
+
 const instance = axios.create({
-  baseURL: "http://122.39.34.214:8080",
+  baseURL: url,
   headers: {
     "Content-Type": "application/json",
   },
@@ -11,7 +13,7 @@ const instance = axios.create({
 export const postDisease = async (data) => {
   try {
     const response = await instance.post("/communities/concerns", data);
-    console.log('Post Response:', response.data); // 응답 데이터 확인
+    console.log("Post Response:", response.data); // 응답 데이터 확인
     return response.data;
   } catch (error) {
     if (error.response && error.response.status === 404) {
@@ -31,7 +33,6 @@ export const getDiseasePostId = async (postId) => {
     console.log(error);
   }
 };
-
 
 // 질환고민 글 목록조회
 export const getDiseasePosts = async (disease, page) => {
@@ -61,7 +62,7 @@ export const getDiseases = async () => {
 export const postSurgery = async (data) => {
   try {
     const response = await instance.post("/communities/surgery-reviews", data);
-    console.log('Post Response:', response.data); // 응답 데이터 확인
+    console.log("Post Response:", response.data); // 응답 데이터 확인
     return response.data;
   } catch (error) {
     if (error.response && error.response.status === 404) {
@@ -75,7 +76,9 @@ export const postSurgery = async (data) => {
 // 수술 후기 글 상세 조회
 export const getSurgeryPostId = async (postId) => {
   try {
-    const response = await instance.get(`/communities/surgery-reviews/${postId}`);
+    const response = await instance.get(
+      `/communities/surgery-reviews/${postId}`
+    );
     return response.data;
   } catch (error) {
     console.log(error);
@@ -113,7 +116,7 @@ export const getSurgeryPosts = async (disease, page) => {
 export const postDaily = async (data) => {
   try {
     const response = await instance.post("/communities/dailies", data);
-    console.log('Post Response:', response.data); // 응답 데이터 확인
+    console.log("Post Response:", response.data); // 응답 데이터 확인
     return response.data;
   } catch (error) {
     if (error.response && error.response.status === 404) {
@@ -123,7 +126,6 @@ export const postDaily = async (data) => {
     throw error;
   }
 };
-
 
 // 일상 글 상세조회
 export const getDailyPostId = async (postId) => {
@@ -169,7 +171,6 @@ export const getTotalDailyCommunities = async () => {
   }
 };
 
-
 // 커뮤니티 전체 조회(수술후기)
 export const getTotalSurgeryCommunities = async () => {
   try {
@@ -181,11 +182,12 @@ export const getTotalSurgeryCommunities = async () => {
   }
 };
 
-
 // 커뮤니티 통합검색 - 6개 넘겨주기
 export const getCommunityIntegration = async (keyword) => {
   try {
-    const response = await instance.get(`/communities/integration?keyword=${keyword}`);
+    const response = await instance.get(
+      `/communities/integration?keyword=${keyword}`
+    );
     return response.data;
   } catch (error) {
     console.log(error);
@@ -196,7 +198,9 @@ export const getCommunityIntegration = async (keyword) => {
 // 커뮤니티 통합검색 목록 조회
 export const getCommunityIntegrationList = async (keyword) => {
   try {
-    const response = await instance.get(`/communities?keyword=${keyword}&page=0`);
+    const response = await instance.get(
+      `/communities?keyword=${keyword}&page=0`
+    );
     return response.data;
   } catch (error) {
     console.log(error);
@@ -207,7 +211,9 @@ export const getCommunityIntegrationList = async (keyword) => {
 // 의사 후기 통합검색 - 3개 넘겨주기
 export const getDoctorReviewIntegration = async (keyword) => {
   try {
-    const response = await instance.get(`/doctor-reviews/integration?keyword=${keyword}`); // URL 수정
+    const response = await instance.get(
+      `/doctor-reviews/integration?keyword=${keyword}`
+    ); // URL 수정
     return response.data;
   } catch (error) {
     console.log(error);
@@ -218,7 +224,9 @@ export const getDoctorReviewIntegration = async (keyword) => {
 // 의사 후기 통합검색 목록 조회
 export const getDoctorReviewIntegrationList = async (keyword) => {
   try {
-    const response = await instance.get(`/doctor-reviews?keyword=${keyword}&page=0`);
+    const response = await instance.get(
+      `/doctor-reviews?keyword=${keyword}&page=0`
+    );
     return response.data;
   } catch (error) {
     console.log(error);
@@ -229,7 +237,9 @@ export const getDoctorReviewIntegrationList = async (keyword) => {
 // 병원 통합검색 - 3개 넘겨주기
 export const getHospitalIntegration = async (keyword) => {
   try {
-    const response = await instance.get(`/hospitals/integration?keyword=${keyword}`); // URL 수정
+    const response = await instance.get(
+      `/hospitals/integration?keyword=${keyword}`
+    ); // URL 수정
     return response.data;
   } catch (error) {
     console.log(error);
@@ -252,7 +262,7 @@ export const getHospitalIntegrationList = async (keyword) => {
 export const getComments = async (postId, communityType) => {
   try {
     const response = await instance.get(`/posts/${postId}/comments`, {
-      params: { communityType }
+      params: { communityType },
     });
     return response.data;
   } catch (error) {

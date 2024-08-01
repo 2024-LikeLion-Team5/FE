@@ -258,6 +258,7 @@ const PostCounsel = () => {
   const { id } = useParams();
   const [selectedAge, setSelectedAge] = useState(null);
   const [painLevel, setPainLevel] = useState(0);
+  const [isCautionChecked, setIsCautionChecked] = useState(false);
   const [formData, setFormData] = useState({
     disease: "",
     period: "",
@@ -290,7 +291,8 @@ const PostCounsel = () => {
     setSelectedAge(age.key);
   };
 
-  const handlePainLevelClick = (level) => {
+  const handlePainLevelClick = (e, level) => {
+    e.preventDefault();
     setPainLevel(level);
   };
 
@@ -308,22 +310,32 @@ const PostCounsel = () => {
     });
   };
 
+  const handleCautionCheckChange = (isChecked) => {
+    setIsCautionChecked(isChecked);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const content = {
-      ...formData,
-      ageGroup: selectedAge,
-      pain: painLevel,
-    };
-    try {
-      const response = await postCounsel(content);
-      if (response && response.status === 201) {
-        alert("상담 요청이 완료되었습니다.");
-        navigate(`/hospital-review/hospital/${id}`);
-      }
-    } catch (error) {
-      console.error("상담 요청 실패", error);
+    if (!isCautionChecked) {
+      alert("주의사항을 확인해주세요.");
+      return;
     }
+    alert("상담 요청이 완료되었습니다.");
+    navigate(`/hospital-review/hospital/${id}`);
+    // const content = {
+    //   ...formData,
+    //   ageGroup: selectedAge,
+    //   pain: painLevel,
+    // };
+    // try {
+    //   const response = await postCounsel(content);
+    //   if (response && response.status === 201) {
+    //     alert("상담 요청이 완료되었습니다.");
+    //     navigate(`/hospital-review/hospital/${id}`);
+    //   }
+    // } catch (error) {
+    //   console.error("상담 요청 실패", error);
+    // }
   };
 
   return (
@@ -399,7 +411,7 @@ const PostCounsel = () => {
                   <PainLevelButton
                     key={i}
                     selected={i === painLevel}
-                    onClick={() => handlePainLevelClick(i)}
+                    onClick={(event) => handlePainLevelClick(event, i)}
                   >
                     {i}
                   </PainLevelButton>
@@ -449,10 +461,14 @@ const PostCounsel = () => {
             </BodyWrapper>
           </InputWrapper>
         </InputForm>
-        <Caution />
+        <Caution onCheckChange={handleCautionCheckChange} />
         <BtnWrapper>
-          <PostButton type="submit">전화 상담 예약하기</PostButton>
-          <PostButton type="submit">카톡 상담 예약하기</PostButton>
+          <PostButton type="submit" onClick={handleSubmit}>
+            전화 상담 예약하기
+          </PostButton>
+          <PostButton type="submit" onClick={handleSubmit}>
+            카톡 상담 예약하기
+          </PostButton>
         </BtnWrapper>
       </ContentWrapper>
     </div>

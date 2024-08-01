@@ -121,7 +121,7 @@ const HospitalReviewComment = ({ hospitalId }) => {
       <PostButton
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        onClick={handlePostBtnClick(hospitalId)}
+        onClick={() => handlePostBtnClick(hospitalId)}
       >
         <img src={isHovered ? writeBtnWhite : writeBtn} alt="글쓰기 버튼" />
         병원 후기 쓰기

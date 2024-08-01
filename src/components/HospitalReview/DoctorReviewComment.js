@@ -137,7 +137,6 @@ const DoctorReviewComment = ({ hospitalId }) => {
 
   useEffect(() => {
     const fetchReviews = async () => {
-      console.log("코멘트", hospitalId);
       const data = await getDoctorReviewByHospital(hospitalId);
       setReviews(data);
     };
@@ -150,6 +149,7 @@ const DoctorReviewComment = ({ hospitalId }) => {
   };
 
   const handlePostBtnClick = (id) => {
+    // useEffect를 사용하여 navigate 호출
     navigate(`/hospital-review/post/${id}/doctor-review`);
   };
 
@@ -165,7 +165,7 @@ const DoctorReviewComment = ({ hospitalId }) => {
           <Doctors>
             {reviews.map((review) => (
               <Doctor
-                key={review.doctor}
+                key={review.postId}
                 className={activeDoctor === review.doctor ? "active" : ""}
                 onClick={() => handleDoctorClick(review.doctor)}
               >
@@ -178,7 +178,7 @@ const DoctorReviewComment = ({ hospitalId }) => {
         <PostButton
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          onClick={handlePostBtnClick(hospitalId)}
+          onClick={() => handlePostBtnClick(hospitalId)}
         >
           <img src={isHovered ? writeBtnWhite : writeBtn} alt="글쓰기 버튼" />
           병원 후기 쓰기

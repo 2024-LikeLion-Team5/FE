@@ -59,14 +59,15 @@ const Option = styled.li`
 
 const CustomSelect = ({ optionData, value, onChange }) => {
   const [currentValue, setCurrentValue] = useState(
-    optionData.find((option) => option.key === value)?.value || "Select"
+    optionData.find((option) => option.key === value)?.value ||
+      "질환/고민을 선택하세요."
   );
   const [showOptions, setShowOptions] = useState(false);
 
   const handleOnChangeSelectValue = (key, value) => {
     setCurrentValue(value);
     setShowOptions(false);
-    onChange(key);
+    onChange({ key, value });
     setShowOptions(true);
   };
 

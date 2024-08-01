@@ -200,7 +200,6 @@ const PostDoctorReview = () => {
     doctor: "",
     title: "",
     content: "",
-    imageUrl: null,
   });
 
   const ageOption = [
@@ -229,12 +228,17 @@ const PostDoctorReview = () => {
 
   const handleCounselingClick = (e) => {
     e.preventDefault();
-    setIsCounsel(true);
+    setIsCounsel(!isCounsel);
+    setFormData((prevData) => ({
+      ...prevData,
+      treatment: "단순상담",
+    }));
   };
 
   const handleAttachRecipt = (e) => {
     e.preventDefault();
     setIsAttach(true);
+    alert("영수증이 첨부되었습니다.");
   };
 
   const handleChange = (e) => {
@@ -271,6 +275,7 @@ const PostDoctorReview = () => {
       rating,
     };
     try {
+      console.log(content);
       const response = await postDoctorReview(content);
       if (response && response.status === 201) {
         alert("리뷰 작성이 완료되었습니다.");

@@ -193,18 +193,18 @@ const PostHospitalReview = () => {
     hospital: "",
     title: "",
     content: "",
-    imageUrl: null,
   });
 
   const handleCounselingClick = (e) => {
     e.preventDefault();
-    setIsCounsel(true);
-    setFormData({ ...formData, treatment: "just meeting" });
+    setIsCounsel(!isCounsel);
+    setFormData({ ...formData, treatment: "단순상담" });
   };
 
   const handleAttachRecipt = (e) => {
     e.preventDefault();
     setIsAttach(true);
+    alert("영수증이 첨부되었습니다.");
   };
 
   const handleChange = (e) => {
@@ -235,6 +235,7 @@ const PostHospitalReview = () => {
       employeeRating: staffRating,
     };
     try {
+      console.log(content);
       const response = await postHospitalReview(content);
       if (response && response.status === 201) {
         alert("리뷰 작성이 완료되었습니다.");

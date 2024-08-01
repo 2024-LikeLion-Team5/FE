@@ -69,6 +69,8 @@ const Reviews = styled.div`
 const HospitalSearchItemWrapper = styled.div`
   flex: 1;
   border: none;
+  display: flex;
+  gap: 1rem;
 `;
 
 const ResultZero = styled.div`
@@ -100,6 +102,7 @@ const ReviewSearchResult = () => {
 
     const fetchSeatchHospital = async () => {
       const data = await getSearchHospitalReviews(keyword);
+      console.log(data);
       setHospitalReviews(data.getHospitalInfoResponses);
       setTotalHospital(data.totalSearchedCount);
     };
@@ -132,9 +135,9 @@ const ReviewSearchResult = () => {
             <ResultZero>검색 결과가 없습니다</ResultZero>
           ) : (
             <HospitalSearchItemWrapper>
-              {hospitalReviews.slice(0, 3).map((review) => (
+              {hospitalReviews.slice(0, 3).map((review, index) => (
                 <HospitalSearchItem
-                  key={review.hospitalId}
+                  key={review.hospitalId || index}
                   onSelect={handleSelectHospitalReview}
                   review={review}
                 />
@@ -157,9 +160,9 @@ const ReviewSearchResult = () => {
           ) : (
             doctorReviews
               .slice(0, 3)
-              .map((review) => (
+              .map((review, index) => (
                 <DoctorReviewItem
-                  key={review.postId}
+                  key={review.postId || index}
                   onSelect={handleSelectDoctorReview}
                   review={review}
                 />

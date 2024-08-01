@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import HospitalSearchItem from "./HospitalSearchItem";
-import DoctorSearchItem from "./DoctorSearchItem";
 import seeMore from "../../assets/see_more.png";
 import DoctorReviewItem from "./DoctorReviewItem";
 import { useNavigate, useSearchParams } from "react-router-dom";

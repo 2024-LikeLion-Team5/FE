@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import detailImg from "../../assets/hospital_detail_img.png";
 import DoctorReviewComment from "../../components/HospitalReview/DoctorReviewComment";
@@ -197,14 +197,6 @@ const HospitalReviewDetail = () => {
     navigate(`/counsel/${id}/write-counsel`);
   };
 
-  const moclHospitalInfo = {
-    hospital: "mentum",
-    address: "대전광역시 대학로 99",
-    operatingTime: "월-금 10:00 ~ 18:00",
-    facilityRating: 4.3,
-    atmosphereRating: 4.0,
-    employeeRating: 4.2,
-  };
   return (
     <Container>
       <Wrapper>
@@ -221,7 +213,7 @@ const HospitalReviewDetail = () => {
                     {/* {hospitalInfo.operatingTime.map((time, index) => (
                       <Time key={index}>{time}</Time>
                     ))} */}
-                    {hospitalInfo?.operatingTime}
+                    <Time>{hospitalInfo?.operatingTime}</Time>
                   </Times>
                 </ClinicTime>
               </About>

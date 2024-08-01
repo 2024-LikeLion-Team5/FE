@@ -3,7 +3,7 @@ import styled from "styled-components";
 import goodBtn from "../assets/good.png";
 import badBtn from "../assets/bad.png";
 import reportBtn from "../assets/report.png";
-import { patchLike, patchDisLike } from "../api/hospital"; // 좋아요, 싫어요 API 함수
+import { patchLike, patchDisLike } from "../api/hospital";
 
 const Wrapper = styled.div`
   width: 52rem;

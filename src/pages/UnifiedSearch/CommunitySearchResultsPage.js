@@ -1,12 +1,12 @@
-//postlist참고 후 
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { useLocation, useNavigate } from 'react-router-dom';
-import Banner from '../../components/Banner';
-import Notice from '../../components/Notice';
-import PostList from '../../components/PostList';
-import { getCommunityIntegrationList,getDiseasePostId } from '../../api/community';
-import bannerImg from '../../assets/community_img.png';
+//postlist참고 후
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { useLocation, useNavigate } from "react-router-dom";
+import Banner from "../../components/Banner";
+import Notice from "../../components/Notice";
+import PostList from "../../components/PostList";
+import { getCommunityIntegrationList } from "../../api/community";
+import bannerImg from "../../assets/community_img.png";
 
 const Container = styled.div`
   width: 100%;
@@ -30,14 +30,14 @@ const CommunitySearchResultsPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const query = new URLSearchParams(location.search);
-  const keyword = query.get('keyword');
+  const keyword = query.get("keyword");
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         const data = await getCommunityIntegrationList(keyword);
-        const formattedPosts = data.map(post => ({
+        const formattedPosts = data.map((post) => ({
           postId: post.postId,
           title: post.title,
           createdAt: post.createdAt,
@@ -59,15 +59,17 @@ const CommunitySearchResultsPage = () => {
     navigate(`/community/detail/${postId}`);
   };
 
-  
-
   return (
     <div>
       <Banner image={bannerImg} menuName="커뮤니티" color="#002357" />
       <Container>
         <Notice />
         <KeyWord>통합 검색 : {keyword}</KeyWord>
-        <PostList posts={posts} category="community" onPostClick={handlePostClick} />
+        <PostList
+          posts={posts}
+          category="community"
+          onPostClick={handlePostClick}
+        />
       </Container>
     </div>
   );

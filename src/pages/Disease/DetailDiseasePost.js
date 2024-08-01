@@ -45,7 +45,9 @@ const DetailDiseasePost = () => {
   const detailItems = [
     {
       label: "질환/고민",
-      value: options.find(option => option.key === post.disease)?.value || post.disease,
+      value:
+        options.find((option) => option.key === post.disease)?.value ||
+        post.disease,
     },
     { label: "작성일", value: post.createdAt },
   ];
@@ -53,6 +55,7 @@ const DetailDiseasePost = () => {
   return (
     <>
       <PostLayout
+        postId={id}
         title={post.title}
         category="질환 고민"
         metaInfo={metaInfo}

@@ -1,10 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { useNavigate, useLocation } from 'react-router-dom';
-import seeMore from '../../assets/see_more.png';
-import HospitalSearchItem from '../../components/HospitalReview/HospitalSearchItem';
-import DoctorReviewItem from '../../components/HospitalReview/DoctorReviewItem';
-import { getCommunityIntegration, getHospitalIntegration, getDoctorReviewIntegration, getDiseasePostId, getSurgeryPostId, getDailyPostId } from "../../api/community";
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { useNavigate, useLocation } from "react-router-dom";
+import seeMore from "../../assets/see_more.png";
+import HospitalSearchItem from "../../components/HospitalReview/HospitalSearchItem";
+import DoctorReviewItem from "../../components/HospitalReview/DoctorReviewItem";
+import {
+  getCommunityIntegration,
+  getHospitalIntegration,
+  getDoctorReviewIntegration,
+  getDiseasePostId,
+  getSurgeryPostId,
+  getDailyPostId,
+} from "../../api/community";
 
 const Container = styled.div`
   width: 100%;
@@ -60,12 +67,11 @@ const Reviews = styled.div`
 
 const HospitalReviews = styled(Reviews)`
   display: flex;
-  justify-content: space-between;
+  gap: 1.5rem;
 `;
 
 const HospitalSearchItemWrapper = styled.div`
   flex: 1;
-  border: none;
 `;
 
 const CommunityResult = styled.div`
@@ -113,7 +119,7 @@ const ListItem = styled.div`
   &.CONCERN span:first-child {
     color: ${({ theme }) => theme.colors.b1};
   }
-  
+
   &.SURGERY_REVIEW span:first-child {
     color: ${({ theme }) => theme.colors.b1};
   }
@@ -149,7 +155,7 @@ const SearchResultsPage = () => {
   const [totalHospitalCount, setTotalHospitalCount] = useState(0); // 병원 검색 결과 개수 상태
   const [totalDoctorCount, setTotalDoctorCount] = useState(0); // 의사 후기 검색 결과 개수 상태
   const query = new URLSearchParams(location.search);
-  const keyword = query.get('keyword');
+  const keyword = query.get("keyword");
 
   useEffect(() => {
     const fetchSearchResults = async () => {
@@ -196,33 +202,31 @@ const SearchResultsPage = () => {
     navigate(`/doctor-search-results?keyword=${keyword}`);
   };
 
-
   const handlePostClick = async (postId, postType) => {
     try {
-        let post;
-        switch (postType) {
-            case "CONCERN":
-                post = await getDiseasePostId(postId);
-                navigate(`/disease/detail/${postId}`); // 여전히 postId 사용
-                break;
-            case "SURGERY_REVIEW":
-                post = await getSurgeryPostId(postId);
-                navigate(`surgery-reviews/detail/${postId}`); // 여전히 postId 사용
-                break;
-            case "DAILY":
-                post = await getDailyPostId(postId);
-                navigate(`/communities/dailies/${postId}`); // 여전히 postId 사용
-                break;
-            default:
-                console.error("Unknown post type:", postType);
-                return;
-        }
-        console.log("Post ID:", postId, "Post Type:", postType, "Post:", post);
+      let post;
+      switch (postType) {
+        case "CONCERN":
+          post = await getDiseasePostId(postId);
+          navigate(`/disease/detail/${postId}`); // 여전히 postId 사용
+          break;
+        case "SURGERY_REVIEW":
+          post = await getSurgeryPostId(postId);
+          navigate(`surgery-reviews/detail/${postId}`); // 여전히 postId 사용
+          break;
+        case "DAILY":
+          post = await getDailyPostId(postId);
+          navigate(`/communities/dailies/${postId}`); // 여전히 postId 사용
+          break;
+        default:
+          console.error("Unknown post type:", postType);
+          return;
+      }
+      console.log("Post ID:", postId, "Post Type:", postType, "Post:", post);
     } catch (error) {
-        console.error("Failed to fetch post details:", error);
+      console.error("Failed to fetch post details:", error);
     }
-};
-
+  };
 
   return (
     <Container>
@@ -231,8 +235,11 @@ const SearchResultsPage = () => {
       <CommunityResult>
         <CommunitySummary>
           <ResultTitle>커뮤니티 검색 결과 ({totalCommunityCount})</ResultTitle>
-          <br/>
-          <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} onClick={handleCommunityMore}>
+          <br />
+          <div
+            style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
+            onClick={handleCommunityMore}
+          >
             <Text>더보기</Text>
             <Btn src={seeMore} alt="더보기" />
           </div>
@@ -241,15 +248,19 @@ const SearchResultsPage = () => {
           {communityPosts.length === 0 ? (
             <NoResult>검색 결과가 없습니다</NoResult>
           ) : (
-            communityPosts.map(post => (
-              <ListItem key={post.postId} className={post.communityType} onClick={() => handlePostClick(post.postId, post.postType)}>
+            communityPosts.map((post) => (
+              <ListItem
+                key={post.postId}
+                className={post.communityType}
+                onClick={() => handlePostClick(post.postId, post.postType)}
+              >
                 <span>
                   {{
-                    "CONCERN": "질환 고민",
-                    "SURGERY_REVIEW": "수술 후기",
-                    "DAILY": "일상",
-                    "DOCTOR_REVIEW": "의사 후기",
-                    "HOSPITAL_REVIEW": "병원 후기"
+                    CONCERN: "질환 고민",
+                    SURGERY_REVIEW: "수술 후기",
+                    DAILY: "일상",
+                    DOCTOR_REVIEW: "의사 후기",
+                    HOSPITAL_REVIEW: "병원 후기",
                   }[post.postType] || ""}
                 </span>
                 <span>{post.title}</span>
@@ -262,7 +273,10 @@ const SearchResultsPage = () => {
       <SectionWrapper>
         <Result>
           <ResultTitle>병원 검색 결과 ({totalHospitalCount})</ResultTitle>
-          <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} onClick={handleHospitalMore}>
+          <div
+            style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
+            onClick={handleHospitalMore}
+          >
             <Text>더보기</Text>
             <Btn src={seeMore} alt="더보기" />
           </div>
@@ -271,10 +285,12 @@ const SearchResultsPage = () => {
           {hospitalReviews.length === 0 ? (
             <NoResult>검색 결과가 없습니다</NoResult>
           ) : (
-            hospitalReviews.map(review => (
-              <HospitalSearchItemWrapper key={review.id}>
-                <HospitalSearchItem onSelect={handleSelectHospitalReview} review={review} />
-              </HospitalSearchItemWrapper>
+            hospitalReviews.map((review) => (
+              <HospitalSearchItem
+                key={review.id}
+                onSelect={handleSelectHospitalReview}
+                review={review}
+              />
             ))
           )}
         </HospitalReviews>
@@ -282,8 +298,13 @@ const SearchResultsPage = () => {
 
       <SectionWrapper>
         <Result>
-          <ResultTitle>의사 상담 후기 검색 결과 ({totalDoctorCount})</ResultTitle>
-          <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} onClick={handleDoctorMore}>
+          <ResultTitle>
+            의사 상담 후기 검색 결과 ({totalDoctorCount})
+          </ResultTitle>
+          <div
+            style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
+            onClick={handleDoctorMore}
+          >
             <Text>더보기</Text>
             <Btn src={seeMore} alt="더보기" />
           </div>
@@ -292,8 +313,12 @@ const SearchResultsPage = () => {
           {doctorReviews.length === 0 ? (
             <NoResult>검색 결과가 없습니다</NoResult>
           ) : (
-            doctorReviews.map(review => (
-              <DoctorReviewItem key={review.reviewId} onSelect={handleSelectDoctorReview} review={review} />
+            doctorReviews.map((review) => (
+              <DoctorReviewItem
+                key={review.reviewId}
+                onSelect={handleSelectDoctorReview}
+                review={review}
+              />
             ))
           )}
         </Reviews>

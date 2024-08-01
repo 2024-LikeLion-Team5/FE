@@ -73,7 +73,7 @@ const Body = styled.span`
 
 const DoctorReviewItem = ({ onSelect, review }) => {
   if (!review) return null; //통합검색때문에 추가
-  
+
   const {
     postId,
     doctor,

@@ -44,10 +44,16 @@ const ResultTitle = styled.div`
   font-weight: bold;
 `;
 
+const MoreWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+`;
+
 const Text = styled.span`
   font-size: 0.9375rem;
   font-weight: bold;
-  margin-right: 0.5rem; /* 간격 추가 */
+  margin-right: 0.5rem;
 `;
 
 const Btn = styled.img`
@@ -119,16 +125,24 @@ const ReviewSearchResult = () => {
     navigate(`/hospital-review/doctor-review/${postId}`);
   };
 
+  const handleHospitalMore = () => {
+    navigate(`/hospital-search-results?keyword=${keyword}`);
+  };
+
+  const handleDoctorMore = () => {
+    navigate(`/doctor-search-results?keyword=${keyword}`);
+  };
+
   return (
     <Container>
       <KeyWord>검색 : {keyword}</KeyWord>
       <HospitalResult>
         <Result>
           <ResultTitle>병원 검색 결과 ({totalHospital})</ResultTitle>
-          <div style={{ display: "flex", alignItems: "center" }}>
+          <MoreWrapper onClick={handleHospitalMore}>
             <Text>더보기</Text>
             <Btn src={seeMore} alt="더보기" />
-          </div>
+          </MoreWrapper>
         </Result>
         <Reviews>
           {totalHospital === 0 ? (
@@ -149,10 +163,10 @@ const ReviewSearchResult = () => {
       <DoctorResult>
         <Result>
           <ResultTitle>의사 상담 후기 검색 결과 ({totalDoctor})</ResultTitle>
-          <div style={{ display: "flex", alignItems: "center" }}>
+          <MoreWrapper onClick={handleDoctorMore}>
             <Text>더보기</Text>
             <Btn src={seeMore} alt="더보기" />
-          </div>
+          </MoreWrapper>
         </Result>
         <Reviews>
           {totalDoctor === 0 ? (

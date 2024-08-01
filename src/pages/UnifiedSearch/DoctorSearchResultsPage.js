@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useLocation } from 'react-router-dom';
 import DoctorReviewItem from '../../components/HospitalReview/DoctorReviewItem';
 import Advertisement from "../../components/Advertisement";
+import { getDoctorReviewIntegration } from "../../api/community"; // API 함수 import
+import Banner from "../../components/Banner";
+import bannerImg from "../../assets/review_img.png";
 
 const Container = styled.div`
   width: 100%;
-  max-width: 1120px;
   margin: 0 auto;
-  padding: 0 1rem;
 `;
 
 const Title = styled.div`
@@ -37,34 +39,44 @@ const ReviewWrapper = styled.div`
 `;
 
 const DoctorSearchResultsPage = () => {
-  const reviews = [
-    {
-      id: 1,
-      doctor: '이신정 의사 1',
-      hospital: '멘텀 비뇨기과',
-      rating: 4,
-      categories: ['발기부전', '단순 상담', '50대'],
-      content: '의사선생님이 자세히 알려주십니다. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-    },
-    {
-      id: 2,
-      doctor: '이신정 의사 1',
-      hospital: '멘텀 비뇨기과',
-      rating: 4,
-      categories: ['발기부전', '단순 상담', '50대'],
-      content: '의사선생님이 자세히 알려주십니다. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-    }
-  ];
+  const location = useLocation();
+  const query = new URLSearchParams(location.search);
+  const keyword = query.get('keyword');
+  const [doctorReviews, setDoctorReviews] = useState([]);
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const data = await getDoctorReviewIntegration(keyword);
+        setDoctorReviews(data.doctorReviews || []);
+      } catch (error) {
+        console.error("Failed to fetch doctor reviews:", error);
+      }
+    };
+
+    fetchReviews();
+  }, [keyword]);
 
   return (
     <Container>
-      <Advertisement />
+      <Banner
+        image={bannerImg}
+        menuName="병원 후기"
+        detail="의사별, 병원별로 다양하고 자세한 후기를 만나 보세요."
+      />
       <Title>의사 상담 후기 검색 결과</Title>
-      <KeyWord>통합 검색 : 멘텀비뇨기과</KeyWord>
+      <KeyWord>통합 검색 : {keyword}</KeyWord>
       <ReviewWrapper>
-        {reviews.map(review => (
-          <DoctorReviewItem key={review.id} review={review} />
-        ))}
+        {doctorReviews.length === 0 ? (
+          <div>검색 결과가 없습니다</div>
+        ) : (
+          doctorReviews.map(review => (
+            <DoctorReviewItem
+              key={review.reviewId}
+              review={review}
+            />
+          ))
+        )}
       </ReviewWrapper>
     </Container>
   );

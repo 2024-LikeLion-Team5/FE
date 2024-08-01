@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+//postlist참고 후 
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Banner from '../../components/Banner';
 import Notice from '../../components/Notice';
+import PostList from '../../components/PostList';
+import { getCommunityIntegrationList,getDiseasePostId } from '../../api/community';
 import bannerImg from '../../assets/community_img.png';
-import PostList from "../../components/PostList";
 
 const Container = styled.div`
   width: 100%;
@@ -24,104 +27,47 @@ const KeyWord = styled.div`
 `;
 
 const CommunitySearchResultsPage = () => {
-  const [posts, setPosts] = useState([
-    {
-        id: 1,
-        type: '공지',
-        title: '질환 고민 게시판 공지글입니다.',
-        date: '2024.07.06',
-        likes: 12,
-        views: 5231
-      },
-      {
-        id: 2,
-        type: '',
-        title: '질환 고민 게시글 제목 1',
-        date: '2024.07.06',
-        likes: 12,
-        views: 5231
-      },
-      {
-        id: 3,
-        type: '',
-        title: '질환 고민 게시글 제목 2',
-        date: '2024.07.06',
-        likes: 12,
-        views: 5231
-      },
-      {
-        id: 4,
-        type: '',
-        title: '질환 고민 게시글 제목 3',
-        date: '2024.07.06',
-        likes: 12,
-        views: 5231
-      },
-      {
-        id: 5,
-        type: '',
-        title: '질환 고민 게시글 제목 4',
-        date: '2024.07.06',
-        likes: 12,
-        views: 5231
-      },
-      {
-        id: 6,
-        type: '',
-        title: '질환 고민 게시글 제목 5',
-        date: '2024.07.06',
-        likes: 12,
-        views: 5231
-      },
-      {
-        id: 7,
-        type: '',
-        title: '질환 고민 게시글 제목 6',
-        date: '2024.07.06',
-        likes: 12,
-        views: 5231
-      },
-      {
-        id: 8,
-        type: '',
-        title: '질환 고민 게시글 제목 7',
-        date: '2024.07.06',
-        likes: 12,
-        views: 5231
-      },
-      {
-        id: 9,
-        type: '',
-        title: '질환 고민 게시글 제목 8',
-        date: '2024.07.06',
-        likes: 12,
-        views: 5231
-      },
-      {
-        id: 10,
-        type: '',
-        title: '질환 고민 게시글 제목 9',
-        date: '2024.07.06',
-        likes: 12,
-        views: 5231
-      },
-      {
-        id: 11,
-        type: '',
-        title: '질환 고민 게시글 제목 10',
-        date: '2024.07.06',
-        likes: 12,
-        views: 5231
-      },
-  ]);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const query = new URLSearchParams(location.search);
+  const keyword = query.get('keyword');
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const data = await getCommunityIntegrationList(keyword);
+        const formattedPosts = data.map(post => ({
+          postId: post.postId,
+          title: post.title,
+          createdAt: post.createdAt,
+          likeCount: post.likeCount,
+          hits: post.hits,
+          postType: post.postType,
+          containsImage: post.containsImage,
+        }));
+        setPosts(formattedPosts);
+      } catch (error) {
+        console.error("Failed to fetch posts:", error);
+      }
+    };
+
+    fetchPosts();
+  }, [keyword]);
+
+  const handlePostClick = (postId) => {
+    navigate(`/community/detail/${postId}`);
+  };
+
+  
 
   return (
     <div>
       <Banner image={bannerImg} menuName="커뮤니티" color="#002357" />
       <Container>
         <Notice />
-        <KeyWord>통합 검색 : 멘텀비뇨기과</KeyWord>
-        <PostList posts={posts} category="disease" />
+        <KeyWord>통합 검색 : {keyword}</KeyWord>
+        <PostList posts={posts} category="community" onPostClick={handlePostClick} />
       </Container>
     </div>
   );

@@ -17,6 +17,10 @@ const Info = styled.div`
   justify-content: center;
   gap: 0.5rem;
   padding: 1.5rem;
+  background-color: white;
+  &.wrapper {
+    width: 25rem;
+  }
 `;
 
 const Name = styled.span`
@@ -32,6 +36,9 @@ const Address = styled.span`
 const Detail = styled.div`
   display: flex;
   gap: 1rem;
+  &.totalDetail {
+    gap: 2.25rem;
+  }
 `;
 
 const Img = styled.img`
@@ -52,9 +59,12 @@ const Option = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.b4};
   border-radius: 2.5rem;
   padding: 0.25rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.3rem;
 `;
 
-const HospitalSearchItem = ({ onSelect, review }) => {
+const HospitalSearchItem = ({ onSelect, review, wrapper, detail }) => {
   if (!review) return null; //통합검색때문에 추가
 
   const {
@@ -68,15 +78,21 @@ const HospitalSearchItem = ({ onSelect, review }) => {
 
   return (
     <Wrapper onClick={() => onSelect(id)}>
-      <Info>
+      <Info className={wrapper}>
         <Name>{hospital}</Name>
         <Address>{address}</Address>
-        <Detail>
+        <Detail className={detail}>
           <Img src={hospitalImg} alt="병원 후기 사진" />
           <Evaluations>
-            <Option>시설 평점 {averageFacilityRating}</Option>
-            <Option>분위기 평점 {averageAtmosphereRating}</Option>
-            <Option>직원 평점 {averageEmployeeRating}</Option>
+            <Option>
+              <div>시설 평점</div> <div>{averageFacilityRating}</div>
+            </Option>
+            <Option>
+              <div>분위기 평점</div> <div>{averageAtmosphereRating}</div>
+            </Option>
+            <Option>
+              <div>직원 평점</div> <div>{averageEmployeeRating}</div>
+            </Option>
           </Evaluations>
         </Detail>
       </Info>

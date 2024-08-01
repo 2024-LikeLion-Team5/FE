@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { useLocation } from 'react-router-dom';
-import DoctorReviewItem from '../../components/HospitalReview/DoctorReviewItem';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { useLocation, useNavigate } from "react-router-dom";
+import DoctorReviewItem from "../../components/HospitalReview/DoctorReviewItem";
 import Advertisement from "../../components/Advertisement";
 import { getDoctorReviewIntegration } from "../../api/community"; // API 함수 import
 import Banner from "../../components/Banner";
@@ -32,23 +32,37 @@ const KeyWord = styled.div`
 `;
 
 const ReviewWrapper = styled.div`
+  width: 56rem;
+  min-height: 46.5rem;
+  margin: 0 auto;
   display: flex;
   justify-content: center;
   gap: 2rem;
   margin-top: 2rem;
+  background-color: ${({ theme }) => theme.colors.g3};
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  &.zero {
+    align-items: center;
+    font-size: 1rem;
+    font-weight: bold;
+  }
 `;
 
 const DoctorSearchResultsPage = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const query = new URLSearchParams(location.search);
-  const keyword = query.get('keyword');
+  const keyword = query.get("keyword");
   const [doctorReviews, setDoctorReviews] = useState([]);
+  const [totalDoctor, setTotalDoctor] = useState(0);
 
   useEffect(() => {
     const fetchReviews = async () => {
       try {
         const data = await getDoctorReviewIntegration(keyword);
-        setDoctorReviews(data.doctorReviews || []);
+        setDoctorReviews(data.doctorTreatmentReviewPostsResponses || []);
+        setTotalDoctor(data.totalSearchedCount);
       } catch (error) {
         console.error("Failed to fetch doctor reviews:", error);
       }
@@ -56,6 +70,10 @@ const DoctorSearchResultsPage = () => {
 
     fetchReviews();
   }, [keyword]);
+
+  const handleSelectDoctorReview = (postId) => {
+    navigate(`/hospital-review/doctor-review/${postId}`);
+  };
 
   return (
     <Container>
@@ -66,14 +84,15 @@ const DoctorSearchResultsPage = () => {
       />
       <Title>의사 상담 후기 검색 결과</Title>
       <KeyWord>통합 검색 : {keyword}</KeyWord>
-      <ReviewWrapper>
-        {doctorReviews.length === 0 ? (
+      <ReviewWrapper className={totalDoctor === 0 ? "zero" : ""}>
+        {totalDoctor === 0 ? (
           <div>검색 결과가 없습니다</div>
         ) : (
-          doctorReviews.map(review => (
+          doctorReviews.map((review) => (
             <DoctorReviewItem
               key={review.reviewId}
               review={review}
+              onSelect={handleSelectDoctorReview}
             />
           ))
         )}

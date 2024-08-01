@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { useLocation } from 'react-router-dom';
-import HospitalSearchItem from '../../components/HospitalReview/HospitalSearchItem';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { useLocation, useNavigate } from "react-router-dom";
+import HospitalSearchItem from "../../components/HospitalReview/HospitalSearchItem";
 import Advertisement from "../../components/Advertisement";
 import { getHospitalIntegration } from "../../api/community"; // API 함수 import
 import Banner from "../../components/Banner";
@@ -32,23 +32,37 @@ const KeyWord = styled.div`
 `;
 
 const ReviewWrapper = styled.div`
+  width: 56rem;
+  min-height: 46.5rem;
+  margin: 0 auto;
   display: flex;
   justify-content: center;
   gap: 2rem;
   margin-top: 2rem;
+  background-color: ${({ theme }) => theme.colors.g3};
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  &.zero {
+    align-items: center;
+    font-size: 1rem;
+    font-weight: bold;
+  }
 `;
 
 const HospitalSearchResultsPage = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const query = new URLSearchParams(location.search);
-  const keyword = query.get('keyword');
+  const keyword = query.get("keyword");
   const [hospitalPosts, setHospitalPosts] = useState([]);
+  const [totalHospital, setTotalHospital] = useState(0);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         const data = await getHospitalIntegration(keyword);
-        setHospitalPosts(data.getHospitalInfoResponses || []);
+        setHospitalPosts(data.getHospitalInfoResponses);
+        setTotalHospital(data.totalSearchedCount);
       } catch (error) {
         console.error("Failed to fetch hospital posts:", error);
       }
@@ -56,6 +70,10 @@ const HospitalSearchResultsPage = () => {
 
     fetchPosts();
   }, [keyword]);
+
+  const handleSelectHospitalReview = (hospitalId) => {
+    navigate(`/hospital-review/hospital/${hospitalId}`);
+  };
 
   return (
     <Container>
@@ -66,19 +84,17 @@ const HospitalSearchResultsPage = () => {
       />
       <Title>병원 검색 결과</Title>
       <KeyWord>통합 검색 : {keyword}</KeyWord>
-      <ReviewWrapper>
-        {hospitalPosts.length === 0 ? (
+      <ReviewWrapper className={totalHospital === 0 ? "zero" : ""}>
+        {totalHospital === 0 ? (
           <div>검색 결과가 없습니다</div>
         ) : (
-          hospitalPosts.map(post => (
+          hospitalPosts.map((post) => (
             <HospitalSearchItem
               key={post.id}
-              name={post.hospital}
-              location={post.address}
-              rating1={`시설 평점 ${post.averageFacilityRating}`}
-              rating2={`분위기 평점 ${post.averageAtmosphereRating}`}
-              rating3={`직원 평점 ${post.averageEmployeeRating}`}
-              image={post.image || 'hospital_image_url'} // 이미지 URL이 없을 경우 기본 이미지 사용
+              review={post}
+              onSelect={handleSelectHospitalReview}
+              wrapper="totalSearch"
+              detail="totalDetail"
             />
           ))
         )}

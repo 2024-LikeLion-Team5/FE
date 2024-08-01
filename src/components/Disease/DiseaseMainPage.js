@@ -21,17 +21,6 @@ const DiseaseMainPage = () => {
     'VASECTOMY', 'URINARY_STONE', 'PREMATURE_AND_DELAYED_EJACULATION', 'PROSTATITIS','ETC',);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const fetchPosts = async () => {
-  //     try {
-  //       const data = await getDiseasePosts(selectedDisease, 0);
-  //       setPosts(data);
-  //     } catch (error) {
-  //       console.error("Failed to fetch posts:", error);
-  //     }
-  //   };
-
-  //09:58 기준 gpt
   useEffect(() => {
     const fetchPosts = async () => {
       try {

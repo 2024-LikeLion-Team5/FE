@@ -47,6 +47,7 @@ const DetailSurgeryPost = () => {
         metaInfo={metaInfo}
         detailItems={detailItems}
         content={post.content}
+        postType="SURGERY_REVIEW" //좋싫추가
       />
       <CommentSection postId={id} communityType="SURGERY_REVIEW" />
     </>

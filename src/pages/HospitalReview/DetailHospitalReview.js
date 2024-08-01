@@ -58,6 +58,7 @@ const DetailHospitalReview = () => {
       metaInfo={metaInfo}
       detailItems={detailItems}
       content={reviewData.content}
+      postType="HOSPITAL_REVIEW" //좋싫추가
     />
   );
 };

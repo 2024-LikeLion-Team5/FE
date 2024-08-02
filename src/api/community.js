@@ -1,9 +1,7 @@
 import axios from "axios";
 
-const url = process.env.REACT_APP_API_URL;
-
 const instance = axios.create({
-  baseURL: url,
+  baseURL: "api",
   headers: {
     "Content-Type": "application/json",
   },
@@ -52,8 +50,6 @@ export const getDiseasePosts = async (disease, page) => {
     throw error;
   }
 };
-
-
 
 // 질환 목록 (발기부전, 조루/지루 등)
 export const getDiseases = async () => {

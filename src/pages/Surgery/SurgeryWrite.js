@@ -148,17 +148,18 @@ const SurgeryWrite = () => {
     }));
   };
 
-  const handleSelectChange = (name, value) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleCautionCheckChange = (isChecked) => {
-    setIsCautionChecked(isChecked);
-  };
-
+    // CustomSelect 값 변경 핸들러
+    const handleSelectChange = (selectedOption) => {
+      setFormData((prevData) => ({
+        ...prevData,
+        disease: selectedOption.key,
+      }));
+    };
+  
+    const handleCautionCheckChange = (isChecked) => {
+      setIsCautionChecked(isChecked);
+    };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!isCautionChecked) {
@@ -200,7 +201,7 @@ const SurgeryWrite = () => {
           <Label>질환/고민</Label>
           <CustomSelect
             optionData={optionData}
-            onChange={(value) => handleSelectChange("disease", value)}
+            onChange={handleSelectChange}
             value={formData.disease}
           />
         </InputWrapper>

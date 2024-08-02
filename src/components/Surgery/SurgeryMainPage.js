@@ -17,8 +17,16 @@ const Container = styled.div`
 
 const SurgeryMainPage = () => {
   const [posts, setPosts] = useState([]);
-  const [selectedDisease, setSelectedDisease] = useState('IMPOTENCE','PENIS_ENLARGEMENT',
-    'VASECTOMY', 'URINARY_STONE', 'PREMATURE_AND_DELAYED_EJACULATION', 'PROSTATITIS','ETC',);
+  const [selectedDisease, setSelectedDisease] = useState(
+    // "IMPOTENCE",
+    // "PENIS_ENLARGEMENT",
+    // "VASECTOMY",
+    // "URINARY_STONE",
+    // "PREMATURE_AND_DELAYED_EJACULATION",
+    // "PROSTATITIS",
+    // "ETC",
+    null
+  );
   const navigate = useNavigate();
 
   useEffect(() => {

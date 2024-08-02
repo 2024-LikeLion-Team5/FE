@@ -18,13 +18,14 @@ const Container = styled.div`
 const DiseaseMainPage = () => {
   const [posts, setPosts] = useState([]);
   const [selectedDisease, setSelectedDisease] = useState(
-    "IMPOTENCE",
-    "PENIS_ENLARGEMENT",
-    "VASECTOMY",
-    "URINARY_STONE",
-    "PREMATURE_AND_DELAYED_EJACULATION",
-    "PROSTATITIS",
-    "ETC"
+    // "IMPOTENCE",
+    // "PENIS_ENLARGEMENT",
+    // "VASECTOMY",
+    // "URINARY_STONE",
+    // "PREMATURE_AND_DELAYED_EJACULATION",
+    // "PROSTATITIS",
+    // "ETC",
+    null
   );
   const navigate = useNavigate();
 
@@ -33,6 +34,7 @@ const DiseaseMainPage = () => {
       try {
         console.log(`Fetching posts for disease: ${selectedDisease}`); // 추가된 로그
         const data = await getDiseasePosts(selectedDisease, 0);
+        console.log("Fetched posts:", data); // 응답 확인을 위한 로그
         setPosts(data);
       } catch (error) {
         console.error("Failed to fetch posts:", error);

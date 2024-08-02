@@ -34,22 +34,26 @@ export const getDiseasePostId = async (postId) => {
   }
 };
 
-// 질환고민 글 목록조회
+// // 질환고민 글 목록조회
 export const getDiseasePosts = async (disease, page) => {
   try {
     const params = { page };
     if (disease) {
       params.disease = disease.toUpperCase();
     }
+    console.log("API 요청 params:", params); // API 요청 확인을 위한 로그
     const response = await instance.get("/communities/concerns", {
       params,
     });
+    console.log("API 응답 data:", response.data); // API 응답 확인을 위한 로그
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.log("API 요청 실패:", error);
     throw error;
   }
 };
+
+
 
 // 질환 목록 (발기부전, 조루/지루 등)
 export const getDiseases = async () => {
@@ -90,15 +94,20 @@ export const getSurgeryPostId = async (postId) => {
   }
 };
 
-// 수술 후기 글 목록 조회
 export const getSurgeryPosts = async (disease, page) => {
   try {
-    const response = await instance.get(
-      `/communities/surgery-reviews?disease=${disease.toUpperCase()}&page=${page}`
-    );
+    const params = { page };
+    if (disease) {
+      params.disease = disease.toUpperCase();
+    }
+    console.log("API 요청 params:", params); // API 요청 확인을 위한 로그
+    const response = await instance.get("/communities/surgery-reviews", {
+      params,
+    });
+    console.log("API 응답 data:", response.data); // API 응답 확인을 위한 로그
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.log("API 요청 실패:", error);
     throw error;
   }
 };

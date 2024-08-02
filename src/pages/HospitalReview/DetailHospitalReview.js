@@ -6,7 +6,19 @@ import { getDetailHospitalReview } from "../../api/hospital";
 
 const DetailHospitalReview = () => {
   const { id } = useParams();
-  const [reviewData, setReviewData] = useState(null);
+  const [reviewData, setReviewData] = useState({
+    hits: 0,
+    likeCount: 0,
+    dislikeCount: 0,
+    createdAt: "",
+    treatment: "",
+    facilityRating: 0,
+    hospital: "",
+    atmosphereRating: 0,
+    employeeRating: 0,
+    title: "",
+    content: "",
+  });
 
   useEffect(() => {
     const fetchReviewData = async () => {
@@ -20,10 +32,6 @@ const DetailHospitalReview = () => {
 
     fetchReviewData();
   }, [id]);
-
-  if (!reviewData) {
-    return <div>Loading...</div>;
-  }
 
   const metaInfo = [
     `조회수 ${reviewData.hits}`,

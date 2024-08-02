@@ -150,7 +150,12 @@ const DoctorReviewComment = ({ hospitalId }) => {
     const fetchDoctor = async () => {
       try {
         const data = await getDoctorByHospital(hospitalId);
-        setDoctors(data || []);
+        console.log("Fetched doctors:", data); // 데이터를 콘솔에 출력하여 확인
+        const doctorsList = data || [];
+        setDoctors(doctorsList);
+        if (doctorsList.length > 0) {
+          setActiveDoctor(doctorsList[0]);
+        }
       } catch (error) {
         console.error("의사 목록을 가져오는 데 실패했습니다.", error);
       }
@@ -161,31 +166,30 @@ const DoctorReviewComment = ({ hospitalId }) => {
 
   useEffect(() => {
     const fetchReviews = async () => {
-      if (doctors.length > 0) {
-        try {
-          const data = await getDoctorReviewByHospital(hospitalId);
-          setReviews(data || []);
-        } catch (error) {
-          console.error("리뷰 목록을 가져오는 데 실패했습니다.", error);
+      try {
+        let data;
+        if (activeDoctor && activeDoctor.doctorId !== "all") {
+          data = await getDoctorReviewByHospital(
+            hospitalId,
+            0,
+            activeDoctor.doctorId
+          );
+        } else {
+          data = await getDoctorReviewByHospital(hospitalId);
         }
+        setReviews(data || []);
+      } catch (error) {
+        console.error("리뷰 목록을 가져오는 데 실패했습니다.", error);
       }
     };
 
-    fetchReviews();
-  }, [hospitalId, doctors]);
+    if (activeDoctor) {
+      fetchReviews();
+    }
+  }, [hospitalId, activeDoctor]);
 
   const handleDoctorClick = async (doctor) => {
     setActiveDoctor(doctor);
-    try {
-      const data = await getDoctorReviewByHospital(
-        hospitalId,
-        0,
-        doctor.doctorId
-      );
-      setReviews(data || []);
-    } catch (error) {
-      console.error("의사 리뷰를 가져오는 데 실패했습니다.", error);
-    }
   };
 
   const handlePostBtnClick = (id) => {
@@ -195,6 +199,10 @@ const DoctorReviewComment = ({ hospitalId }) => {
   const handleCommentClick = (id) => {
     navigate(`/hospital-review/doctor-review/${id}`);
   };
+
+  useEffect(() => {
+    console.log("Doctors state updated:", doctors); // 상태 업데이트 확인
+  }, [doctors]);
 
   return (
     <div>

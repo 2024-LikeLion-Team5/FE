@@ -6,7 +6,48 @@ import { getDetailDoctorReview } from "../../api/hospital";
 
 const DetailDoctorReview = () => {
   const { id } = useParams();
-  const [reviewData, setReviewData] = useState(null);
+  const [reviewData, setReviewData] = useState({
+    hits: 0,
+    likeCount: 0,
+    dislikeCount: 0,
+    createdAt: "",
+    disease: "",
+    treatment: "",
+    ageGroup: "",
+    rating: 0,
+    doctorName: "",
+    title: "",
+    content: "",
+  });
+
+  const ageOptions = [
+    { key: "UNDER_TWENTY", value: "20대 이하" },
+    { key: "THIRTY", value: "30대" },
+    { key: "FORTY", value: "40대" },
+    { key: "FIFTY", value: "50대" },
+    { key: "SIXTY", value: "60대" },
+    { key: "OVER_SEVENTY", value: "70대 이상" },
+  ];
+
+  const diseaseOptions = [
+    { key: "IMPOTENCE", value: "발기부전" },
+    { key: "PENIS_ENLARGEMENT", value: "음경확대" },
+    { key: "VASECTOMY", value: "정관수술" },
+    { key: "URINARY_STONE", value: "요로결석" },
+    { key: "PREMATURE_AND_DELAYED_EJACULATION", value: "조루/지루" },
+    { key: "PROSTATITIS", value: "전립선염" },
+    { key: "ETC", value: "기타" },
+  ];
+
+  const getAgeGroupValue = (key) => {
+    const age = ageOptions.find((option) => option.key === key);
+    return age ? age.value : "";
+  };
+
+  const getDiseaseValue = (key) => {
+    const disease = diseaseOptions.find((option) => option.key === key);
+    return disease ? disease.value : "";
+  };
 
   useEffect(() => {
     const fetchReviewData = async () => {
@@ -21,10 +62,6 @@ const DetailDoctorReview = () => {
     fetchReviewData();
   }, [id]);
 
-  if (!reviewData) {
-    return <div>Loading...</div>;
-  }
-
   const metaInfo = [
     `조회수 ${reviewData.hits}`,
     `좋아요 ${reviewData.likeCount}`,
@@ -33,9 +70,9 @@ const DetailDoctorReview = () => {
   ];
 
   const detailItems = [
-    { label: "질환/고민", value: reviewData.disease },
+    { label: "질환/고민", value: getDiseaseValue(reviewData.disease) },
     { label: "받은 진료", value: reviewData.treatment },
-    { label: "연령대", value: `${reviewData.ageGroup}대` },
+    { label: "연령대", value: getAgeGroupValue(reviewData.ageGroup) },
     { label: "평가", value: <StarRatingDisplay rating={reviewData.rating} /> },
     { label: "의사", value: reviewData.doctorName },
   ];

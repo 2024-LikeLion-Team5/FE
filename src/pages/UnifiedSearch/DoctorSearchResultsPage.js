@@ -33,9 +33,11 @@ const KeyWord = styled.div`
 const ReviewWrapper = styled.div`
   width: 56rem;
   min-height: 46.5rem;
+  box-sizing: border-box;
   margin: 0 auto;
   display: flex;
-  justify-content: center;
+  justify-content: left;
+  padding: 3.125rem 4.5rem;
   gap: 2rem;
   margin-top: 2rem;
   background-color: ${({ theme }) => theme.colors.g3};

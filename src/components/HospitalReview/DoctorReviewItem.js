@@ -72,7 +72,7 @@ const DoctorReviewItem = ({ onSelect, review }) => {
   if (!review) return null; //통합검색때문에 추가
 
   const {
-    postId,
+    id,
     doctor,
     hospital,
     rating,
@@ -83,8 +83,37 @@ const DoctorReviewItem = ({ onSelect, review }) => {
     content,
   } = review;
 
+  const ageOption = [
+    { key: "UNDER_TWENTY", value: "20대 이하" },
+    { key: "THIRTY", value: "30대" },
+    { key: "FORTY", value: "40대" },
+    { key: "FIFTY", value: "50대" },
+    { key: "SIXTY", value: "60대" },
+    { key: "OVER_SEVENTY", value: "70대 이상" },
+  ];
+
+  const options = [
+    { key: "IMPOTENCE", value: "발기부전" },
+    { key: "PENIS_ENLARGEMENT", value: "음경확대" },
+    { key: "VASECTOMY", value: "정관수술" },
+    { key: "URINARY_STONE", value: "요로결석" },
+    { key: "PREMATURE_AND_DELAYED_EJACULATION", value: "조루/지루" },
+    { key: "PROSTATITIS", value: "전립선염" },
+    { key: "ETC", value: "기타" },
+  ];
+
+  const getAgeGroupValue = (key) => {
+    const age = ageOption.find((option) => option.key === key);
+    return age ? age.value : "";
+  };
+
+  const getDiseaseValue = (key) => {
+    const disease = options.find((option) => option.key === key);
+    return disease ? disease.value : "";
+  };
+
   return (
-    <Wrapper onClick={() => onSelect(postId)}>
+    <Wrapper onClick={() => onSelect(id)}>
       <Info>
         <div>
           <Doctor>{doctor} | </Doctor>
@@ -92,9 +121,9 @@ const DoctorReviewItem = ({ onSelect, review }) => {
         </div>
         <StarRatingDisplay rating={rating} />
         <Options>
-          <OptionItem>{disease}</OptionItem>
+          <OptionItem>{getDiseaseValue(disease)}</OptionItem>
           <OptionItem>{treatment}</OptionItem>
-          <OptionItem>{ageGroup}</OptionItem>
+          <OptionItem>{getAgeGroupValue(ageGroup)}</OptionItem>
         </Options>
       </Info>
       <Post>

@@ -152,10 +152,10 @@ const DiseaseWrite = () => {
   };
 
   // CustomSelect 값 변경 핸들러
-  const handleSelectChange = (value) => {
+  const handleSelectChange = (selectedOption) => {
     setFormData((prevData) => ({
       ...prevData,
-      disease: value,
+      disease: selectedOption.key,
     }));
   };
 

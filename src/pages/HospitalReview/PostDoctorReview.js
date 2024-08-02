@@ -313,6 +313,7 @@ const PostDoctorReview = () => {
         navigate(`/hospital-review/hospital/${id}`);
       }
     } catch (error) {
+      alert("존재하지 않는 병원입니다. 병원명을 다시 입력해주세요.");
       console.error("의사 상담 리뷰 작성 실패", error);
     }
   };

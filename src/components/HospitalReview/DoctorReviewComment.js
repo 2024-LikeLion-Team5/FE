@@ -150,7 +150,6 @@ const DoctorReviewComment = ({ hospitalId }) => {
     const fetchDoctor = async () => {
       try {
         const data = await getDoctorByHospital(hospitalId);
-        console.log("Fetched doctors:", data); // 데이터를 콘솔에 출력하여 확인
         const doctorsList = data || [];
         setDoctors(doctorsList);
         if (doctorsList.length > 0) {
@@ -200,9 +199,34 @@ const DoctorReviewComment = ({ hospitalId }) => {
     navigate(`/hospital-review/doctor-review/${id}`);
   };
 
-  useEffect(() => {
-    console.log("Doctors state updated:", doctors); // 상태 업데이트 확인
-  }, [doctors]);
+  const ageOptions = [
+    { key: "UNDER_TWENTY", value: "20대 이하" },
+    { key: "THIRTY", value: "30대" },
+    { key: "FORTY", value: "40대" },
+    { key: "FIFTY", value: "50대" },
+    { key: "SIXTY", value: "60대" },
+    { key: "OVER_SEVENTY", value: "70대 이상" },
+  ];
+
+  const diseaseOptions = [
+    { key: "IMPOTENCE", value: "발기부전" },
+    { key: "PENIS_ENLARGEMENT", value: "음경확대" },
+    { key: "VASECTOMY", value: "정관수술" },
+    { key: "URINARY_STONE", value: "요로결석" },
+    { key: "PREMATURE_AND_DELAYED_EJACULATION", value: "조루/지루" },
+    { key: "PROSTATITIS", value: "전립선염" },
+    { key: "ETC", value: "기타" },
+  ];
+
+  const getAgeGroupValue = (key) => {
+    const age = ageOptions.find((option) => option.key === key);
+    return age ? age.value : "";
+  };
+
+  const getDiseaseValue = (key) => {
+    const disease = diseaseOptions.find((option) => option.key === key);
+    return disease ? disease.value : "";
+  };
 
   return (
     <div>
@@ -255,7 +279,7 @@ const DoctorReviewComment = ({ hospitalId }) => {
               <Info>
                 <div>
                   <InfoName>질환/고민</InfoName>
-                  <InfoDetail>{review.disease}</InfoDetail>
+                  <InfoDetail>{getDiseaseValue(review.disease)}</InfoDetail>
                 </div>
                 <div>
                   <InfoName>받은 진료</InfoName>
@@ -267,7 +291,7 @@ const DoctorReviewComment = ({ hospitalId }) => {
                 </div>
               </Info>
               <About>
-                <AboutDetail>{review.ageGroup}대</AboutDetail>
+                <AboutDetail>{getAgeGroupValue(review.ageGroup)}</AboutDetail>
                 <AboutDetail>평점 {review.rating}점</AboutDetail>
               </About>
             </Detail>

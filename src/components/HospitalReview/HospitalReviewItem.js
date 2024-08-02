@@ -69,6 +69,7 @@ const HospitalReviewItem = ({ onSelect, review }) => {
     title,
     content,
   } = review;
+
   return (
     <Wrapper onClick={() => onSelect(postId)}>
       <Info>

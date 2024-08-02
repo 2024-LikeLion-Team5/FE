@@ -94,7 +94,7 @@ export const getDetailDoctorReview = async (postId) => {
 export const getDoctorByHospital = async (hospitalId) => {
   try {
     const response = await instance.get(`/hospitals/${hospitalId}/doctors`);
-    return response.datal;
+    return response.data;
   } catch (error) {
     console.log("의사 찾기 실패", error);
   }

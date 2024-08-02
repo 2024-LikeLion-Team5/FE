@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
 import HospitalSearchItem from "../../components/HospitalReview/HospitalSearchItem";
-import { getHospitalIntegration } from "../../api/community"; // API 함수 import
+import { getHospitalIntegration } from "../../api/community";
 import Banner from "../../components/Banner";
 import bannerImg from "../../assets/review_img.png";
 
@@ -33,10 +33,13 @@ const KeyWord = styled.div`
 const ReviewWrapper = styled.div`
   width: 56rem;
   min-height: 46.5rem;
-  margin: 4rem auto 0;  // Adjusted margin-top to move the section downwards
+  box-sizing: border-box;
+  margin: 0 auto;
   display: flex;
-  justify-content: center;
+  justify-content: left;
+  padding: 3.125rem 3rem;
   gap: 2rem;
+  margin-top: 2rem;
   background-color: ${({ theme }) => theme.colors.g3};
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;

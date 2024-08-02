@@ -120,7 +120,7 @@ const Button = styled.button`
     props.active &&
     props.type === "like" &&
     css`
-      background-color: ${props.theme.colors.b2}  !important;
+      background-color: ${props.theme.colors.b2} !important;
     `}
 
   ${(props) =>
@@ -179,7 +179,7 @@ const PostLayout = ({
   metaInfo,
   detailItems,
   content,
-  postType, // 여기서 postType을 props로 받아옵니다.
+  postType,
 }) => {
   const [likeActive, setLikeActive] = useState(false);
   const [dislikeActive, setDislikeActive] = useState(false);

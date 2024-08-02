@@ -273,6 +273,7 @@ const PostHospitalReview = () => {
         navigate(`/hospital-review/hospital/${id}`);
       }
     } catch (error) {
+      alert("존재하지 않는 병원입니다. 병원명을 다시 입력해주세요.");
       console.error("병원 리뷰 작성 실패", error);
     }
   };

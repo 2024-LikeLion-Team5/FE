@@ -12,6 +12,9 @@ import {
   getSurgeryPostId,
   getDailyPostId,
 } from "../../api/community";
+import {
+  getDoctorReviewList,
+} from "../../api/hospital";
 
 const Container = styled.div`
   width: 100%;
@@ -63,11 +66,6 @@ const Reviews = styled.div`
   border-top: 1px solid ${({ theme }) => theme.colors.g2};
   border-bottom: 1px solid ${({ theme }) => theme.colors.g2};
   padding: 1.625rem 0;
-`;
-
-const HospitalReviews = styled(Reviews)`
-  display: flex;
-  gap: 1.5rem;
 `;
 
 const CommunityResult = styled.div`
@@ -133,6 +131,14 @@ const ListItem = styled.div`
   }
 `;
 
+//추가
+const HospitalSearchItemWrapper = styled.div`
+  flex: 1;
+  border: none;
+  display: flex;
+  gap: 1rem;
+`;
+
 const NoResult = styled.div`
   text-align: center;
   color: ${({ theme }) => theme.colors.nv};
@@ -147,6 +153,7 @@ const SearchResultsPage = () => {
   const [communityPosts, setCommunityPosts] = useState([]);
   const [hospitalReviews, setHospitalReviews] = useState([]);
   const [doctorReviews, setDoctorReviews] = useState([]);
+  const [totalDoctor, setTotalDoctor] = useState(0);
   const [totalCommunityCount, setTotalCommunityCount] = useState(0); // 커뮤니티 검색 결과 개수 상태
   const [totalHospitalCount, setTotalHospitalCount] = useState(0); // 병원 검색 결과 개수 상태
   const [totalDoctorCount, setTotalDoctorCount] = useState(0); // 의사 후기 검색 결과 개수 상태
@@ -166,7 +173,12 @@ const SearchResultsPage = () => {
 
         const doctorData = await getDoctorReviewIntegration(keyword);
         setDoctorReviews(doctorData.doctorReviews || []);
-        setTotalDoctorCount(doctorData.totalSearchedCount || 0); // 의사 후기 검색 결과 개수 설정
+        setTotalDoctorCount(doctorData.totalSearchedCount || 0); 
+        // 의사 후기 검색 결과 개수 설정
+        const data = await getDoctorReviewList(keyword);
+        setDoctorReviews(data.doctorTreatmentReviewPostsResponses);
+        setTotalDoctor(data.totalSearchedCount);
+        
       } catch (error) {
         console.error("Error fetching search results:", error);
         setCommunityPosts([]);
@@ -179,11 +191,11 @@ const SearchResultsPage = () => {
   }, [keyword]);
 
   const handleSelectHospitalReview = (id) => {
-    navigate(`/hospital-review/${id}?tab=hospital`);
+    navigate(`/hospital-review/hospital/${id}`);
   };
 
   const handleSelectDoctorReview = (id) => {
-    navigate(`/hospital-review/${id}?tab=doctor`);
+    navigate(`/hospital-review/doctor-review/${id}`);
   };
 
   const handleCommunityMore = () => {
@@ -277,7 +289,7 @@ const SearchResultsPage = () => {
             <Btn src={seeMore} alt="더보기" />
           </div>
         </Result>
-        <HospitalReviews>
+        {/* <HospitalReviews>
           {hospitalReviews.length === 0 ? (
             <NoResult>검색 결과가 없습니다</NoResult>
           ) : (
@@ -289,7 +301,22 @@ const SearchResultsPage = () => {
               />
             ))
           )}
-        </HospitalReviews>
+        </HospitalReviews> */}
+                <Reviews>
+          {hospitalReviews.length === 0 ? (
+            <NoResult>검색 결과가 없습니다</NoResult>
+          ) : (
+            <HospitalSearchItemWrapper>
+              {hospitalReviews.slice(0, 3).map((review, index) => (
+                <HospitalSearchItem
+                  key={review.hospitalId || index}
+                  onSelect={handleSelectHospitalReview}
+                  review={review}
+                />
+              ))}
+            </HospitalSearchItemWrapper>
+          )}
+        </Reviews>
       </SectionWrapper>
 
       <SectionWrapper>
@@ -305,7 +332,7 @@ const SearchResultsPage = () => {
             <Btn src={seeMore} alt="더보기" />
           </div>
         </Result>
-        <Reviews>
+        {/* <Reviews>
           {doctorReviews.length === 0 ? (
             <NoResult>검색 결과가 없습니다</NoResult>
           ) : (
@@ -316,6 +343,21 @@ const SearchResultsPage = () => {
                 review={review}
               />
             ))
+          )}
+        </Reviews> */}
+        <Reviews>
+          {totalDoctor === 0 ? (
+            <NoResult>검색 결과가 없습니다.</NoResult>
+          ) : (
+            doctorReviews
+              .slice(0, 3)
+              .map((review, index) => (
+                <DoctorReviewItem
+                  key={review.postId || index}
+                  onSelect={handleSelectDoctorReview}
+                  review={review}
+                />
+              ))
           )}
         </Reviews>
       </SectionWrapper>

@@ -109,6 +109,7 @@ const HospitalReviewComment = ({ hospitalId }) => {
   useEffect(() => {
     const fetchReviews = async () => {
       const data = await getHospitalReviewByHospital(hospitalId);
+      console.log(data);
       setReviews(data || []);
     };
 

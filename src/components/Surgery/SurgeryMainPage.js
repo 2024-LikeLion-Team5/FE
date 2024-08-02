@@ -17,16 +17,7 @@ const Container = styled.div`
 
 const SurgeryMainPage = () => {
   const [posts, setPosts] = useState([]);
-  const [selectedDisease, setSelectedDisease] = useState(
-    // "IMPOTENCE",
-    // "PENIS_ENLARGEMENT",
-    // "VASECTOMY",
-    // "URINARY_STONE",
-    // "PREMATURE_AND_DELAYED_EJACULATION",
-    // "PROSTATITIS",
-    // "ETC",
-    null
-  );
+  const [selectedDisease, setSelectedDisease] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -55,12 +46,19 @@ const SurgeryMainPage = () => {
       <Banner image={bannerImg} menuName="수술 후기" color="#002357" />
       <Container>
         <Notice />
-        <PostActions writePath="/surgery/write" showSelect={true} onSelectDisease={handleSelectDisease} />
-        <PostList posts={posts} category="surgery" onPostClick={handlePostClick} />
+        <PostActions
+          writePath="/surgery/write"
+          showSelect={true}
+          onSelectDisease={handleSelectDisease}
+        />
+        <PostList
+          posts={posts}
+          category="surgery"
+          onPostClick={handlePostClick}
+        />
       </Container>
     </div>
   );
 };
 
 export default SurgeryMainPage;
-

@@ -98,7 +98,7 @@ const ReviewSearchResult = () => {
     const fetchSearchDoctor = async () => {
       try {
         const data = await getDoctorReviewList(keyword);
-        setDoctorReviews(data.doctorTreatmentReviewPostsResponses);
+        setDoctorReviews(data.doctorTreatmentReviewPostRespons);
         setTotalDoctor(data.totalSearchedCount);
       } catch (error) {
         console.error("검색 결과 로드 실패:", error);

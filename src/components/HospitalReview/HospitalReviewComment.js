@@ -153,9 +153,9 @@ const HospitalReviewComment = ({ hospitalId }) => {
                 </div>
               </Info>
               <About>
-                <AboutDetail>시설 {review.facilityScore}점</AboutDetail>
-                <AboutDetail>분위기 {review.atmosphereScore}점</AboutDetail>
-                <AboutDetail>직원 {review.employeeScore}점</AboutDetail>
+                <AboutDetail>시설 {review.facilityRating}점</AboutDetail>
+                <AboutDetail>분위기 {review.atmosphereRating}점</AboutDetail>
+                <AboutDetail>직원 {review.employeeRating}점</AboutDetail>
               </About>
             </Detail>
             <Body>{review.content}</Body>

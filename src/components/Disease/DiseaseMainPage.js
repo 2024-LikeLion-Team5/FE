@@ -17,8 +17,15 @@ const Container = styled.div`
 
 const DiseaseMainPage = () => {
   const [posts, setPosts] = useState([]);
-  const [selectedDisease, setSelectedDisease] = useState('IMPOTENCE','PENIS_ENLARGEMENT',
-    'VASECTOMY', 'URINARY_STONE', 'PREMATURE_AND_DELAYED_EJACULATION', 'PROSTATITIS','ETC',);
+  const [selectedDisease, setSelectedDisease] = useState(
+    "IMPOTENCE",
+    "PENIS_ENLARGEMENT",
+    "VASECTOMY",
+    "URINARY_STONE",
+    "PREMATURE_AND_DELAYED_EJACULATION",
+    "PROSTATITIS",
+    "ETC"
+  );
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -49,12 +56,19 @@ const DiseaseMainPage = () => {
       <Banner image={bannerImg} menuName="질환 고민" color="#002357" />
       <Container>
         <Notice />
-        <PostActions writePath="/disease/write" showSelect={true} onSelectDisease={handleSelectDisease} />
-        <PostList posts={posts} category="disease" onPostClick={handlePostClick} />
+        <PostActions
+          writePath="/disease/write"
+          showSelect={true}
+          onSelectDisease={handleSelectDisease}
+        />
+        <PostList
+          posts={posts}
+          category="disease"
+          onPostClick={handlePostClick}
+        />
       </Container>
     </div>
   );
 };
 
 export default DiseaseMainPage;
-

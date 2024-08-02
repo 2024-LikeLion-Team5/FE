@@ -37,9 +37,13 @@ export const getDiseasePostId = async (postId) => {
 // 질환고민 글 목록조회
 export const getDiseasePosts = async (disease, page) => {
   try {
-    const response = await instance.get(
-      `/communities/concerns?disease=${disease.toUpperCase()}&page=${page}`
-    );
+    const params = { page };
+    if (disease) {
+      params.disease = disease.toUpperCase();
+    }
+    const response = await instance.get("/communities/concerns", {
+      params,
+    });
     return response.data;
   } catch (error) {
     console.log(error);

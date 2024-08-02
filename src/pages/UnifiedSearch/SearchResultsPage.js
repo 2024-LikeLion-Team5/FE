@@ -12,9 +12,7 @@ import {
   getSurgeryPostId,
   getDailyPostId,
 } from "../../api/community";
-import {
-  getDoctorReviewList,
-} from "../../api/hospital";
+import { getDoctorReviewList } from "../../api/hospital";
 
 const Container = styled.div`
   width: 100%;
@@ -173,12 +171,11 @@ const SearchResultsPage = () => {
 
         const doctorData = await getDoctorReviewIntegration(keyword);
         setDoctorReviews(doctorData.doctorReviews || []);
-        setTotalDoctorCount(doctorData.totalSearchedCount || 0); 
+        setTotalDoctorCount(doctorData.totalSearchedCount || 0);
         // 의사 후기 검색 결과 개수 설정
         const data = await getDoctorReviewList(keyword);
-        setDoctorReviews(data.doctorTreatmentReviewPostsResponses);
+        setDoctorReviews(data.doctorTreatmentReviewPostRespons);
         setTotalDoctor(data.totalSearchedCount);
-        
       } catch (error) {
         console.error("Error fetching search results:", error);
         setCommunityPosts([]);
@@ -302,7 +299,7 @@ const SearchResultsPage = () => {
             ))
           )}
         </HospitalReviews> */}
-                <Reviews>
+        <Reviews>
           {hospitalReviews.length === 0 ? (
             <NoResult>검색 결과가 없습니다</NoResult>
           ) : (

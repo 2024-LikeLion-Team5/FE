@@ -47,13 +47,11 @@ const HospitalReviewList = () => {
   useEffect(() => {
     const fetchDoctorReviews = async () => {
       const data = await getDoctorReviewList();
-      console.log(data.doctorTreatmentReviewPostsResponses);
-      setDoctorReviews(data.doctorTreatmentReviewPostsResponses);
+      setDoctorReviews(data.doctorTreatmentReviewPostRespons);
     };
 
     const fetchHospitalReviews = async () => {
       const data = await getHospitalReviewList();
-      console.log(data);
       setHospitalReviews(data);
     };
 

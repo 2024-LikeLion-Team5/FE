@@ -54,6 +54,7 @@ const DetailDoctorReview = () => {
       try {
         const data = await getDetailDoctorReview(id);
         setReviewData(data);
+        console.log("의사 후기", data);
       } catch (error) {
         console.error("Failed to fetch review data", error);
       }

@@ -72,7 +72,7 @@ const DoctorReviewItem = ({ onSelect, review }) => {
   if (!review) return null; //통합검색때문에 추가
 
   const {
-    id,
+    postId,
     doctor,
     hospital,
     rating,
@@ -113,7 +113,7 @@ const DoctorReviewItem = ({ onSelect, review }) => {
   };
 
   return (
-    <Wrapper onClick={() => onSelect(id)}>
+    <Wrapper onClick={() => onSelect(postId)}>
       <Info>
         <div>
           <Doctor>{doctor} | </Doctor>

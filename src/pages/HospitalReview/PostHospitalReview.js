@@ -220,6 +220,36 @@ const PostHospitalReview = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // 필드 확인
+    if (!formData.treatment) {
+      alert("진료명을 입력해주세요.");
+      return;
+    }
+    if (!formData.hospital) {
+      alert("병원명을 입력해주세요.");
+      return;
+    }
+    if (!formData.title) {
+      alert("제목을 입력해주세요.");
+      return;
+    }
+    if (!formData.content) {
+      alert("내용을 입력해주세요.");
+      return;
+    }
+    if (!facilityRating) {
+      alert("시설 평점을 입력해주세요.");
+      return;
+    }
+    if (!atmosphereRating) {
+      alert("분위기 평점을 입력해주세요.");
+      return;
+    }
+    if (!staffRating) {
+      alert("직원 평점을 입력해주세요.");
+      return;
+    }
     if (!isAttach) {
       alert("영수증을 첨부해주세요.");
       return;
@@ -228,6 +258,7 @@ const PostHospitalReview = () => {
       alert("주의사항을 확인해주세요.");
       return;
     }
+
     const content = {
       ...formData,
       facilityRating,

@@ -261,6 +261,35 @@ const PostDoctorReview = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!formData.treatment) {
+      alert("단순상담 또는 진료명을 입력해주세요.");
+      return;
+    }
+    if (!formData.hospital) {
+      alert("병원명을 입력해주세요.");
+      return;
+    }
+    if (!formData.disease) {
+      alert("질환/고민을 선택해주세요.");
+      return;
+    }
+    if (!formData.doctor) {
+      alert("의사명을 입력해주세요.");
+      return;
+    }
+    if (!formData.title) {
+      alert("제목을 입력해주세요.");
+      return;
+    }
+    if (!formData.content) {
+      alert("내용을 입력해주세요.");
+      return;
+    }
+    if (!selectedAge) {
+      alert("연령대를 선택해주세요.");
+      return;
+    }
     if (!isAttach) {
       alert("영수증을 첨부해주세요.");
       return;
@@ -269,11 +298,13 @@ const PostDoctorReview = () => {
       alert("주의사항을 확인해주세요.");
       return;
     }
+
     const content = {
       ...formData,
       ageGroup: selectedAge,
       rating,
     };
+
     try {
       console.log(content);
       const response = await postDoctorReview(content);

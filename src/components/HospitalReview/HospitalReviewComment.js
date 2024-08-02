@@ -94,6 +94,13 @@ const Body = styled.div`
   font-weight: 500;
 `;
 
+const NoReviews = styled.div`
+  text-align: center;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-top: 2rem;
+`;
+
 const HospitalReviewComment = ({ hospitalId }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [reviews, setReviews] = useState([]);
@@ -102,7 +109,7 @@ const HospitalReviewComment = ({ hospitalId }) => {
   useEffect(() => {
     const fetchReviews = async () => {
       const data = await getHospitalReviewByHospital(hospitalId);
-      setReviews(data);
+      setReviews(data || []);
     };
 
     fetchReviews();
@@ -126,31 +133,35 @@ const HospitalReviewComment = ({ hospitalId }) => {
         <img src={isHovered ? writeBtnWhite : writeBtn} alt="글쓰기 버튼" />
         병원 후기 쓰기
       </PostButton>
-      {reviews.map((review) => (
-        <CommentWrapper
-          key={review.postId}
-          onClick={() => handleCommentClick(review.postId)}
-        >
-          <TitleWapper>
-            <CommentTitle>{review.title}</CommentTitle>
-            <Date>{review.createdAt}</Date>
-          </TitleWapper>
-          <Detail>
-            <Info>
-              <div>
-                <InfoName>받은 진료</InfoName>
-                <InfoDetail>{review.treatment}</InfoDetail>
-              </div>
-            </Info>
-            <About>
-              <AboutDetail>시설 {review.facilityScore}점</AboutDetail>
-              <AboutDetail>분위기 {review.atmosphereScore}점</AboutDetail>
-              <AboutDetail>직원 {review.employeeScore}점</AboutDetail>
-            </About>
-          </Detail>
-          <Body>{review.content}</Body>
-        </CommentWrapper>
-      ))}
+      {reviews.length === 0 ? (
+        <NoReviews>등록된 후기가 없습니다.</NoReviews>
+      ) : (
+        reviews.map((review) => (
+          <CommentWrapper
+            key={review.postId}
+            onClick={() => handleCommentClick(review.postId)}
+          >
+            <TitleWapper>
+              <CommentTitle>{review.title}</CommentTitle>
+              <Date>{review.createdAt}</Date>
+            </TitleWapper>
+            <Detail>
+              <Info>
+                <div>
+                  <InfoName>받은 진료</InfoName>
+                  <InfoDetail>{review.treatment}</InfoDetail>
+                </div>
+              </Info>
+              <About>
+                <AboutDetail>시설 {review.facilityScore}점</AboutDetail>
+                <AboutDetail>분위기 {review.atmosphereScore}점</AboutDetail>
+                <AboutDetail>직원 {review.employeeScore}점</AboutDetail>
+              </About>
+            </Detail>
+            <Body>{review.content}</Body>
+          </CommentWrapper>
+        ))
+      )}
     </div>
   );
 };

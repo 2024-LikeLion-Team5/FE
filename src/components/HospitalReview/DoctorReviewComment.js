@@ -3,7 +3,10 @@ import styled from "styled-components";
 import writeBtn from "../../assets/write_btn.png";
 import writeBtnWhite from "../../assets/write_btn_white.png";
 import { useNavigate } from "react-router-dom";
-import { getDoctorReviewByHospital } from "../../api/hospital";
+import {
+  getDoctorByHospital,
+  getDoctorReviewByHospital,
+} from "../../api/hospital";
 
 const BtnWrapper = styled.div`
   display: flex;
@@ -129,27 +132,63 @@ const Body = styled.div`
   font-weight: 500;
 `;
 
+const NoReviews = styled.div`
+  text-align: center;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-top: 2rem;
+`;
+
 const DoctorReviewComment = ({ hospitalId }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [reviews, setReviews] = useState([]);
+  const [doctors, setDoctors] = useState([]);
   const [activeDoctor, setActiveDoctor] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
+    const fetchDoctor = async () => {
+      try {
+        const data = await getDoctorByHospital(hospitalId);
+        setDoctors(data || []);
+      } catch (error) {
+        console.error("의사 목록을 가져오는 데 실패했습니다.", error);
+      }
+    };
+
+    fetchDoctor();
+  }, [hospitalId]);
+
+  useEffect(() => {
     const fetchReviews = async () => {
-      const data = await getDoctorReviewByHospital(hospitalId);
-      setReviews(data);
+      if (doctors.length > 0) {
+        try {
+          const data = await getDoctorReviewByHospital(hospitalId);
+          setReviews(data || []);
+        } catch (error) {
+          console.error("리뷰 목록을 가져오는 데 실패했습니다.", error);
+        }
+      }
     };
 
     fetchReviews();
-  }, [hospitalId, activeDoctor]);
+  }, [hospitalId, doctors]);
 
-  const handleDoctorClick = (doctor) => {
+  const handleDoctorClick = async (doctor) => {
     setActiveDoctor(doctor);
+    try {
+      const data = await getDoctorReviewByHospital(
+        hospitalId,
+        0,
+        doctor.doctorId
+      );
+      setReviews(data || []);
+    } catch (error) {
+      console.error("의사 리뷰를 가져오는 데 실패했습니다.", error);
+    }
   };
 
   const handlePostBtnClick = (id) => {
-    // useEffect를 사용하여 navigate 호출
     navigate(`/hospital-review/post/${id}/doctor-review`);
   };
 
@@ -163,15 +202,23 @@ const DoctorReviewComment = ({ hospitalId }) => {
         <Option>
           <Title>의사</Title>
           <Doctors>
-            {reviews.map((review) => (
-              <Doctor
-                key={review.postId}
-                className={activeDoctor === review.doctor ? "active" : ""}
-                onClick={() => handleDoctorClick(review.doctor)}
-              >
-                {review.doctor}
-              </Doctor>
-            ))}
+            {doctors.length > 0 ? (
+              doctors.map((doctor) => (
+                <Doctor
+                  key={doctor.doctorId}
+                  className={
+                    activeDoctor && activeDoctor.doctorId === doctor.doctorId
+                      ? "active"
+                      : ""
+                  }
+                  onClick={() => handleDoctorClick(doctor)}
+                >
+                  {doctor.doctorName}
+                </Doctor>
+              ))
+            ) : (
+              <span>등록된 의사가 없습니다.</span>
+            )}
           </Doctors>
         </Option>
 
@@ -184,38 +231,42 @@ const DoctorReviewComment = ({ hospitalId }) => {
           병원 후기 쓰기
         </PostButton>
       </BtnWrapper>
-      {reviews.map((review) => (
-        <CommentWrapper
-          key={review.postId}
-          onClick={() => handleCommentClick(review.postId)}
-        >
-          <TitleWrapper>
-            <CommentTitle>{review.title}</CommentTitle>
-            <Date>{review.createdAt}</Date>
-          </TitleWrapper>
-          <Detail>
-            <Info>
-              <div>
-                <InfoName>질환/고민</InfoName>
-                <InfoDetail>{review.disease}</InfoDetail>
-              </div>
-              <div>
-                <InfoName>받은 진료</InfoName>
-                <InfoDetail>{review.treatment}</InfoDetail>
-              </div>
-              <div>
-                <InfoName>의사</InfoName>
-                <InfoDetail>{review.doctor}</InfoDetail>
-              </div>
-            </Info>
-            <About>
-              <AboutDetail>{review.ageGroup}대</AboutDetail>
-              <AboutDetail>평점 {review.rating}점</AboutDetail>
-            </About>
-          </Detail>
-          <Body>{review.content}</Body>
-        </CommentWrapper>
-      ))}
+      {reviews.length === 0 ? (
+        <NoReviews>등록된 후기가 없습니다.</NoReviews>
+      ) : (
+        reviews.map((review) => (
+          <CommentWrapper
+            key={review.postId}
+            onClick={() => handleCommentClick(review.postId)}
+          >
+            <TitleWrapper>
+              <CommentTitle>{review.title}</CommentTitle>
+              <Date>{review.createdAt}</Date>
+            </TitleWrapper>
+            <Detail>
+              <Info>
+                <div>
+                  <InfoName>질환/고민</InfoName>
+                  <InfoDetail>{review.disease}</InfoDetail>
+                </div>
+                <div>
+                  <InfoName>받은 진료</InfoName>
+                  <InfoDetail>{review.treatment}</InfoDetail>
+                </div>
+                <div>
+                  <InfoName>의사</InfoName>
+                  <InfoDetail>{review.doctor}</InfoDetail>
+                </div>
+              </Info>
+              <About>
+                <AboutDetail>{review.ageGroup}대</AboutDetail>
+                <AboutDetail>평점 {review.rating}점</AboutDetail>
+              </About>
+            </Detail>
+            <Body>{review.content}</Body>
+          </CommentWrapper>
+        ))
+      )}
     </div>
   );
 };

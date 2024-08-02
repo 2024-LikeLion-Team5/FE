@@ -18,6 +18,7 @@ const Container = styled.div`
 const Wrapper = styled.div`
   margin: 0 auto;
   max-width: 56rem;
+  min-height: 35rem;
   box-sizing: border-box;
   background-color: ${({ theme }) => theme.colors.g3};
   border-top-left-radius: 0.5rem;

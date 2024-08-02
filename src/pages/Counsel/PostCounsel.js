@@ -315,6 +315,26 @@ const PostCounsel = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!formData.disease) {
+      alert("질환/고민을 선택해주세요.");
+      return;
+    }
+    if (!formData.period) {
+      alert("기간을 입력해주세요.");
+      return;
+    }
+    if (!selectedAge) {
+      alert("연령대를 선택해주세요.");
+      return;
+    }
+    if (!formData.title) {
+      alert("제목을 입력해주세요.");
+      return;
+    }
+    if (!formData.content) {
+      alert("내용을 입력해주세요.");
+      return;
+    }
     if (!isCautionChecked) {
       alert("주의사항을 확인해주세요.");
       return;

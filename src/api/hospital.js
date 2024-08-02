@@ -90,11 +90,25 @@ export const getDetailDoctorReview = async (postId) => {
   }
 };
 
+//의사 찾기
+export const getDoctorByHospital = async (hospitalId) => {
+  try {
+    const response = await instance.get(`/hospitals/${hospitalId}/doctors`);
+    return response.datal;
+  } catch (error) {
+    console.log("의사 찾기 실패", error);
+  }
+};
+
 //의사 상담 후기 글 목록 조회(병원 정보와 함께 떠 있는 목록)
-export const getDoctorReviewByHospital = async (hospitalId, page = 0) => {
+export const getDoctorReviewByHospital = async (
+  hospitalId,
+  page = 0,
+  doctorId
+) => {
   try {
     const response = await instance.get(
-      `/hospital-reviews/${hospitalId}/doctor-reviews`,
+      `/hospital-reviews/${hospitalId}/doctor-reviews/${doctorId}`,
       {
         params: { page },
       }
@@ -186,7 +200,9 @@ export const postCounsel = async (content) => {
 export const patchLike = async (postId, postType) => {
   try {
     console.log("좋아요 요청:", { postType });
-    const response = await instance.patch(`/posts/${postId}/like`, { postType });
+    const response = await instance.patch(`/posts/${postId}/like`, {
+      postType,
+    });
     return response;
   } catch (error) {
     console.log("좋아요 버튼 에러", error);
@@ -198,7 +214,9 @@ export const patchLike = async (postId, postType) => {
 export const patchDisLike = async (postId, postType) => {
   try {
     console.log("싫어요 요청:", { postType });
-    const response = await instance.patch(`/posts/${postId}/dislike`, { postType });
+    const response = await instance.patch(`/posts/${postId}/dislike`, {
+      postType,
+    });
     return response;
   } catch (error) {
     console.log("싫어요 버튼 에러", error);

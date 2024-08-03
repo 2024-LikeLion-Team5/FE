@@ -35,16 +35,18 @@ const ReviewWrapper = styled.div`
   min-height: 46.5rem;
   box-sizing: border-box;
   margin: 0 auto;
-  display: flex;
-  justify-content: left;
-  padding: 3.125rem 3rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
+  padding: 3.125rem 3rem;
   margin-top: 2rem;
   background-color: ${({ theme }) => theme.colors.g3};
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
   &.zero {
+    display: flex;
     align-items: center;
+    justify-content: center;
     font-size: 1rem;
     font-weight: bold;
   }

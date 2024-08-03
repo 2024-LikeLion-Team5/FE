@@ -108,7 +108,7 @@ const SurgeryListItem = styled.div`
   border-radius: 8px;
   padding: 1rem;
   background-color: ${({ theme }) => theme.colors.g3};
-  height: 120px;
+  min-height: 120px;
   box-shadow: none;
   transition: background-color 0.3s;
 

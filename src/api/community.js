@@ -26,6 +26,8 @@ export const postDisease = async (data) => {
 export const getDiseasePostId = async (postId) => {
   try {
     const response = await instance.get(`/communities/concerns/${postId}`);
+    console.log(response.data);
+
     return response.data;
   } catch (error) {
     console.log(error);
@@ -83,6 +85,7 @@ export const getSurgeryPostId = async (postId) => {
     const response = await instance.get(
       `/communities/surgery-reviews/${postId}`
     );
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -127,6 +130,7 @@ export const postDaily = async (data) => {
 export const getDailyPostId = async (postId) => {
   try {
     const response = await instance.get(`/communities/dailies/${postId}`);
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log(error);

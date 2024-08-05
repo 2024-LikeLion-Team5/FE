@@ -27,7 +27,7 @@ const SectionTitle = styled.h2`
 const CategoryListWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 132px; /* 상단 마진을 132px로 설정 */
+  margin-top: 132px;
 `;
 
 const CategoryWrapper = styled.div`
@@ -77,12 +77,11 @@ const ListItem = styled.div`
   }
 
   span:first-child {
-    color: ${({ theme }) => theme.colors.b1}; /* 질환 명칭은 b1 색상 */
+    color: ${({ theme }) => theme.colors.b1};
   }
 
   &.daily span:first-child {
-    color: ${({ theme }) =>
-      theme.colors.nv}; /* 일상 게시글의 텍스트는 nv 색상 */
+    color: ${({ theme }) => theme.colors.nv};
   }
 `;
 

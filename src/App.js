@@ -32,6 +32,7 @@ import SearchResultsPage from "./pages/UnifiedSearch/SearchResultsPage";
 import CommunitySearchResultsPage from "./pages/UnifiedSearch/CommunitySearchResultsPage";
 import DoctorSearchResultsPage from "./pages/UnifiedSearch/DoctorSearchResultsPage";
 import HospitalSearchResultsPage from "./pages/UnifiedSearch/HospitalSearchResultsPage";
+import CardNewsMain from "./pages/CardNewsMain";
 
 const PageWrapper = styled.div`
   display: flex;
@@ -53,6 +54,7 @@ function App() {
           <ContentWrapper>
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/cardnews" element={<CardNewsMain />} />
               <Route path="/hospital-review" element={<HospitalReview />}>
                 <Route index element={<HospitalReviewList />} />
                 <Route path="search-results" element={<ReviewSearchResult />} />
@@ -74,7 +76,7 @@ function App() {
                   element={<DetailHospitalReview />}
                 />
               </Route>
-              <Route path="/" element={<Home />} />
+
               <Route path="/community" element={<CommunityMain />} />
               <Route path="/disease" element={<DiseaseMain />} />
               <Route path="/disease/write" element={<DiseaseWrite />} />
@@ -90,8 +92,11 @@ function App() {
               />
               <Route path="/daily" element={<DailyMain />} />
               <Route path="/daily/write" element={<DailyWrite />} />
-              {/* <Route path="/daily/detail/:id" element={<DetailDailyPost />} /> */}
-              <Route path="/communities/dailies/:id" element={<DetailDailyPost />} />
+
+              <Route
+                path="/communities/dailies/:id"
+                element={<DetailDailyPost />}
+              />
               <Route path="/counsel" element={<CounselMain />} />
               <Route
                 path="/counsel/:id/write-counsel"

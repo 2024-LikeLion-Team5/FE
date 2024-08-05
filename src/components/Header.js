@@ -180,10 +180,10 @@ const Header = () => {
             </SubMenu>
           </MenuItem>
           <MenuItem>
-            <StyledLink to="/hospital-review">병원후기</StyledLink>
+            <StyledLink to="/cardnews">바로서기</StyledLink>
           </MenuItem>
           <MenuItem>
-            <StyledLink to="/library">자료실</StyledLink>
+            <StyledLink to="/hospital-review">병원후기</StyledLink>
           </MenuItem>
         </Menu>
       </Wrapper>

@@ -151,7 +151,7 @@ const SearchResultsPage = () => {
   const [communityPosts, setCommunityPosts] = useState([]);
   const [hospitalReviews, setHospitalReviews] = useState([]);
   const [doctorReviews, setDoctorReviews] = useState([]);
-  const [totalDoctor, setTotalDoctor] = useState(0);
+
   const [totalCommunityCount, setTotalCommunityCount] = useState(0); // 커뮤니티 검색 결과 개수 상태
   const [totalHospitalCount, setTotalHospitalCount] = useState(0); // 병원 검색 결과 개수 상태
   const [totalDoctorCount, setTotalDoctorCount] = useState(0); // 의사 후기 검색 결과 개수 상태
@@ -170,12 +170,15 @@ const SearchResultsPage = () => {
         setTotalHospitalCount(hospitalData.totalSearchedCount || 0); // 병원 검색 결과 개수 설정
 
         const doctorData = await getDoctorReviewIntegration(keyword);
-        setDoctorReviews(doctorData.doctorReviews || []);
+        console.log(doctorData);
+
+        setDoctorReviews(doctorData.doctorTreatmentReviewPostResponses || []);
         setTotalDoctorCount(doctorData.totalSearchedCount || 0);
+
         // 의사 후기 검색 결과 개수 설정
-        const data = await getDoctorReviewList(keyword);
-        setDoctorReviews(data.doctorTreatmentReviewPostResponses);
-        setTotalDoctor(data.totalSearchedCount);
+        // const data = await getDoctorReviewList(keyword);
+        // setDoctorReviews(data.doctorTreatmentReviewPostResponses);
+        // setTotalDoctor(data.totalSearchedCount);
       } catch (error) {
         console.error("Error fetching search results:", error);
         setCommunityPosts([]);
@@ -329,21 +332,9 @@ const SearchResultsPage = () => {
             <Btn src={seeMore} alt="더보기" />
           </div>
         </Result>
-        {/* <Reviews>
-          {doctorReviews.length === 0 ? (
-            <NoResult>검색 결과가 없습니다</NoResult>
-          ) : (
-            doctorReviews.map((review) => (
-              <DoctorReviewItem
-                key={review.reviewId}
-                onSelect={handleSelectDoctorReview}
-                review={review}
-              />
-            ))
-          )}
-        </Reviews> */}
+
         <Reviews>
-          {totalDoctor === 0 ? (
+          {totalDoctorCount === 0 ? (
             <NoResult>검색 결과가 없습니다.</NoResult>
           ) : (
             doctorReviews

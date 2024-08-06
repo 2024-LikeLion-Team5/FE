@@ -64,7 +64,7 @@ const DoctorSearchResultsPage = () => {
     const fetchReviews = async () => {
       try {
         const data = await getDoctorReviewIntegration(keyword);
-        setDoctorReviews(data.doctorTreatmentReviewPostRespons || []);
+        setDoctorReviews(data.doctorTreatmentReviewPostResponses || []);
         setTotalDoctor(data.totalSearchedCount);
       } catch (error) {
         console.error("Failed to fetch doctor reviews:", error);

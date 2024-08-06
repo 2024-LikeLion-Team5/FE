@@ -69,13 +69,10 @@ const SearchHospital = ({ searching, setSearching }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (input.trim()) {
-      navigate(
-        `/hospital-review/search-results?keyword=${encodeURIComponent(input)}`
-      );
-    }
+    navigate(`/hospital-review/search-results?keyword=${encodeURIComponent(input)}`);
     setSearching(true);
   };
+  
 
   return (
     <Wrapper searching={searching}>

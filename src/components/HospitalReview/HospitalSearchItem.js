@@ -42,8 +42,8 @@ const Detail = styled.div`
 `;
 
 const Img = styled.img`
-  height: 7.75rem;
-  width: 11.25rem; /* width 값 수정 */
+  height: 7.5rem;
+  width: 11rem;
   border-radius: 0.5rem;
 `;
 
@@ -58,7 +58,7 @@ const Option = styled.div`
   font-weight: 700;
   border: 1px solid ${({ theme }) => theme.colors.b4};
   border-radius: 2.5rem;
-  padding: 0.25rem 1rem;
+  padding: 0.25rem 0.5rem;
   display: flex;
   justify-content: space-between;
   gap: 0.3rem;

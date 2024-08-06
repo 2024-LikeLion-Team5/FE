@@ -95,10 +95,13 @@ const ReviewSearchResult = () => {
   const keyword = searchParams.get("keyword") || "";
 
   useEffect(() => {
+    console.log("키워드: ", keyword);
+
     const fetchSearchDoctor = async () => {
       try {
         const data = await getDoctorReviewList(keyword);
-        setDoctorReviews(data.doctorTreatmentReviewPostRespons);
+        console.log("의사 검색", data);
+        setDoctorReviews(data.doctorTreatmentReviewPostResponses);
         setTotalDoctor(data.totalSearchedCount);
       } catch (error) {
         console.error("검색 결과 로드 실패:", error);
@@ -107,7 +110,7 @@ const ReviewSearchResult = () => {
 
     const fetchSeatchHospital = async () => {
       const data = await getSearchHospitalReviews(keyword);
-      console.log(data);
+      console.log("병원 결과", data);
       setHospitalReviews(data.getHospitalInfoResponses);
       setTotalHospital(data.totalSearchedCount);
     };

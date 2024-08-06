@@ -251,7 +251,7 @@ const Home = () => {
       <Container>
         <Notice />
         <ContentWrapper>
-          <SectionTitle className="contentTitle">알쓸성잡</SectionTitle>
+          <SectionTitle className="contentTitle">바로서기</SectionTitle>
           <MoreButtonWrapper className="content">
             <ContentDescription>
               남성 질환과 성 고민, 어렵고 궁금하다면

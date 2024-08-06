@@ -174,7 +174,7 @@ const SearchResultsPage = () => {
         setTotalDoctorCount(doctorData.totalSearchedCount || 0);
         // 의사 후기 검색 결과 개수 설정
         const data = await getDoctorReviewList(keyword);
-        setDoctorReviews(data.doctorTreatmentReviewPostRespons);
+        setDoctorReviews(data.doctorTreatmentReviewPostResponses);
         setTotalDoctor(data.totalSearchedCount);
       } catch (error) {
         console.error("Error fetching search results:", error);

@@ -62,7 +62,7 @@ const CardNews = () => {
       smallTitle: "내 음경이 휘어 있는데 정상일까?",
       largeTitle: "닥터냥의 음경만곡증 이야기",
       middleTitle: "음경 만곡증에 대한 모든 것",
-      url: "",
+      url: "https://www.instagram.com/p/C-U0of8zFJJ/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
     },
     {
       imgUrl: thumbNail3,

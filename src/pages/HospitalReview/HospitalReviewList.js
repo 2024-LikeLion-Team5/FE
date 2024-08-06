@@ -79,7 +79,6 @@ const HospitalReviewList = () => {
               review={review}
             />
           ))}
-          \r54
         </Reviews>
       </div>
       <div>

@@ -47,7 +47,7 @@ const HospitalReviewList = () => {
   useEffect(() => {
     const fetchDoctorReviews = async () => {
       const data = await getDoctorReviewList();
-      setDoctorReviews(data.doctorTreatmentReviewPostRespons);
+      setDoctorReviews(data.doctorTreatmentReviewPostResponses);
     };
 
     const fetchHospitalReviews = async () => {
@@ -57,41 +57,6 @@ const HospitalReviewList = () => {
 
     fetchDoctorReviews();
     fetchHospitalReviews();
-  }, []);
-
-  useEffect(() => {
-    const handleScroll = (container) => (e) => {
-      e.preventDefault();
-      container.scrollLeft += e.deltaY;
-    };
-
-    const hospitalContainer = hospitalReviewsRef.current;
-    const doctorContainer = doctorReviewsRef.current;
-
-    if (hospitalContainer) {
-      hospitalContainer.addEventListener(
-        "wheel",
-        handleScroll(hospitalContainer)
-      );
-    }
-    if (doctorContainer) {
-      doctorContainer.addEventListener("wheel", handleScroll(doctorContainer));
-    }
-
-    return () => {
-      if (hospitalContainer) {
-        hospitalContainer.removeEventListener(
-          "wheel",
-          handleScroll(hospitalContainer)
-        );
-      }
-      if (doctorContainer) {
-        doctorContainer.removeEventListener(
-          "wheel",
-          handleScroll(doctorContainer)
-        );
-      }
-    };
   }, []);
 
   const handleSelectHospitalReview = (id) => {
@@ -114,6 +79,7 @@ const HospitalReviewList = () => {
               review={review}
             />
           ))}
+          \r54
         </Reviews>
       </div>
       <div>

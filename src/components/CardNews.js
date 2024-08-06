@@ -21,7 +21,6 @@ const ThumbNail = styled.img`
   width: 100%;
   height: 100%;
   background-size: cover;
-  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -29,28 +28,14 @@ const ThumbNail = styled.img`
   z-index: 1;
 `;
 
-const GradientOverlay = styled.div`
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
-  z-index: 2;
-`;
-
 const TitleWrapper = styled.div`
-  position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 1rem;
-  color: white;
+  margin-top: 0.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.1rem;
   z-index: 3;
 `;
 
@@ -60,14 +45,14 @@ const SmallTitle = styled.span`
 `;
 
 const LargeTitle = styled.span`
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: bold;
 `;
 
 const MiddleTitle = styled.span`
   font-size: 0.875rem;
   font-weight: 500;
-  margin-top: 0.5rem;
+  margin-top: 0.4rem;
 `;
 
 const CardNews = () => {
@@ -77,33 +62,37 @@ const CardNews = () => {
       smallTitle: "내 음경이 휘어 있는데 정상일까?",
       largeTitle: "닥터냥의 음경만곡증 이야기",
       middleTitle: "음경 만곡증에 대한 모든 것",
-    },
-    {
-      imgUrl: thumbNail2,
-      smallTitle: "혹시 나도...?",
-      largeTitle: "닥터냥의 조루 진단",
-      middleTitle: "조루 자가진단 테스트 해보기",
+      url: "",
     },
     {
       imgUrl: thumbNail3,
+      smallTitle: "혹시 나도...?",
+      largeTitle: "닥터냥의 조루 진단",
+      middleTitle: "조루 자가진단 테스트 해보기",
+      url: "https://www.instagram.com/p/C-UlrZEzVRm/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+    },
+    {
+      imgUrl: thumbNail2,
       smallTitle: "아니 벌써",
       largeTitle: "조루 수술",
       middleTitle: "조루 수술의 종류와 특징",
+      url: "https://www.instagram.com/p/C-UkTMyzL5R/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
     },
     {
       imgUrl: thumbNail4,
       smallTitle: "괜찮아요? 많이 힘들었죠?",
       largeTitle: "굵은 허벅지와 사정의 상관관계",
       middleTitle: "허벅지 굵기 = 사정 능력?",
+      url: "https://www.instagram.com/p/C-Ubxnqz4gT/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
     },
   ];
 
   return (
     <Wrapper>
       {mockData.map((data, index) => (
-        <CardContainer key={index}>
+        <CardContainer key={index} onClick={() => window.open(data.url)}>
           <ThumbNail src={data.imgUrl} alt={data.largeTitle} />
-          <GradientOverlay />
+
           <TitleWrapper>
             <SmallTitle>{data.smallTitle}</SmallTitle>
             <LargeTitle>{data.largeTitle}</LargeTitle>

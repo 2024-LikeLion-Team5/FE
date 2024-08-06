@@ -65,14 +65,14 @@ const CardNews = () => {
       url: "https://www.instagram.com/p/C-U0of8zFJJ/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
     },
     {
-      imgUrl: thumbNail3,
+      imgUrl: thumbNail2,
       smallTitle: "혹시 나도...?",
       largeTitle: "닥터냥의 조루 진단",
       middleTitle: "조루 자가진단 테스트 해보기",
       url: "https://www.instagram.com/p/C-UlrZEzVRm/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
     },
     {
-      imgUrl: thumbNail2,
+      imgUrl: thumbNail3,
       smallTitle: "아니 벌써",
       largeTitle: "조루 수술",
       middleTitle: "조루 수술의 종류와 특징",
